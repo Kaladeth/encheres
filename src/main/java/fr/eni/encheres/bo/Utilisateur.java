@@ -17,13 +17,13 @@ public class Utilisateur {
 	int credit;
 	byte administrateur;
 	
-	List<Article> articles;
+	List<ArticleVendu> articlesVendu;
 	List<Enchere> encheres;
 	
 	//constructeur vide
 	public Utilisateur() {
 	}
-	//constructeur sans id
+	//constructeur sans id et sans listes
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostal, String ville, String motDePasse, int credit, byte administrateur) {
 		this.pseudo = pseudo;
@@ -37,10 +37,10 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 		this.credit = credit;
 		this.administrateur = administrateur;
-		this.articles = new ArrayList<Article>();
+		this.articlesVendu = new ArrayList<ArticleVendu>();
 		this.encheres = new ArrayList<Enchere>();
 	}
-	// construteur complet
+	// construteur sans listes
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostal, String ville, String motDePasse, int credit, byte administrateur) {
 		this.noUtilisateur = noUtilisateur;
@@ -55,11 +55,32 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 		this.credit = credit;
 		this.administrateur = administrateur;
-		this.articles = new ArrayList<Article>();
+		this.articlesVendu = new ArrayList<ArticleVendu>();
 		this.encheres = new ArrayList<Enchere>();
 	}
 	
-	// toString sans mot de passe
+	// construteur complet
+	
+	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostal, String ville, String motDePasse, int credit, byte administrateur,
+			List<ArticleVendu> articlesVendu, List<Enchere> encheres) {
+		super();
+		this.noUtilisateur = noUtilisateur;
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+		this.motDePasse = motDePasse;
+		this.credit = credit;
+		this.administrateur = administrateur;
+		this.articlesVendu = articlesVendu;
+		this.encheres = encheres;
+	}
+	// toString sans mot de passe 
 	@Override
 	public String toString() {
 		return "Utilisateur : noUtilisateur : " + noUtilisateur + "; pseudo : " + pseudo + 
@@ -70,15 +91,15 @@ public class Utilisateur {
 				"\ncodePostal : " + codePostal + ", ville : " + ville + 
 				"\ncredit : " + credit + 
 				"\nadministrateur : " + administrateur
-				+ "\narticles : " + articles + 
+				+ "\narticles : " + articlesVendu + 
 				"\nencheres:" + encheres;
 	}
 
-	public void addArticle(Article article) {
-		articles.add(article);
+	public void addArticleVendu(ArticleVendu article) {
+		articlesVendu.add(article);
 	}
-	public void removeArticle(Article article) {
-		articles.remove(article);
+	public void removeArticleVendu(ArticleVendu article) {
+		articlesVendu.remove(article);
 		}
 	
 	public void addEnchere (Enchere enchere) {
@@ -87,8 +108,7 @@ public class Utilisateur {
 	public void removeEnchere(Enchere enchere) {
 		encheres.remove(enchere);
 		}
-	
-	
+		
 	public int getNoUtilisateur() {
 		return noUtilisateur;
 	}
@@ -161,11 +181,11 @@ public class Utilisateur {
 	public void setAdministrateur(byte administrateur) {
 		this.administrateur = administrateur;
 	}
-	public List<Article> getArticles() {
-		return articles;
+	public List<ArticleVendu> getArticles() {
+		return articlesVendu;
 	}
-	public void setArticles(List<Article> articles) {
-		this.articles = articles;
+	public void setArticles(List<ArticleVendu> articlesVendu) {
+		this.articlesVendu = articlesVendu;
 	}
 	public List<Enchere> getEncheres() {
 		return encheres;

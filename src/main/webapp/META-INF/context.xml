@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<Resource name="jdbc/pool_cnx_encheres"
+		type="javax.sql.DataSource"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+
+
+		url="jdbc:sqlserver://localhost:1433;databasename=ENCHERES_BDD"
+		username="user_encheres" password="Pa$$w0rd" maxIdle="3" maxTotale="10"
+		maxWaitMillis="15000" removeAbandoned="true"
+		removeAbandonedTimeout="10" />
+</Context>

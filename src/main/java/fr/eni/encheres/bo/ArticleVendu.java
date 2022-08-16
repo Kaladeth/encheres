@@ -157,9 +157,12 @@ public class ArticleVendu {
 				+ ", encheres=" + encheres + ", categorie=" + categorie + "]";
 	}
 	
-	// - - - - - - - - - - ADDER POUR LA LISTE - - - - - - - - - - 
+	// - - - - - - - - - - ADDER & REMOVER POUR LA LISTE - - - - - - - - - - 
 	public void addEnchere(Enchere enchere) {
 		encheres.add(enchere);
+	}
+	public void removeEnchere(Enchere enchere) {
+		encheres.remove(enchere);
 	}
 	
 }

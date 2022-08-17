@@ -23,6 +23,42 @@ public class Manager {
 	}
 	
 // - - - - - - - - - - METHODES UTILISATEUR - - - - - - - - - - 
+	// * * * * * METHODE VALIDATE * * * * * 
+	public Utilisateur authentification(String login, String pw) throws BLLException {
+		BLLException bllExceptions = new BLLException();
+		Utilisateur utilisateur = null;
+		// VERIFICATION DES REGLES METIER
+		if(login == null) {
+			Exception e = new Exception("Veuillez renseigner un identifiant");
+			bllExceptions.addException(e);
+		}
+		if(pw == null) {
+			Exception e = new Exception("Veuillez renseigner un mot de passe");
+			bllExceptions.addException(e);
+		}
+		
+		// VERIFICATION
+		try {
+			utilisateur = utilisateurDao.validate(login, pw);
+			if(utilisateur == null) {
+				Exception ex = new Exception("Erreur : identifiant ou mot de passe incorrect");
+				bllExceptions.addException(ex);
+				throw bllExceptions;
+			}
+		} catch (DALException e) {
+			e.getMessage();
+		}
+		return utilisateur;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// * * * * * METHODE INSERT * * * * *
 	public void ajouterUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
 			String cp, String ville, String mdp, int credit, boolean admin) throws BLLException {
@@ -84,6 +120,8 @@ public class Manager {
 	}
 	
 	// * * * * * METHODE DELETE * * * * *
-
+	public void supprimerUtilisateur(int id) {
+		
+	}
 	
 }

@@ -6,20 +6,24 @@ public class Categorie {
 	private int noCategorie;
 	private String libelle ;
 	private List<ArticleVendu> listesArticles;
+	
+	
+	// construteur complet
+	
+	
 	public Categorie(int noCategorie, String libelle, List<ArticleVendu> listesArticles) {
 		super();
 		this.noCategorie = noCategorie;
 		this.libelle = libelle;
 		this.listesArticles = listesArticles;
 	}
+	// construteur sans ID
 	public Categorie(String libelle, List<ArticleVendu> listesArticles) {
 		super();
 		this.libelle = libelle;
 		this.listesArticles = listesArticles;
 	}
-	public Categorie() {
-		super();
-	}
+	
 	public int getNoCategorie() {
 		return noCategorie;
 	}
@@ -43,6 +47,12 @@ public class Categorie {
 		return "Categorie [noCategorie=" + noCategorie + ", libelle=" + libelle + "]";
 	}
 	
+	public void addArticle(ArticleVendu articleVendu) {
+		listesArticles.add(articleVendu);
+	}
+	public void removeArticle(ArticleVendu articleVendu) {
+		listesArticles.remove(articleVendu);
+	}
 	
 	
 	

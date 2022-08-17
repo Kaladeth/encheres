@@ -14,6 +14,7 @@ import fr.eni.encheres.bll.BLLException;
 
 import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.dal.DALException;
 
 /**
  * Servlet implementation class ConnecterServlet
@@ -34,7 +35,7 @@ public class ConnecterServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/login.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("./WEB-INF/login.jsp");
 		rd.forward(request, response);
 	}
 
@@ -42,7 +43,7 @@ public class ConnecterServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		RequestDispatcher rd = request.getRequestDispatcher("./WEB-INF/login.jsp");
 		 	String pseudo = request.getParameter("pseudo");
 	        String password = request.getParameter("password");
 	     
@@ -50,23 +51,21 @@ public class ConnecterServlet extends HttpServlet {
 	        	
 	        	UtilisateurManager mgr = UtilisateurManager.getInstance();
 	        	Utilisateur utilisateur = mgr.authentification(pseudo , password);
-	           if (utilisateur != null) {
-	        	   
-	                HttpSession session = request.getSession();
-	                session.setAttribute("pseudo",pseudo);
-	                response.sendRedirect("index.jsp");
-	           } 
-	                else {
-	                HttpSession session = request.getSession();
-	                session.setAttribute("pseudo", pseudo);
-	                response.sendRedirect("login.jsp");
-	                String message=" L'identifiant ou le mot de passe incorrect";
-	                request.setAttribute("message", message);
-	            }
+	            HttpSession session = request.getSession();
+	            session.setAttribute("pseudo",pseudo);
+	                
+	           
+//	                else {
+//	                HttpSession session = request.getSession();
+//	                session.setAttribute("pseudo", pseudo);
+//	                response.sendRedirect("login.jsp");
+//	                String message=" L'identifiant ou le mot de passe incorrect";
+//	                request.setAttribute("message", message);
+//	            }
 	        } catch (BLLException e) {
-	            e.printStackTrace();
+	        	request.setAttribute("erreurs", e);
 	        }
-		
+	        rd.forward(request, response);
 	
 
 }

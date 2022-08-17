@@ -6,6 +6,8 @@ public class Categorie {
 	private int noCategorie;
 	private String libelle ;
 	private List<ArticleVendu> listesArticles;
+	
+	
 	public Categorie(int noCategorie, String libelle, List<ArticleVendu> listesArticles) {
 		super();
 		this.noCategorie = noCategorie;
@@ -43,6 +45,12 @@ public class Categorie {
 		return "Categorie [noCategorie=" + noCategorie + ", libelle=" + libelle + "]";
 	}
 	
+	public void addArticle(ArticleVendu articleVendu) {
+		listesArticles.add(articleVendu);
+	}
+	public void removeArticle(ArticleVendu articleVendu) {
+		listesArticles.remove(articleVendu);
+	}
 	
 	
 	

@@ -40,12 +40,12 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 	}
 
 	@Override
-	public Utilisateur validate(String pseudo, String motDePasse) throws DALException {
+	public Utilisateur validate(String login, String motDePasse) throws DALException {
 		Utilisateur utilisateur = null;
 		try(Connection cnx = ConnectionProvider.getConnection();
 			PreparedStatement stmt = cnx.prepareStatement(VALIDATE_LOGIN)){
-			stmt.setString(1, pseudo);			
-			stmt.setString(2, pseudo);
+			stmt.setString(1, login);			
+			stmt.setString(2, login);
 			stmt.setString(3, motDePasse);
 			
 			ResultSet rs =stmt.executeQuery();

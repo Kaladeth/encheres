@@ -15,7 +15,7 @@ public class Utilisateur {
 	String ville;
 	String motDePasse;
 	int credit;
-	byte administrateur;
+	boolean administrateur;
 	
 	List<ArticleVendu> articlesVendu;
 	List<Enchere> encheres;
@@ -25,7 +25,7 @@ public class Utilisateur {
 	}
 	//constructeur sans id et sans listes : création d'un utilisateur
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, int credit, byte administrateur) {
+			String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
 		this.pseudo = pseudo;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -41,7 +41,7 @@ public class Utilisateur {
 	}
 	// construteur sans mdp
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, int credit, byte administrateur) {
+			String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
 		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -61,7 +61,7 @@ public class Utilisateur {
 	// construteur complet
 	
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, int credit, byte administrateur,
+			String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur,
 			List<ArticleVendu> articlesVendu, List<Enchere> encheres) {
 		super();
 		this.noUtilisateur = noUtilisateur;
@@ -174,10 +174,10 @@ public class Utilisateur {
 	public void setCredit(int credit) {
 		this.credit = credit;
 	}
-	public byte getAdministrateur() {
+	public boolean getAdministrateur() {
 		return administrateur;
 	}
-	public void setAdministrateur(byte administrateur) {
+	public void setAdministrateur(boolean administrateur) {
 		this.administrateur = administrateur;
 	}
 	public List<ArticleVendu> getArticles() {

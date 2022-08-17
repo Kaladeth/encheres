@@ -38,11 +38,12 @@
 </xml><![endif]-->
 </head>
 <body>
+	<%@ include file="/WEB-INF/fragmentsJsp/entete.jspf"%>
     <div class="container-fluid">
         <!--emptyHeader-->
-        <header>
+       <!--  <header>
             <nav class="pr-5 navbar navbar-expand-sm bg-dark navbar-dark align-top justify-content-between">
-                <!-- Brand/logo -->
+                Brand/logo
                 <a class="navbar-brand" href="index.html">
                     <img class="small-icon" src="images/trocenchere.svg" alt="Accueil ENI-Encheres">
                     <strong>ENI-Encheres</strong>
@@ -52,7 +53,7 @@
                     <span class="align-middle text-muted">XXXXX xxx, 0 crédit(s)</span>
                 </a>
             </nav>
-        </header>
+        </header> -->
 
         <!--main bloc-->
         <main>

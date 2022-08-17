@@ -53,13 +53,6 @@ public class Manager {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
 	// * * * * * METHODE INSERT * * * * *
 	public void ajouterUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
 			String cp, String ville, String mdp, int credit, boolean admin) throws BLLException {
@@ -118,10 +111,6 @@ public class Manager {
 			bllExceptions.addException(ex);
 			throw bllExceptions;
 		}
-	}
-	public Utilisateur authentification(String login ,String mdp) throws BLLException {
-		return null;
-		
 	}
 	
 	// * * * * * METHODE DELETE * * * * *

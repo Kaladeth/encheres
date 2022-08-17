@@ -54,7 +54,9 @@ public class ConnecterServlet extends HttpServlet {
 	        	   
 	                HttpSession session = request.getSession();
 	                session.setAttribute("pseudo",pseudo);
-	                response.sendRedirect("index.jsp");
+	                session.setAttribute("utilisateur",utilisateur);
+	                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+	        		rd.forward(request, response);
 	           } 
 	                else {
 	                HttpSession session = request.getSession();

@@ -12,9 +12,7 @@ public class ConnectionProvider {
 	static {
 		try {
 			Context context = new InitialContext();
-			System.out.println("coucou");
 			datasource = (DataSource) context.lookup("java:comp/env/jdbc/pool_cnx_encheres");
-			System.out.println("coucou");
 
 		} catch (NamingException e) {
 		e.printStackTrace();}}

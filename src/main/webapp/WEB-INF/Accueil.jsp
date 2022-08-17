@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1> Bienvenue </h1>
-<form action="<%=request.getContextPath()%>/AccueilServlet" method="post"></form>
-	<input type="submit" class="btn btn-primary" name="connecter">Connecter</button>
+<form action="<%=request.getContextPath()%>/AccueilServlet" method="post">
+	<input type="submit" class="btn btn-primary" name="connecter">Connecter</button></form>
 </body>
 </html>

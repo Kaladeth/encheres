@@ -37,6 +37,9 @@ public class Manager {
 			Exception e = new Exception("Veuillez renseigner un mot de passe");
 			bllExceptions.addException(e);
 		}
+		if(!bllExceptions.isEmpty()) {
+			throw bllExceptions;
+		}
 		
 		// VERIFICATION
 		try {

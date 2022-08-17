@@ -34,4 +34,10 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 		
 	}
 
+	@Override
+	public Utilisateur validate(String login, String motDePasse) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -4,9 +4,12 @@ public class Retrait {
 	private String rue ;
 	private String code_postale;
 	private String ville ;
+	
+	// construteur vide
 	public Retrait() {
 		super();
 	}
+	// construteur complet
 	public Retrait(String rue, String code_postale, String ville) {
 		super();
 		this.rue = rue;

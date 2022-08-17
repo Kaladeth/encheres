@@ -1,3 +1,4 @@
+
 package fr.eni.encheres.bll;
 
 import fr.eni.encheres.bo.Utilisateur;
@@ -117,6 +118,10 @@ public class Manager {
 			bllExceptions.addException(ex);
 			throw bllExceptions;
 		}
+	}
+	public Utilisateur authentification(String login ,String mdp) throws BLLException {
+		return null;
+		
 	}
 	
 	// * * * * * METHODE DELETE * * * * *

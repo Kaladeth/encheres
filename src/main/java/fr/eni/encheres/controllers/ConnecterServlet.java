@@ -53,6 +53,7 @@ public class ConnecterServlet extends HttpServlet {
 	        	Utilisateur utilisateur = mgr.authentification(pseudo , password);
 	            HttpSession session = request.getSession();
 	            session.setAttribute("utilisateur",utilisateur);
+	            rd = request.getRequestDispatcher("./WEB-INF/index.jsp");
           
 	        } catch (BLLException e) {
 	        	request.setAttribute("erreurs", e);

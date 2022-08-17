@@ -63,7 +63,7 @@
                             <a class="dropdown-item" href="#" alt="Administrer le site">Administrer</a> 
                             <a class="dropdown-item" href="#" alt="Vendre un article">Vendre un article</a>
                             <a class="dropdown-item" href="#" alt="Me déconnecter">Me déconnecter</a>
-                            <a class="dropdown-item" href="./register.jsp" alt="S'inscrire à ENI-Encheres">M'inscrire</a>
+                            <a class="dropdown-item" href="./Register" alt="S'inscrire à ENI-Encheres">M'inscrire</a>
                             <a class="dropdown-item" href="./Connecter" alt="Se connecter à ENI-Encheres">Me connecter</a>
                         </div>
                     </li>  
@@ -78,7 +78,7 @@
                         <a class="nav-link" href="#" alt="Me déconnecter">Me déconnecter</a>
                     </li>
                     <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link" href="./register.jsp" alt="S'inscrire à ENI-Encheres">M'inscrire</a>
+                        <a class="nav-link" href="./Register" alt="S'inscrire à ENI-Encheres">M'inscrire</a>
                     </li>
                     <li class="nav-item d-none d-lg-block">
                         <a class="nav-link" href="./Connecter" alt="Se connecter à ENI-Encheres">Me connecter</a>

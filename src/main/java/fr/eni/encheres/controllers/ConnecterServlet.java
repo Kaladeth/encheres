@@ -46,20 +46,17 @@ public class ConnecterServlet extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("./WEB-INF/login.jsp");
 		 	String pseudo = request.getParameter("pseudo");
 	        String password = request.getParameter("password");
-	     
 	        try {
-	        	
 	        	UtilisateurManager mgr = UtilisateurManager.getInstance();
 	        	Utilisateur utilisateur = mgr.authentification(pseudo , password);
 	            HttpSession session = request.getSession();
-	            session.setAttribute("utilisateur",utilisateur);
-	            rd = request.getRequestDispatcher("./WEB-INF/index.jsp");
-          
+	            if(utilisateur != null) {
+	            	session.setAttribute("utilisateur",utilisateur);
+	            	rd = request.getRequestDispatcher("./WEB-INF/index.jsp");
+	            	}        
 	        } catch (BLLException e) {
 	        	request.setAttribute("erreurs", e);
 	        }
 	        rd.forward(request, response);
-	
-
-}
+	}
 }

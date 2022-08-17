@@ -67,7 +67,7 @@
                 <div class="col-3 p-2">
                     <img class="small-icon" src="images/error.svg">
                 </div>
-            
+            	
                 <ul class="col-9 list-unstyled p-2">
                     <li>un message d'erreur éventuellement !</li>
                     <li>un autre message....</li>

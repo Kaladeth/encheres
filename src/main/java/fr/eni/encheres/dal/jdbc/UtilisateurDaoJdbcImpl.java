@@ -40,7 +40,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 	}
 
 	@Override
-<<<<<<< HEAD
+
 	public Utilisateur validate(String login, String motDePasse) throws DALException {
 		Utilisateur utilisateur = null;
 		try(Connection cnx = ConnectionProvider.getConnection();
@@ -71,11 +71,5 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 			throw ex;}
 	return utilisateur;
 	}
-=======
-	public Utilisateur validate(String login, String motDePasse) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
->>>>>>> branch 'main' of https://github.com/Kaladeth/encheres.git
 }

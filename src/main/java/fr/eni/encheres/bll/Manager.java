@@ -25,7 +25,7 @@ public class Manager {
 // - - - - - - - - - - METHODES UTILISATEUR - - - - - - - - - - 
 	// * * * * * METHODE INSERT * * * * *
 	public void ajouterUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String cp, String ville, String mdp, int credit, byte admin) throws BLLException {
+			String cp, String ville, String mdp, int credit, boolean admin) throws BLLException {
 		BLLException bllExceptions = new BLLException();
 		
 		// VERIFICATION DES REGLES METIER
@@ -72,7 +72,7 @@ public class Manager {
 		
 		// CREATION DE L'UTILISATEUR A ENVOYER EN BASE DE DONNEES
 		credit = 0;
-		admin = 0;
+		admin = false;
 		Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp, credit, admin);
 		try {
 			utilisateurDao.insert(utilisateur);

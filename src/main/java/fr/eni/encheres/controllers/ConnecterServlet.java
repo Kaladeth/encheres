@@ -52,16 +52,8 @@ public class ConnecterServlet extends HttpServlet {
 	        	UtilisateurManager mgr = UtilisateurManager.getInstance();
 	        	Utilisateur utilisateur = mgr.authentification(pseudo , password);
 	            HttpSession session = request.getSession();
-	            session.setAttribute("pseudo",pseudo);
-	                
-	           
-//	                else {
-//	                HttpSession session = request.getSession();
-//	                session.setAttribute("pseudo", pseudo);
-//	                response.sendRedirect("login.jsp");
-//	                String message=" L'identifiant ou le mot de passe incorrect";
-//	                request.setAttribute("message", message);
-//	            }
+	            session.setAttribute("utilisateur",utilisateur);
+          
 	        } catch (BLLException e) {
 	        	request.setAttribute("erreurs", e);
 	        }

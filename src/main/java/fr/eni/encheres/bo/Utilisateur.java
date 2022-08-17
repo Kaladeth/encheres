@@ -23,7 +23,7 @@ public class Utilisateur {
 	//constructeur vide
 	public Utilisateur() {
 	}
-	//constructeur sans id et sans listes
+	//constructeur sans id et sans listes : création d'un utilisateur
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostal, String ville, String motDePasse, int credit, byte administrateur) {
 		this.pseudo = pseudo;
@@ -34,13 +34,12 @@ public class Utilisateur {
 		this.rue = rue;
 		this.codePostal = codePostal;
 		this.ville = ville;
-		this.motDePasse = motDePasse;
 		this.credit = credit;
 		this.administrateur = administrateur;
 		this.articlesVendu = new ArrayList<ArticleVendu>();
 		this.encheres = new ArrayList<Enchere>();
 	}
-	// construteur sans listes
+	// construteur sans mdp
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostal, String ville, String motDePasse, int credit, byte administrateur) {
 		this.noUtilisateur = noUtilisateur;

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.BLLException;
+
 import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Utilisateur;
 
@@ -53,16 +54,9 @@ public class ConnecterServlet extends HttpServlet {
 	        	   
 	                HttpSession session = request.getSession();
 	                session.setAttribute("pseudo",pseudo);
-<<<<<<< HEAD
 	                response.sendRedirect("index.jsp");
 	           } 
 	                else {
-=======
-	                session.setAttribute("utilisateur", utilisateur);
-	                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
-	        		rd.forward(request, response);
-	            } else {
->>>>>>> branch 'main' of https://github.com/Kaladeth/encheres.git
 	                HttpSession session = request.getSession();
 	                session.setAttribute("pseudo", pseudo);
 	                response.sendRedirect("login.jsp");

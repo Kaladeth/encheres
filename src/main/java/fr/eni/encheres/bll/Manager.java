@@ -102,6 +102,9 @@ public class Manager {
 			Exception e = new Exception("Le mot de passe est obligatoire !");
 			bllExceptions.addException(e);
 		}
+		if(!bllExceptions.isEmpty()) {
+			throw bllExceptions;
+		}
 		
 		// CREATION DE L'UTILISATEUR A ENVOYER EN BASE DE DONNEES
 		credit = 0;

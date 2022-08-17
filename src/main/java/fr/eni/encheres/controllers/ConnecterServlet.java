@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.BLLException;
-import fr.eni.encheres.bll.Manager;
+import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Utilisateur;
 
 /**
@@ -47,14 +47,15 @@ public class ConnecterServlet extends HttpServlet {
 	     
 	        try {
 	        	
-	        	Manager mgr = Manager.getInstance();
+	        	UtilisateurManager mgr = UtilisateurManager.getInstance();
 	        	Utilisateur utilisateur = mgr.authentification(pseudo , password);
 	           if (utilisateur != null) {
 	        	   
 	                HttpSession session = request.getSession();
 	                session.setAttribute("pseudo",pseudo);
 	                response.sendRedirect("index.jsp");
-	            } else {
+	           } 
+	                else {
 	                HttpSession session = request.getSession();
 	                session.setAttribute("pseudo", pseudo);
 	                response.sendRedirect("login.jsp");

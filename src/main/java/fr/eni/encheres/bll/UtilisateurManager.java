@@ -6,19 +6,19 @@ import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.UtilisateurDAO;
 
-public class Manager {
-	private static Manager mgr;
+public class UtilisateurManager {
+	private static UtilisateurManager mgr;
 	private UtilisateurDAO utilisateurDao;
 	
 	
 // SINGLETON MANAGER
-	private Manager() {
+	private UtilisateurManager() {
 		utilisateurDao = DAOFactory.getUtilisateurDao();
 	}
 	
-	public static Manager getInstance() {
+	public static UtilisateurManager getInstance() {
 		if(mgr==null) {
-			mgr= new Manager();
+			mgr= new UtilisateurManager();
 		}
 		return mgr;
 	}
@@ -50,7 +50,7 @@ public class Manager {
 				throw bllExceptions;
 			}
 		} catch (DALException e) {
-			e.getMessage();
+			e.getMessage();//todo renvoyer exception
 		}
 		return utilisateur;
 	}

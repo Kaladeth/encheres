@@ -83,6 +83,10 @@ public class Manager {
 			throw bllExceptions;
 		}
 	}
+	public Utilisateur authentification(String login ,String mdp) throws BLLException {
+		return null;
+		
+	}
 	
 	
 }

@@ -47,7 +47,7 @@ public class ConnecterServlet extends HttpServlet {
 	     
 	        try {
 	        	
-	        	Manager mgr = new Manager();
+	        	Manager mgr = Manager.getInstance();
 	        	Utilisateur utilisateur = mgr.authentification(pseudo , password);
 	           if (utilisateur != null) {
 	        	   

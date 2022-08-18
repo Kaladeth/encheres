@@ -12,7 +12,7 @@ public class BLLException extends Exception {
 	
 	public void addException(Exception e) {
 	        bllExceptions.add(e) ;
-	    }
+	}
 	
 	public boolean isEmpty() {
 		return bllExceptions.size() > 0? false:true;

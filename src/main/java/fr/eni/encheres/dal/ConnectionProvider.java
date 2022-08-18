@@ -12,16 +12,17 @@ public class ConnectionProvider {
 	static {
 		try {
 			Context context = new InitialContext();
-			System.out.println("coucou");
 			datasource = (DataSource) context.lookup("java:comp/env/jdbc/pool_cnx_encheres");
-			System.out.println("coucou");
 
 		} catch (NamingException e) {
-		e.printStackTrace();}}
+		e.printStackTrace();
+		}}
 
-		public static Connection getConnection() throws SQLException {
-			return datasource.getConnection();
-			
-			
+		public static Connection getConnection() throws DALException {
+			try{return datasource.getConnection();
+			}catch(Exception e) {
+				DALException ex = new DALException("Connexion impossible à la base de données", e);
+				throw ex;
+			}
 		}
 }

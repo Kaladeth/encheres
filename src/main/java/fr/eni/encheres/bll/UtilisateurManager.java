@@ -6,19 +6,19 @@ import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.UtilisateurDAO;
 
-public class Manager {
-	private static Manager mgr;
+public class UtilisateurManager {
+	private static UtilisateurManager mgr;
 	private UtilisateurDAO utilisateurDao;
 	
 	
 // SINGLETON MANAGER
-	private Manager() {
+	private UtilisateurManager() {
 		utilisateurDao = DAOFactory.getUtilisateurDao();
 	}
 	
-	public static Manager getInstance() {
+	public static UtilisateurManager getInstance() {
 		if(mgr==null) {
-			mgr= new Manager();
+			mgr= new UtilisateurManager();
 		}
 		return mgr;
 	}
@@ -50,7 +50,8 @@ public class Manager {
 				throw bllExceptions;
 			}
 		} catch (DALException e) {
-			e.getMessage();
+			bllExceptions.addException(e);
+			throw bllExceptions;
 		}
 		return utilisateur;
 	}
@@ -58,7 +59,7 @@ public class Manager {
 	
 	// * * * * * METHODE INSERT * * * * *
 	public void ajouterUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String cp, String ville, String mdp, String confirmationMdp, int credit, boolean admin) throws BLLException {
+			String cp, String ville, String mdp, int credit, boolean admin) throws BLLException {
 		BLLException bllExceptions = new BLLException();
 		
 		// VERIFICATION DES REGLES METIER
@@ -66,12 +67,8 @@ public class Manager {
 			Exception e = new Exception("L'identifiant est obligatoire !");
 			bllExceptions.addException(e);
 		}
-		if(pseudo.indexOf('@') != -1) { 
+		if(pseudo.indexOf('@') != -1) {
 			Exception e = new Exception("L'identifiant ne peut pas contenir d'arobase !");
-			bllExceptions.addException(e);
-		}
-		if(pseudo.matches("[A-Za-z0-9]+") != true) { 
-			Exception e = new Exception("L'identifiant doit contenir seulement des caractères alphanumériques !");
 			bllExceptions.addException(e);
 		}
 		if(nom == null) {
@@ -106,12 +103,10 @@ public class Manager {
 			Exception e = new Exception("Le mot de passe est obligatoire !");
 			bllExceptions.addException(e);
 		}
-		if(mdp != confirmationMdp) {
-			Exception e = new Exception("Le mot de passe doit être identique au champ confirmation !");
-			bllExceptions.addException(e);
-		}
-		// CREATION DE L'UTILISATEUR A ENVOYER EN BASE DE DONNEES
 		
+		// CREATION DE L'UTILISATEUR A ENVOYER EN BASE DE DONNEES
+		credit = 0;
+		admin = false;
 		Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp, credit, admin);
 		try {
 			utilisateurDao.insert(utilisateur);

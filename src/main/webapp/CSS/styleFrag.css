@@ -1,0 +1,42 @@
+@charset "UTF-8";
+/* ENTETE */
+#blockEtt {
+	display: flex;
+	justify-content: space-between;
+	background-color: grey;
+}
+
+#deuxBlockEtt {
+	display:flex;
+}
+
+#titleEtt {
+	margin-top: 0px;
+}
+
+#deuxBlockEtt p {
+	color: green;
+	font-weight:bold;
+	margin-top:10px;
+}
+
+#deuxBlockEtt a {
+	margin-right: 10px;
+}
+
+/* FOOTER */
+#blockFt {
+	display: flex;
+	justify-content: space-around;
+	background-color: #c0c0c0;
+	align-items: center;
+}
+
+#blockFt p {
+	font-size: 1.2em;
+}
+
+#blockFt img {
+	width: 5em;
+	height: 5em;
+}

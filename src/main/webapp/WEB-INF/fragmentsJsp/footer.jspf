@@ -1,0 +1,18 @@
+<head>
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/CSS/styleFrag.css">
+<meta charset="UTF-8">
+<script src="https://kit.fontawesome.com/834037d968.js"
+	crossorigin="anonymous"></script>
+</head>
+<footer>
+	<div id="blockFt">
+		<img src="<%=request.getContextPath()%>/imgs/eni.jpeg" alt="icone eni" />
+		<p>
+			<i class="fa-solid fa-copyright"></i> ENI Ecole
+		</p>
+		<p>
+			Icônes par Font Awesome
+		</p>
+	</div>
+</footer>

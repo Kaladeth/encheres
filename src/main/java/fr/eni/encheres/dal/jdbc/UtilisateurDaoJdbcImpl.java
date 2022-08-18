@@ -67,14 +67,10 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 					utilisateur.setAdministrateur(false);
 					}else {utilisateur.setAdministrateur(true);}
 				}
-			}catch(RuntimeException e) {
-				DALException ex = new DALException("Connexion impossible à la base de données", e);
-				throw ex;
-			}
-	
-			catch (Exception e) {
-			DALException ex = new DALException("Login et/ou mot de passe non valides", e);
-			throw ex;}
+			}catch (SQLException e) {
+				DALException ex = new DALException("Login et/ou mot de passe non valides", e);
+				throw ex;}
+					
 	return utilisateur;
 	}
 

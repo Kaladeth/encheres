@@ -43,6 +43,7 @@
 <body>
 	<!-- Header -->
  	<%@ include file="/WEB-INF/fragmentsJsp/entete.jspf"%>
+    <div class="container-fluid">    
         <!--main bloc-->
         <main>
             <!--title-->

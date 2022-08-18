@@ -41,10 +41,30 @@
 </xml><![endif]-->
 </head>
 <body>
+<<<<<<< HEAD
  	<%@ include file="/WEB-INF/fragmentsJsp/entete.jspf"%>
+=======
+	<%@ include file="/WEB-INF/fragmentsJsp/entete.jspf"%>
+>>>>>>> branch 'main' of https://github.com/Kaladeth/encheres.git
     <div class="container-fluid">
         <!--emptyHeader-->
+<<<<<<< HEAD
        
+=======
+       <!--  <header>
+            <nav class="pr-5 navbar navbar-expand-sm bg-dark navbar-dark align-top justify-content-between">
+                Brand/logo
+                <a class="navbar-brand" href="index.html">
+                    <img class="small-icon" src="images/trocenchere.svg" alt="Accueil ENI-Encheres">
+                    <strong>ENI-Encheres</strong>
+                </a>
+                <a class="navbar-brand" href="#" alt="Gérer mon profil" title="Gérer mon profil">
+                    <img class="small-icon" src="images/user.svg">
+                    <span class="align-middle text-muted">XXXXX xxx, 0 crédit(s)</span>
+                </a>
+            </nav>
+        </header> -->
+>>>>>>> branch 'main' of https://github.com/Kaladeth/encheres.git
 
         <!--main bloc-->
         <main>

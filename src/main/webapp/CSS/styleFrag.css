@@ -14,16 +14,13 @@
 	margin-top: 0px;
 }
 
-#2blockEtt p {
-	margin-top: 10px;
-	font-weight: bold;
-}
-
-#salutationEtt {
+#deuxBlockEtt p {
 	color: green;
+	font-weight:bold;
+	margin-top:10px;
 }
 
-#2blockEtt a {
+#deuxBlockEtt a {
 	margin-right: 10px;
 }
 

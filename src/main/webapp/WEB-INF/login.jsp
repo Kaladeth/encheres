@@ -1,8 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -63,7 +60,6 @@
             <!--title-->
             <div class="mx-auto text-center">
                 <h1>Connexion</h1>
-                <img class="mb-4 large-icon rounded-circle" src="images/user.svg" alt="">
             </div>
             
             <!--erreur-->
@@ -88,13 +84,7 @@
             </form>
         </main>
         <!--footer-->
-        <footer class="border-top text-center align-bottom">
-            <div class="mt-3">
-                <img class="small-icon" src="images/ateni.svg" alt="Eni Ecole">
-                <small class="d-block text-muted">&copy; ENI Ecole 2020</small>
-                <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-            </div>
-        </footer> -->
+ 
 
 	</div>
 	<%@ include file="/WEB-INF/fragmentsJsp/footer.jspf"%>

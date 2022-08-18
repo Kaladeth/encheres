@@ -1,3 +1,6 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -39,24 +42,10 @@
 </head>
 <body>
 
-<%-- <%@ include file="/WEB-INF/jsp/fragments/entete.jspf"%> --%>
+<%@ include file="/WEB-INF/fragmentsJsp/entete.jspf"%>
 
 
     <div class="container-fluid">
-        <!--emptyHeader-->
-        <header>
-            <nav class="pr-5 navbar navbar-expand-sm bg-dark navbar-dark align-top justify-content-between">
-                <!-- Brand/logo -->
-                <a class="navbar-brand" href="index.html">
-                    <img class="small-icon" src="images/trocenchere.svg" alt="Accueil ENI-Encheres">
-                    <strong>ENI-Encheres</strong>
-                </a>
-                <a class="navbar-brand" href="#" alt="Gérer mon profil" title="Gérer mon profil">
-                    <img class="small-icon" src="images/user.svg">
-                    <span class="align-middle text-muted">XXXXX xxx, 0 crédit(s)</span>
-                </a>
-            </nav>
-        </header>
 
         <!--main bloc-->
         <main>
@@ -167,15 +156,8 @@
                 <button class="btn btn-danger btn-lg btn-block" type="submit" name="annuler">Annuler</button>
             </form>
         </main>
-        <!--footer-->
-        <footer class="border-top text-center align-bottom">
-            <div class="mt-3">
-                <img class="small-icon" src="images/ateni.svg" alt="Eni Ecole">
-                <small class="d-block text-muted">&copy; ENI Ecole 2020</small>
-                <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-            </div>
-        </footer>
     </div>
+    <%@ include file="/WEB-INF/fragmentsJsp/footer.jspf"%>
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

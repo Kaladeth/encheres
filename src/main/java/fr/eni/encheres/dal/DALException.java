@@ -14,7 +14,8 @@ public class DALException extends Exception {
 	
 	@Override
 	public String getMessage() {
-        return "Accès aux données : " +  super.getMessage() + "\nNote technique : \n" + this.getCause().getMessage();
+		System.out.println("Note technique : \n" + this.getCause().getMessage());
+        return "Erreur dans l'accès aux données : " +  super.getMessage();
     }
 
 }

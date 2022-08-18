@@ -50,7 +50,8 @@ public class UtilisateurManager {
 				throw bllExceptions;
 			}
 		} catch (DALException e) {
-			e.getMessage();//todo renvoyer exception
+			bllExceptions.addException(e);
+			throw bllExceptions;
 		}
 		return utilisateur;
 	}

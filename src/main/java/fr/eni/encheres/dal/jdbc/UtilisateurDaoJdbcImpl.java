@@ -3,6 +3,7 @@ package fr.eni.encheres.dal.jdbc;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import fr.eni.encheres.bo.Utilisateur;
@@ -66,8 +67,12 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 					utilisateur.setAdministrateur(false);
 					}else {utilisateur.setAdministrateur(true);}
 				}
-			}catch (Exception e) {
-			DALException ex = new DALException("Problème dans l'authentification de l'utilisateur", e);
+			}catch(SQLException | RuntimeException e) {
+				DALException ex = new DALException("Connexion impossible à la base de données", e);
+				throw ex;
+			}
+			catch (Exception e) {
+			DALException ex = new DALException("Login et/ou mot de passe non valides", e);
 			throw ex;}
 	return utilisateur;
 	}

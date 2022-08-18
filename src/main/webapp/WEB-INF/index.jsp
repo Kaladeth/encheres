@@ -106,16 +106,20 @@
 				<h1>Enchères</h1>
 			</div>
 			<!--erreur-->
-			<div class="d-flex alert-danger">
-				<div class="col-3 p-2">
-					<img class="small-icon" src="images/error.svg">
-				</div>
-
-				<ul class="col-9 list-unstyled p-2">
-					<li>un message d'erreur éventuellement !</li>
-					<li>un autre message....</li>
-				</ul>
-			</div>
+			 <c:if test="${not empty requestScope.erreurs}">
+            <div class="d-flex alert-danger">
+                <div class="col-3 p-2">
+                    <img class="small-icon" src="images/error.svg">
+                </div>
+        
+                <ul class="col-9 list-unstyled p-2">
+                    
+                   	${erreurs.toString() }                   
+                    
+                </ul>
+            </div>
+            </c:if>
+			
 			<!--filtre-->
 			<form class="form-filter border mb-3" action="#" method="">
 				<div class="row">

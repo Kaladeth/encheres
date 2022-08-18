@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="fr" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
 <head>
@@ -38,21 +41,10 @@
 </xml><![endif]-->
 </head>
 <body>
+ 	<%@ include file="/WEB-INF/fragmentsJsp/entete.jspf"%>
     <div class="container-fluid">
         <!--emptyHeader-->
-        <header>
-            <nav class="pr-5 navbar navbar-expand-sm bg-dark navbar-dark align-top justify-content-between">
-                <!-- Brand/logo -->
-                <a class="navbar-brand" href="index.html">
-                    <img class="small-icon" src="images/trocenchere.svg" alt="Accueil ENI-Encheres">
-                    <strong>ENI-Encheres</strong>
-                </a>
-                <a class="navbar-brand" href="#" alt="Gérer mon profil" title="Gérer mon profil">
-                    <img class="small-icon" src="images/user.svg">
-                    <span class="align-middle text-muted">XXXXX xxx, 0 crédit(s)</span>
-                </a>
-            </nav>
-        </header>
+       
 
         <!--main bloc-->
         <main>
@@ -62,16 +54,19 @@
                 <img class="mb-4 large-icon rounded-circle" src="images/user.svg" alt="">
             </div>
             <!--erreur-->
+            <c:if test="${not empty requestScope.erreurs}">
             <div class="d-flex alert-danger">
                 <div class="col-3 p-2">
                     <img class="small-icon" src="images/error.svg">
                 </div>
-            	
+        
                 <ul class="col-9 list-unstyled p-2">
-                    <li>un message d'erreur éventuellement !</li>
-                    <li>un autre message....</li>
+                    <c:forEach var="erreur" items="${requestScope.erreurs.getBllExceptions() }">
+                   	<li>${erreur.getMessage() }                   
+                    </c:forEach>
                 </ul>
             </div>
+            </c:if>
             <!--formulaire-->
             <form class="form-login" action="<%=request.getContextPath()%>/Connecter" method="post">
                 <label for="inputIdentifiant" class="sr-only">Identifiant</label>

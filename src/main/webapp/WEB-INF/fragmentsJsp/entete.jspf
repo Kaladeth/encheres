@@ -1,0 +1,29 @@
+
+<head>
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/CSS/styleEntete.css">
+<meta charset="UTF-8">
+</head>
+<header>
+	<div id="block">
+		<h1>ENI Enchères</h1>
+		<div>
+			<a class="nav-link" href="#" alt="Administrer le site">Administrer</a>
+			<a class="nav-link" href="#" alt="Vendre un article">Vendre un
+				article</a>
+			<c:if test="${not empty sessionScope.utilisateur.nom}">
+				<a class="nav-link" href="#" alt="Me déconnecter">Me déconnecter</a>
+			</c:if>
+			<c:if test="${empty sessionScope.utilisateur.nom}">
+				<a class="nav-link" href="./Register"
+					alt="S'inscrire à ENI-Encheres">M'inscrire</a>
+				<a class="nav-link" href="./Connecter"
+					alt="Se connecter à ENI-Encheres">Me connecter</a>
+			</c:if>
+			<c:if test="${not empty sessionScope.utilisateur.nom}">
+				<p>Bonjour ${sessionScope.utilisateur.prenom}
+					${sessionScope.utilisateur.nom}</p>
+			</c:if>
+		</div>
+	</div>
+</header>

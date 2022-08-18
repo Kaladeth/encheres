@@ -15,11 +15,10 @@ public class ConnectionProvider {
 			datasource = (DataSource) context.lookup("java:comp/env/jdbc/pool_cnx_encheres");
 
 		} catch (NamingException e) {
-		e.printStackTrace();}}
+		e.printStackTrace();
+		}}
 
-		public static Connection getConnection() throws SQLException {
+		public static Connection getConnection() throws SQLException, RuntimeException {
 			return datasource.getConnection();
-			
-			
 		}
 }

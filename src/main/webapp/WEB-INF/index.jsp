@@ -48,12 +48,12 @@
 </xml><![endif]-->
 </head>
 <body>
+	<!--         <header> -->
 	<%@ include file="/WEB-INF/fragmentsJsp/entete.jspf"%>
 	<div class="container-fluid">
-		<!--fullHeader-->
 
-		
 		<!--main bloc-->
+		
 		<main>
 			<!--title-->
 			<div class="mx-auto text-center">
@@ -220,7 +220,7 @@
 		</main>
 
 		<!--footer-->
-		<footer class="border-top text-center align-bottom">
+		<!-- 		<footer class="border-top text-center align-bottom">
 			<div class="mt-3">
 				<img class="small-icon" src="images/ateni.svg" alt="Eni Ecole">
 				<small class="d-block text-muted">&copy; ENI Ecole 2020</small>
@@ -230,8 +230,9 @@
 						href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
 				</div>
 			</div>
-		</footer>
+		</footer> -->
 	</div>
+	<%@ include file="/WEB-INF/fragmentsJsp/footer.jspf"%>
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->

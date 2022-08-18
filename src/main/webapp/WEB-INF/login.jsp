@@ -50,15 +50,9 @@
 <body>
 	<!-- Header -->
  	<%@ include file="/WEB-INF/fragmentsJsp/entete.jspf"%>
-<<<<<<< HEAD
     <div class="container-fluid">    
-=======
-	<div class="container-fluid">
 
 
-
-
->>>>>>> branch 'main' of https://github.com/Kaladeth/encheres.git
         <!--main bloc-->
         <main>
             <!--title-->

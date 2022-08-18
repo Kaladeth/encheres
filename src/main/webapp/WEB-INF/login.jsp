@@ -50,20 +50,10 @@
                 <h1>Connexion</h1>
                 <img class="mb-4 large-icon rounded-circle" src="images/user.svg" alt="">
             </div>
+            
             <!--erreur-->
-            <c:if test="${not empty requestScope.erreurs}">
-            <div class="d-flex alert-danger">
-                <div class="col-3 p-2">
-                    <img class="small-icon" src="images/error.svg">
-                </div>
-        
-                <ul class="col-9 list-unstyled p-2">
-                    <c:forEach var="erreur" items="${requestScope.erreurs.getBllExceptions() }">
-                   	<li>${erreur.getMessage() }                   
-                    </c:forEach>
-                </ul>
-            </div>
-            </c:if>
+            <%@ include file="/WEB-INF/fragmentsJsp/affichageErreurs.jspf"%>
+           
             <!--formulaire-->
             <form class="form-login" action="<%=request.getContextPath()%>/Connecter" method="post">
                 <label for="inputIdentifiant" class="sr-only">Identifiant</label>

@@ -50,72 +50,18 @@
 <body>
 	<%@ include file="/WEB-INF/fragmentsJsp/entete.jspf"%>
 	<div class="container-fluid">
-		<!--fullHeader-->
 
 		<!--         <header> -->
 
-		<!--   <nav class="pr-5 navbar navbar-expand-sm bg-dark navbar-dark align-top justify-content-between">
-                Brand/logo
-                <a class="navbar-brand" href="./index.jsp">
-                    <img class="small-icon" src="images/trocenchere.svg" alt="Accueil ENI-Encheres">
-                    <strong>ENI-Encheres</strong>
-                </a>
-
-                <a class="navbar-brand" href="#" alt="Gérer mon profil" title="Gérer mon profil">
-                    <img class="small-icon" src="images/user.svg">
-                    <span class="align-middle text-muted">XXXXX xxx, 0 crédit(s)</span>
-                </a>
-
-                <ul class="navbar-nav ml-auto">
-                    Dropdown for small screen
-                    <li class="nav-item dropdown d-lg-none">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                            <img class="small-icon" src="images/menu.svg" alt="Menu ENI-Encheres">
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" alt="Administrer le site">Administrer</a> 
-                            <a class="dropdown-item" href="#" alt="Vendre un article">Vendre un article</a>
-                            <a class="dropdown-item" href="#" alt="Me déconnecter">Me déconnecter</a>
-                            <a class="dropdown-item" href="./Register" alt="S'inscrire à ENI-Encheres">M'inscrire</a>
-                            <a class="dropdown-item" href="./Connecter" alt="Se connecter à ENI-Encheres">Me connecter</a>
-                        </div>
-                    </li>  
-                    Links for medium screen
-                    <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link" href="#" alt="Administrer le site">Administrer</a>
-                    </li> 
-                    <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link" href="#" alt="Vendre un article">Vendre un article</a>
-                    </li>
-                    <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link" href="#" alt="Me déconnecter">Me déconnecter</a>
-                    </li>
-                    <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link" href="./Register" alt="S'inscrire à ENI-Encheres">M'inscrire</a>
-                    </li>
-                    <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link" href="./Connecter" alt="Se connecter à ENI-Encheres">Me connecter</a>
-                    </li>
-                </ul>
-            </nav> -->
-		<!--      </header> -->
-		<!--main bloc-->
 		<main>
 			<!--title-->
 			<div class="mx-auto text-center">
 				<h1>Enchères</h1>
 			</div>
-			<!--erreur-->
-			<div class="d-flex alert-danger">
-				<div class="col-3 p-2">
-					<img class="small-icon" src="images/error.svg">
-				</div>
-
-				<ul class="col-9 list-unstyled p-2">
-					<li>un message d'erreur éventuellement !</li>
-					<li>un autre message....</li>
-				</ul>
-			</div>
+			
+			 <!--erreur-->
+            <%@ include file="/WEB-INF/fragmentsJsp/affichageErreurs.jspf"%>
+			
 			<!--filtre-->
 			<form class="form-filter border mb-3" action="#" method="">
 				<div class="row">

@@ -3,15 +3,19 @@ package fr.eni.encheres.dal.jdbc;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
+import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.ConnectionProvider;
 import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.UtilisateurDAO;
 
 public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
-	String VALIDATE_LOGIN ="SELECT * FROM utilisateurs where (pseudo=? OR email=?) AND mot_de_passe=?"; 
+	private static final String VALIDATE_LOGIN ="SELECT * FROM utilisateurs where (pseudo=? OR email=?) AND mot_de_passe=?"; 
+	private static final String INSERT_USER = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?, ?, ?,?, ?, ?, ?, ?, ?,?, ?, ?)";
+	private static final String SELECT_BY_PSEUDO_EMAIL = "SELECT * FROM utilisateurs where pseudo=? OR email=?";
 
 	public Utilisateur selectById(Utilisateur element) throws DALException {
 		// TODO Auto-generated method stub
@@ -24,7 +28,48 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 	}
 
 	public void insert(Utilisateur element) throws DALException {
-		// TODO Auto-generated method stub
+	
+
+		try (Connection cnx = ConnectionProvider.getConnection();){
+			
+			PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_PSEUDO_EMAIL, PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, element.getPseudo());
+			stmt.setString(2, element.getEmail());
+			ResultSet rs = stmt.executeQuery();
+			
+			if(!rs.next()) {
+			
+				stmt = cnx.prepareStatement(INSERT_USER, PreparedStatement.RETURN_GENERATED_KEYS);
+				stmt.setString(1, element.getPseudo() );
+				stmt.setString(2, element.getNom());
+				stmt.setString(3, element.getPrenom() );
+				stmt.setString(4, element.getEmail());
+				stmt.setString(5, element.getTelephone());
+				stmt.setString(6, element.getRue());
+				stmt.setString(7, element.getCodePostal());
+				stmt.setString(8, element.getVille());
+				stmt.setString(9, element.getMotDePasse());
+				stmt.setInt(10, element.getCredit());
+				stmt.setBoolean(11, element.getAdministrateur());
+				stmt.executeUpdate();
+				rs = stmt.getGeneratedKeys();
+				if(rs.next()) {
+					element.setNoUtilisateur(rs.getInt(1));
+				}
+			}
+			else
+			{
+				DALException ex = new DALException("L'identifiant et/ou l'email existent dÈj‡ !" );
+				throw (ex);				
+			}
+			rs.close();
+			stmt.close();
+		}catch (SQLException e) {
+			DALException ex = new DALException("Probleme d'ajout d'utilisateur", e);
+			throw (ex);				
+		}
+		
+		
 		
 	}
 
@@ -66,8 +111,13 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 					utilisateur.setAdministrateur(false);
 					}else {utilisateur.setAdministrateur(true);}
 				}
-			}catch (Exception e) {
-			DALException ex = new DALException("Probl√®me dans l'authentification de l'utilisateur", e);
+			}catch(RuntimeException e) {
+				DALException ex = new DALException("Connexion impossible √† la base de donn√©es", e);
+				throw ex;
+			}
+	
+			catch (Exception e) {
+			DALException ex = new DALException("Login et/ou mot de passe non valides", e);
 			throw ex;}
 	return utilisateur;
 	}

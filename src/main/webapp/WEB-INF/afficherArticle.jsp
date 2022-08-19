@@ -57,7 +57,7 @@
 		<main>
 			<!--title-->
 			<div class="mx-auto text-center">
-				<h1>Enchères</h1>
+				<h1>Détail de la vente</h1>
 			</div>
 			
 			 <!--erreur-->
@@ -67,7 +67,7 @@
 			<form class="form-filter border mb-3" action="#" method="">
 				<div class="row">
 					<!--Partie gauche-->
-					<div class="col-md-6 mb-3">
+					<div class="col-md-3 mb-3">
 						<div class="form-group">
 							<label for="filter-input">Filtre</label> <input type="text"
 								class="form-control" id="filter-input" name="q"
@@ -85,59 +85,16 @@
 						</div>
 					</div>
 					<!--Partie droite-->
-					<div class="col-md-6 mb-3">
-						<div class="form-check">
-							<label class="form-check-label"> <input type="radio"
-								class="form-check-input" checked name="type-encheres"
-								value="achats" id="achats">Achats
-							</label>
+					<div class="d-flex">
+						<div class="col-3 p-2">
+							<img class="img-fluid img-thumbnail" src="images/photo.svg"
+								alt="pas de photo" />
 						</div>
-						<div class="form-group">
-							<div class="form-check">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" checked name="encheres"
-									value="ouvertes" id="ouvertes">Enchères ouvertes
-								</label>
-							</div>
-							<div class="form-check">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" name="encheres" value="encours"
-									id="encours">Mes enchères en cours
-								</label>
-							</div>
-							<div class="form-check">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" name="encheres" value="remportees"
-									id="remportees">Mes enchères remportées
-								</label>
-							</div>
+						<div class="col-9 p-2">
+							<img class="img-fluid img-thumbnail" src="images/photo.svg"
+								alt="pas de photo" />
 						</div>
-						<div class="form-check">
-							<label class="form-check-label"> <input type="radio"
-								class="form-check-input" name="type-encheres" value="ventes"
-								id="ventes">Ventes
-							</label>
-						</div>
-						<div class="form-group">
-							<div class="form-check">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" name="ventes" value="venteencours"
-									id="venteencours">Mes ventes en cours
-								</label>
-							</div>
-							<div class="form-check">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" name="ventes" value="nondebutees"
-									id="nondebutees">Mes ventes non débutées
-								</label>
-							</div>
-							<div class="form-check">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" name="ventes" value="terminees"
-									id="terminees">Mes ventes terminées
-								</label>
-							</div>
-						</div>
+						
 
 					</div>
 				</div>
@@ -158,9 +115,9 @@
 								<img class="img-fluid img-thumbnail" src="images/photo.svg"
 									alt="pas de photo" />
 							</div>
-							<a class="nav-link" href="./connecte/afficher/enchere?noArticleVendu=1">Article 1</a>
 							<ul class="col-9 list-unstyled p-2">
-								
+								<a class="nav-link" href="./connecte/afficher/enchere"
+									alt="S'inscrire à ENI-Encheres">M'inscrire</a>
 								<li>Prix : 0 point(s)</li>
 								<li>Meilleure enchère : 0 point(s)</li>
 								<li>Fin de l'enchère : dd-MM-yyyy HH:mm</li>

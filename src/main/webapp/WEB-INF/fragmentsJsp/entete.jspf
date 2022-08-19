@@ -12,6 +12,7 @@
 			<a class="nav-link" href="#" alt="Vendre un article">Vendre un
 				article</a>
 			<c:if test="${not empty sessionScope.utilisateur.nom}">
+
 				<a class="nav-link" href="#" alt="Me déconnecter">Me déconnecter</a>
 			</c:if>
 			<c:if test="${empty sessionScope.utilisateur.nom}">

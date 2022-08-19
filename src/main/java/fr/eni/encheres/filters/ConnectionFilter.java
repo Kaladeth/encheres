@@ -53,7 +53,7 @@ public class ConnectionFilter extends HttpFilter implements Filter {
 				// - attribut existant dans la session => feu au vert
 				// - sinon => feu au rouge
 				String feu = null;
-				if (session.getAttribute("feu") != null) {
+				if (session.getAttribute("utilisateur") != null) {
 					feu = String.valueOf(session.getAttribute("feu"));
 				}
 				//le feu est il rouge ?

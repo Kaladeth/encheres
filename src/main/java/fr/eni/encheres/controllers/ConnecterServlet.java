@@ -40,7 +40,7 @@ public class ConnecterServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("./WEB-INF/login.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/login.jsp");
 		 	String pseudo = request.getParameter("pseudo");
 	        String password = request.getParameter("password");
 	        try {
@@ -49,7 +49,7 @@ public class ConnecterServlet extends HttpServlet {
 	            HttpSession session = request.getSession();
 	            if(utilisateur != null) {
 	            	session.setAttribute("utilisateur",utilisateur);
-	            	rd = request.getRequestDispatcher("./WEB-INF/index.jsp");
+	            	rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
 	            	}        
 	        } catch (BLLException e) {
 	        	request.setAttribute("erreurs", e);

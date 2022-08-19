@@ -158,7 +158,9 @@
 								<img class="img-fluid img-thumbnail" src="images/photo.svg"
 									alt="pas de photo" />
 							</div>
-							<a class="nav-link" href="./connecte/afficher/enchere" method="post" name="?noArticleVendu" value ="1">Article 1</a>
+							<form action="<%=request.getContextPath()%>/connecte/afficher/enchere" method="post">
+							<input type="submit" class="nav-link"  name="noArticleVendu" value ="1">
+							</form>
 							<ul class="col-9 list-unstyled p-2">
 								
 								<li>Prix : 0 point(s)</li>

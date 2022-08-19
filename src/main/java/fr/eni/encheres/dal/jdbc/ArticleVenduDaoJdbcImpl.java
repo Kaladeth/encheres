@@ -4,12 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import fr.eni.encheres.bo.ArticleVendu;
-import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.ArticleVenduDAO;
 import fr.eni.encheres.dal.ConnectionProvider;
 import fr.eni.encheres.dal.DALException;
@@ -29,16 +27,16 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 				article.setNoArticle(rs.getInt("no_article"));
 				article.setNomArticle(rs.getString("nom_article"));
 				article.setDescription(rs.getString("description"));
-				article.setDateDebutEncheres(LocalDateTime.of((rs.getDate("debut_enchere").toLocalDate()), rs.getTime("début_enchere").toLocalTime()));
+				article.setDateDebutEncheres(LocalDateTime.of((rs.getDate("date_debut_enchere").toLocalDate()), rs.getTime("date_debut_enchere").toLocalTime()));
 				article.setDateFinEncheres(LocalDateTime.of((rs.getDate("date_fin_enchere").toLocalDate()), rs.getTime("date_fin_enchere").toLocalTime()));
 				article.setMiseAPrix(rs.getInt("prix_initial"));
 				article.setPrixVente(rs.getInt("prix_vente"));
 				article.setUtilisateur(rs.getInt("no_utilisateur"));
 				article.setCategorie(rs.getInt("no_categorie"));
-				article.setUtilisateur(rs.getInt("etat_vente"));
+				article.setEtatVente(rs.getString("etat_vente"));
 				}
             }catch (SQLException e) {
-            	DALException ex = new DALException("Login et/ou mot de passe non valides", e);
+            	DALException ex = new DALException("problème d'accès à cet article", e);
             	throw ex;}
 		return article;
 	}

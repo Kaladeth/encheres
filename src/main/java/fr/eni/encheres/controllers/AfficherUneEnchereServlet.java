@@ -33,27 +33,26 @@ public class AfficherUneEnchereServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	}
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
 	 	String id = request.getParameter("noArticleVendu");
 	 	System.out.println(id);
-	    try {
-	    	ArticleVenduManager mgr = ArticleVenduManager.getInstance();
+	 	    try {
+	     	ArticleVenduManager mgr = ArticleVenduManager.getInstance();
 	    	ArticleVendu articleVendu = mgr.SelectById(id);
 	        HttpSession session = request.getSession();
 	        if(articleVendu != null) {
 	        	session.setAttribute("articleVendu",articleVendu);
-	        	rd = request.getRequestDispatcher("/WEB-INF/afficheArticle.jsp");
+	        	rd = request.getRequestDispatcher("/WEB-INF/afficherArticle.jsp");
 	        	}        
 	    } catch (BLLException e) {
 	    	request.setAttribute("erreurs", e);
 	    }
 	    rd.forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	
 	}
 }

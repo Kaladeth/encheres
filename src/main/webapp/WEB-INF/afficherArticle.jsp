@@ -102,84 +102,9 @@
 					<img class="small-icon" src="images/search.svg" alt="Eni Ecole">
 				</button>
 			</form>
-
+</
 			<!--enchères-->
-			<div class="row justify-content-center border-top card-deck">
-				<div class="col-12 col-sm-6 p-2">
-					<div class="card">
-						<div class="card-header text-center">
-							<h4 class="my-0 font-weight-normal">Article 1</h4>
-						</div>
-						<div class="d-flex">
-							<div class="col-3 p-2">
-								<img class="img-fluid img-thumbnail" src="images/photo.svg"
-									alt="pas de photo" />
-							</div>
-							<ul class="col-9 list-unstyled p-2">
-								<a class="nav-link" href="./connecte/afficher/enchere"
-									alt="S'inscrire à ENI-Encheres">M'inscrire</a>
-								<li>Prix : 0 point(s)</li>
-								<li>Meilleure enchère : 0 point(s)</li>
-								<li>Fin de l'enchère : dd-MM-yyyy HH:mm</li>
-								<li>Vendeur : xxxxxxxxx</li>
-							</ul>
-						</div>
-						<a class="mt-3 btn btn-lg btn-block btn-primary" href="#"
-							title="faire une enchère"> <img class="small-icon"
-							src="images/bid.svg">
-						</a>
-					</div>
-				</div>
-				<div class="col-12 col-sm-6 p-2">
-					<div class="card">
-						<div class="card-header text-center">
-							<h4 class="my-0 font-weight-normal">Article 2</h4>
-						</div>
-						<div class="d-flex">
-							<div class="col-3 p-2">
-								<img class="img-fluid img-thumbnail" src="images/photo.svg"
-									alt="pas de photo" />
-							</div>
-							<ul class="col-9 list-unstyled p-2">
-								<li>Prix : 0 point(s)</li>
-								<li>Meilleure enchère : 0 point(s)</li>
-								<li>Fin de l'enchère : dd-MM-yyyy HH:mm</li>
-								<li>Vendeur : xxxxxxxxx</li>
-							</ul>
-						</div>
-						<a class="mt-3 btn btn-lg btn-block btn-primary" href="#"
-							title="faire une enchère"> <img class="small-icon"
-							src="images/bid.svg">
-						</a>
-					</div>
-				</div>
-				<div class="col-12 col-sm-6 p-2">
-					<div class="card">
-						<div class="card-header text-center">
-							<h4 class="my-0 font-weight-normal">Article 3</h4>
-						</div>
-						<div class="d-flex">
-							<div class="col-3 p-2">
-								<img class="img-fluid img-thumbnail" src="images/photo.svg"
-									alt="pas de photo" />
-							</div>
-							<ul class="col-9 list-unstyled p-2">
-								<li>Prix : 0 point(s)</li>
-								<li>Meilleure enchère : 0 point(s)</li>
-								<li>Fin de l'enchère : dd-MM-yyyy HH:mm</li>
-								<li>Vendeur : xxxxxxxxx</li>
-							</ul>
-						</div>
-						<a class="mt-3 btn btn-lg btn-block btn-primary" href="#"
-							title="faire une enchère"> <img class="small-icon"
-							src="images/bid.svg">
-						</a>
-					</div>
-				</div>
 		</main>
-
-
-	</div>
 	<%@ include file="/WEB-INF/fragmentsJsp/footer.jspf"%>
 
 	<!-- Optional JavaScript -->

@@ -158,7 +158,7 @@
 								<img class="img-fluid img-thumbnail" src="images/photo.svg"
 									alt="pas de photo" />
 							</div>
-							<a class="nav-link" href="./connecte/afficher/enchere?noArticleVendu=1">Article 1</a>
+							<a class="nav-link" href="./connecte/afficher/enchere" method="post" name="?noArticleVendu" value ="1">Article 1</a>
 							<ul class="col-9 list-unstyled p-2">
 								
 								<li>Prix : 0 point(s)</li>

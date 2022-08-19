@@ -3,7 +3,7 @@
 <c:if test="${not empty requestScope.erreurs || not empty requestScope.messageErreur }">
  		<div class="d-flex alert-danger">
   		<div class="col-2 p-2">
-        <img class="small-icon" src="imgs/error.svg" width="100px">
+        <img class="small-icon" src="${pageContext.request.contextPath}/imgs/error.svg" width="100px">
         </div>
         <h1 class="col-2 p-2">Erreur :</h1>
         

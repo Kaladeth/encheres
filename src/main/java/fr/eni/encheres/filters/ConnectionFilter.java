@@ -52,7 +52,6 @@ public class ConnectionFilter extends HttpFilter implements Filter {
 				//des infos sur l'état du feu ? 
 				// - attribut existant dans la session => feu au vert
 				// - sinon => feu au rouge
-				System.out.println("Passage dans le filtre");
 				String feu = null;
 				if (session.getAttribute("feu") != null) {
 					feu = String.valueOf(session.getAttribute("feu"));
@@ -62,6 +61,7 @@ public class ConnectionFilter extends HttpFilter implements Filter {
 					//intercepter la requete en cours et établir une redirection
 					httpRequest.setAttribute("messageErreur", "Vous devez être connecté pour accéder à cette partie du site !");
 					httpRequest.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+
 				} else {
 					// pass the request along the filter chain
 					chain.doFilter(request, response);

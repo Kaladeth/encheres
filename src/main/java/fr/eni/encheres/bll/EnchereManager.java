@@ -13,8 +13,8 @@ public class EnchereManager {
 	private EnchereDAO enchereDao;
 	
 	
-// SINGLETON MANAGER
-	public EnchereManager() {
+	// SINGLETON MANAGER
+	private EnchereManager() {
 		enchereDao = DAOFactory.getEnchereDAO();
 	}
 	

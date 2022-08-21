@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+import fr.eni.encheres.bo.ArticleVendu;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.ConnectionProvider;
 import fr.eni.encheres.dal.DALException;
@@ -13,20 +15,20 @@ import fr.eni.encheres.dal.UtilisateurDAO;
 
 public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 	
-	String SELECTID="select*from utilisateur where no_utilisateur=?";
+	private static final String SELECT_BY_ID = "select * from utilisateurs where no_utilisateur=?";
 	private static final String VALIDATE_LOGIN ="SELECT * FROM utilisateurs where (pseudo=? OR email=?) AND mot_de_passe=?"; 
 	private static final String INSERT_USER = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES ( ?, ?,?, ?, ?, ?, ?, ?,?, ?, ?)";
 	private static final String SELECT_BY_PSEUDO_EMAIL = "SELECT * FROM utilisateurs where pseudo=? OR email=?";
 	
 	
 	public Utilisateur selectById(int id) throws DALException {
-		Utilisateur utilisateur = new Utilisateur();
+		Utilisateur utilisateur = null;
 		try(Connection cnx = ConnectionProvider.getConnection();
-			PreparedStatement stmt = cnx.prepareStatement(SELECTID)){
-				stmt.setInt(1, id);			
-				ResultSet rs =stmt.executeQuery();
-			
-            while(rs.next()) {
+			PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_ID)){
+			stmt.setInt(1, id);			
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				utilisateur = new Utilisateur();
             	utilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
 				utilisateur.setPseudo(rs.getString("pseudo"));
 				utilisateur.setNom(rs.getString("nom"));
@@ -38,7 +40,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 				utilisateur.setVille(rs.getString("ville"));
             }
             }catch (SQLException e) {
-            	DALException ex = new DALException("Login et/ou mot de passe non valides", e);
+            	DALException ex = new DALException("problème d'accès à cet utilisateur", e);
             	throw ex;}
 		return utilisateur;
 	}

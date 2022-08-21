@@ -10,9 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.encheres.bll.ArticleVenduManager;
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.EnchereManager;
+import fr.eni.encheres.bll.UtilisateurManager;
+import fr.eni.encheres.bo.ArticleVendu;
 import fr.eni.encheres.bo.Enchere;
+import fr.eni.encheres.dal.UtilisateurDAO;
 
 /**
  * Servlet implementation class AccueilServlet
@@ -34,9 +38,14 @@ public class AccueilServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		EnchereManager Encheremgr = new EnchereManager();
+		EnchereManager enchereMgr = EnchereManager.getInstance();
+     	ArticleVenduManager articleMgr = ArticleVenduManager.getInstance();
+		request.setAttribute("articleMgr", articleMgr);
+		UtilisateurManager utilisateurMgr = UtilisateurManager.getInstance();
+		request.setAttribute("utilisateurMgr", utilisateurMgr);
+
 		try {
-			List<Enchere> listeEncheres = Encheremgr.listesEnchers();
+			List<Enchere> listeEncheres = enchereMgr.listesEnchers();
 			request.setAttribute("listeEncheres", listeEncheres);
 		} catch (BLLException e) {
 			

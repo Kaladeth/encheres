@@ -15,6 +15,7 @@ public class ArticleVendu {
 	private int utilisateur;
 	private List<Enchere> encheres;
 	private int categorie;
+	private int retrait;
 	
 	// - - - - - - - - - - CONSTRUCTEURS - - - - - - - - - - 
 	
@@ -26,7 +27,7 @@ public class ArticleVendu {
 	// CONSTRUCTEUR TOTAL
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
 			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, String etatVente, int utilisateur, 
-	List<Enchere> encheres, int categorie) {
+			List<Enchere> encheres, int categorie, int retrait) {
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -38,12 +39,13 @@ public class ArticleVendu {
 		this.utilisateur = utilisateur;
 		this.encheres = encheres;
 		this.categorie = categorie;
+		this.retrait = retrait;
 	}
 	
 	// CONSTRUCTEUR DANS LE NO ARTICLE
 	public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEncheres,
 			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, String etatVente, int utilisateur, 
-			List<Enchere> encheres, int categorie) {
+			List<Enchere> encheres, int categorie, int retrait) {
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
@@ -54,6 +56,7 @@ public class ArticleVendu {
 		this.utilisateur = utilisateur;
 		this.encheres = encheres;
 		this.categorie = categorie;
+		this.retrait = retrait;
 	}
 
 	
@@ -147,6 +150,14 @@ public class ArticleVendu {
 	public void setCategorie(int categorie) {
 		this.categorie = categorie;
 	}
+	
+	public int getRetrait() {
+		return retrait;
+	}
+
+	public void setRetrait(int retrait) {
+		this.retrait = retrait;
+	}
 
 	// - - - - - - - - - - METHODE TO STRING - - - - - - - - - - 
 	@Override
@@ -154,7 +165,7 @@ public class ArticleVendu {
 		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
 				+ ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", miseAPrix="
 				+ miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", utilisateur=" + utilisateur
-				+ ", encheres=" + encheres + ", categorie=" + categorie + "]";
+				+ ", encheres=" + encheres + ", categorie=" + categorie + "]" + ", retrait=" + retrait;
 	}
 	
 	// - - - - - - - - - - ADDER & REMOVER POUR LA LISTE - - - - - - - - - - 

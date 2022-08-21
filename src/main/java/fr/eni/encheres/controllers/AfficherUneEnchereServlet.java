@@ -40,13 +40,11 @@ public class AfficherUneEnchereServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
 	 	String id = request.getParameter("noArticleVendu");
-	 	System.out.println(id);
 	 	    try {
 	     	ArticleVenduManager mgr = ArticleVenduManager.getInstance();
 	    	ArticleVendu articleVendu = mgr.SelectById(id);
-	        HttpSession session = request.getSession();
 	        if(articleVendu != null) {
-	        	session.setAttribute("articleVendu",articleVendu);
+	        	request.setAttribute("articleVendu",articleVendu);
 	        	rd = request.getRequestDispatcher("/WEB-INF/afficherArticle.jsp");
 	        	}        
 	    } catch (BLLException e) {

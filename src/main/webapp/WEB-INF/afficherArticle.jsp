@@ -64,112 +64,68 @@
             <%@ include file="/WEB-INF/fragmentsJsp/affichageErreurs.jspf"%>
 			
 			<!--filtre-->
-			<form class="form-filter border mb-3" action="#" method="">
-				<div class="row">
-					<!--Partie gauche-->
-					<div class="col-md-3 mb-3">
-						<div class="form-group">
-							<label for="filter-input">Filtre</label> <input type="text"
-								class="form-control" id="filter-input" name="q"
-								placeholder="articles contenant...">
-						</div>
-						<div class="form-group">
-							<label for="categories-select">Catégories</label> <select
-								class="form-control" id="categories-select" name="categorie">
-								<option selected>Toutes</option>
-								<option name="categorie" value="">Informatique</option>
-								<option name="categorie" value="">Ameublement</option>
-								<option name="categorie" value="">Vêtement</option>
-								<option name="categorie" value="">Sport & Loisirs</option>
-							</select>
-						</div>
-					</div>
-					<!--Partie droite-->
+				<div class=container>
+									<!--Partie droite-->
 					<div class="d-flex">
-						<div class="col-3 p-2">
-							<img class="img-fluid img-thumbnail" src="images/photo.svg"
-								alt="pas de photo" />
-						</div>
-						<div class="col-9 p-2">
+						<div class="col-2 p-1">
 							<img class="img-fluid img-thumbnail" src="images/photo.svg"
 								alt="pas de photo" />
 						</div>
 						
+						<div class="col-8 p=1">
+						
+							<h2>${requestScope.articleVendu.nomArticle }</h2>
+							<div class="container-fluid">
+								<label class="col-3 p-1">Description : </label>
+								<p class="col-7  p-1"> ${requestScope.articleVendu.description }</p>
+							</div>
+							<div class="container-fluid">
+								<label class="col-3 p-1">Catégorie : </label>
+								<p class="col-7 p-1"> ${requestScope.articleVendu.categorie }</p>
+							</div>
+							<div class="container-fluid">
+								<label class="col-3 p-1">Meilleur Offre : </label>
+								<p class="col-7 p-1"> ${requestScope.articleVendu.prixVente } par "Enchere.get utilisateur ById	 </p>
+							</div>					
+							<div class="container-fluid">
+								<label class="col-3 p-1">Meilleur Offre : </label>
+								<p class="col-7 p-1"> ${requestScope.articleVendu.prixVente }</p>
+							</div>
+							<div class="container-fluid">
+								<label class="col-3 p-1">Fin de l'enchère : </label>
+								<p class="col-7 p-1"> ${requestScope.articleVendu.dateFinEncheres }</p>
+							</div>
+							<div class="container-fluid">
+								<label class="col-3 p-1">Retrait : </label>
+								<p class="col-7 p-1"> créer un get retrait ? adresse vendeur utilisateur.getById</p>
+							</div>
+							<div class="container-fluid">
+								<label class="col-3 p-1">Vendeur : </label>
+								<p class="col-7 p-1"> ${requestScope.articleVendu.dateFinEncheres }.getpeudoById</p>
+							</div>
+								<div class="container-fluid">
+								<label class="col-3 p-1">Vendeur : </label>
+								<p class="col-7 p-1"> ${requestScope.articleVendu.dateFinEncheres }.getpeudoById</p>
+							</div>
+                       </div>	
+					</div>
+						
+						
 
 					</div>
 				</div>
-				<button class="btn btn-primary btn-lg btn-block" type="submit">
-					<img class="small-icon" src="images/search.svg" alt="Eni Ecole">
-				</button>
-			</form>
-</
-			<!--enchères-->
+				
+				<form action="${pageContext.request.contextPath}/Accueil">
+					<button class="btn btn-primary btn-lg btn-block" type="submit" title="retour à l'index">
+					<img class="small-icon" src="images/search.svg" alt="Eni Ecole"/>
+					</button>
+				</form>
+
+
 		</main>
+	<!-- Pied de page -->	
 	<%@ include file="/WEB-INF/fragmentsJsp/footer.jspf"%>
 
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-		crossorigin="anonymous"></script>
-	<script>
-		// Example starter JavaScript for disabling form submissions if there are invalid fields
-		(function() {
-			'use strict';
-
-			window
-					.addEventListener(
-							'load',
-							function() {
-								checkAchats();
-								checkVentes();
-								achats.addEventListener('change', function(
-										event) {
-									checkAchats();
-								}, false);
-								ventes.addEventListener('change', function(
-										event) {
-									checkVentes();
-								}, false);
-
-								function checkAchats() {
-									//id radio button achats
-									var achats = document
-											.getElementById('achats');
-									if (achats.checked) {
-										//id des checkbox
-										document.getElementById('venteencours').disabled = true;
-										document.getElementById('nondebutees').disabled = true;
-										document.getElementById('terminees').disabled = true;
-										document.getElementById('encours').disabled = false;
-										document.getElementById('ouvertes').disabled = false;
-										document.getElementById('remportees').disabled = false;
-									}
-								}
-								function checkVentes() {
-									//id radio button ventes
-									var ventes = document
-											.getElementById('ventes');
-									if (ventes.checked) {
-										//id des checkbox
-										document.getElementById('venteencours').disabled = false;
-										document.getElementById('nondebutees').disabled = false;
-										document.getElementById('terminees').disabled = false;
-										document.getElementById('encours').disabled = true;
-										document.getElementById('ouvertes').disabled = true;
-										document.getElementById('remportees').disabled = true;
-									}
-								}
-							}, false);
-		})();
-	</script>
+	
 </body>
 </html>

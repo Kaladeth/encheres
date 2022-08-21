@@ -55,16 +55,7 @@
                 <img class="mb-4 large-icon rounded-circle" src="images/user.svg" alt="">
             </div>
             <!--erreur-->
-            <div class="d-flex alert-danger">
-                <div class="col-3 p-2">
-                    <img class="small-icon" src="images/error.svg">
-                </div>
-            
-                <ul class="col-9 list-unstyled p-2">
-                    <li>un message d'erreur éventuellement !</li>
-                    <li>un autre message....</li>
-                </ul>
-            </div>            
+          <%@ include file="/WEB-INF/fragmentsJsp/affichageErreurs.jspf"%>          
             <!--formulaire-->
             <form class="form-register needs-validation" action="<%=request.getContextPath()%>/Register" method="post" novalidate>
                 <div class="row">

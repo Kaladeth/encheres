@@ -1,28 +1,27 @@
 
 <head>
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/CSS/styleEntete.css">
+	href="<%=request.getContextPath()%>/CSS/styleFrag.css">
 <meta charset="UTF-8">
 </head>
 <header>
-	<div id="block">
-		<h1>ENI Enchères</h1>
-		<div>
+	<div id="blockEtt">
+		<h1 id="titleEtt">ENI Enchères</h1>
+		<div id="deuxBlockEtt">
 			<a class="nav-link" href="#" alt="Administrer le site">Administrer</a>
 			<a class="nav-link" href="#" alt="Vendre un article">Vendre un
 				article</a>
 			<c:if test="${not empty sessionScope.utilisateur.nom}">
 				<a class="nav-link" href="<%=request.getContextPath()+"/Deconnecter"%>"" alt="Me déconnecter">Me déconnecter</a>
-					
 			</c:if>
 			<c:if test="${empty sessionScope.utilisateur.nom}">
-				<a class="nav-link" href="./Register"
+				<a class="nav-link" href="${pageContext.request.contextPath}/Register"
 					alt="S'inscrire à ENI-Encheres">M'inscrire</a>
-				<a class="nav-link" href="./Connecter"
+				<a class="nav-link" href="${pageContext.request.contextPath}/Connecter"
 					alt="Se connecter à ENI-Encheres">Me connecter</a>
 			</c:if>
 			<c:if test="${not empty sessionScope.utilisateur.nom}">
-				<p>Bonjour ${sessionScope.utilisateur.prenom}
+				<p id="salutationEtt">Bonjour ${sessionScope.utilisateur.prenom}
 					${sessionScope.utilisateur.nom}</p>
 			</c:if>
 		</div>

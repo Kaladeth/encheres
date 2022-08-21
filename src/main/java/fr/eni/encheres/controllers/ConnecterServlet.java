@@ -1,7 +1,6 @@
 package fr.eni.encheres.controllers;
 
 import java.io.IOException;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,12 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import fr.eni.encheres.bll.BLLException;
-
 import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Utilisateur;
-import fr.eni.encheres.dal.DALException;
+
 
 /**
  * Servlet implementation class ConnecterServlet
@@ -43,7 +40,7 @@ public class ConnecterServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("./WEB-INF/login.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/login.jsp");
 		 	String pseudo = request.getParameter("pseudo");
 	        String password = request.getParameter("password");
 	        try {
@@ -52,7 +49,7 @@ public class ConnecterServlet extends HttpServlet {
 	            HttpSession session = request.getSession();
 	            if(utilisateur != null) {
 	            	session.setAttribute("utilisateur",utilisateur);
-	            	rd = request.getRequestDispatcher("./WEB-INF/index.jsp");
+	            	rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
 	            	}        
 	        } catch (BLLException e) {
 	        	request.setAttribute("erreurs", e);

@@ -158,11 +158,9 @@
 								<img class="img-fluid img-thumbnail" src="images/photo.svg"
 									alt="pas de photo" />
 							</div>
-							<form action="<%=request.getContextPath()%>/connecte/afficher/enchere" method="post">
-							<input type="submit" class="nav-link"  name="noArticleVendu" value ="1">
-							</form>
 							<ul class="col-9 list-unstyled p-2">
-								
+								<a class="nav-link" href="./connecte/afficher/enchere"
+									alt="S'inscrire à ENI-Encheres">M'inscrire</a>
 								<li>Prix : 0 point(s)</li>
 								<li>Meilleure enchère : 0 point(s)</li>
 								<li>Fin de l'enchère : dd-MM-yyyy HH:mm</li>

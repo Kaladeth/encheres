@@ -17,7 +17,6 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 	private static final String SELECT_ALL ="select * from encheres";
 	
 
-
 	@Override
 	public List<Enchere> selectAll() throws DALException {
 
@@ -43,24 +42,6 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 			return listEncheres;	
 		}
 
-
-
-	@Override
-	public Enchere selectById(Enchere element) throws DALException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
-	@Override
-	public List<Enchere> selectAll(Enchere element) throws DALException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
 	@Override
 	public void insert(Enchere element) throws DALException {
 		// TODO Auto-generated method stub
@@ -81,6 +62,14 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 	public void delete(int element) throws DALException {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+
+	@Override
+	public Enchere selectById(int id) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

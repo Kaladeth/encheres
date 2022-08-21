@@ -1,7 +1,5 @@
 package fr.eni.encheres.dal;
 import java.sql.Connection;
-import java.sql.SQLException;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -18,7 +16,11 @@ public class ConnectionProvider {
 		e.printStackTrace();
 		}}
 
-		public static Connection getConnection() throws SQLException, RuntimeException {
-			return datasource.getConnection();
+		public static Connection getConnection() throws DALException {
+			try{return datasource.getConnection();
+			}catch(Exception e) {
+				DALException ex = new DALException("Connexion impossible à la base de données", e);
+				throw ex;
+			}
 		}
 }

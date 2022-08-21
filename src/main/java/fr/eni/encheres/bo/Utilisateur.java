@@ -34,6 +34,7 @@ public class Utilisateur {
 		this.rue = rue;
 		this.codePostal = codePostal;
 		this.ville = ville;
+		this.motDePasse=motDePasse;
 		this.credit = credit;
 		this.administrateur = administrateur;
 		this.articlesVendu = new ArrayList<ArticleVendu>();

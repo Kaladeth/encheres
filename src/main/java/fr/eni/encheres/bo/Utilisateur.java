@@ -34,6 +34,7 @@ public class Utilisateur {
 		this.rue = rue;
 		this.codePostal = codePostal;
 		this.ville = ville;
+		this.motDePasse=motDePasse;
 		this.credit = credit;
 		this.administrateur = administrateur;
 		this.articlesVendu = new ArrayList<ArticleVendu>();
@@ -129,9 +130,15 @@ public class Utilisateur {
 	public String getPrenom() {
 		return prenom;
 	}
+	
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
+	
+	public String getPrenomNom() {
+		return prenom + " " + nom;
+	}
+	
 	public String getEmail() {
 		return email;
 	}

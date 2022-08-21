@@ -55,7 +55,21 @@
                 <img class="mb-4 large-icon rounded-circle" src="images/user.svg" alt="">
             </div>
             <!--erreur-->
+<<<<<<< HEAD
           <%@ include file="/WEB-INF/fragmentsJsp/affichageErreurs.jspf"%>          
+=======
+          
+            <div class="d-flex alert-danger">
+                <div class="col-3 p-2">
+                    <img class="small-icon" src="images/error.svg">
+                </div>
+            
+                <ul class="col-9 list-unstyled p-2">
+                    <li>  <%@ include file="/WEB-INF/fragmentsJsp/affichageErreurs.jspf"%></li>
+                   
+                </ul>
+            </div>             
+>>>>>>> branch 'main' of https://github.com/Kaladeth/encheres.git
             <!--formulaire-->
             <form class="form-register needs-validation" action="<%=request.getContextPath()%>/Register" method="post" novalidate>
                 <div class="row">

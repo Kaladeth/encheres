@@ -14,7 +14,7 @@ public class ArticleVenduManager {
 	private ArticleVenduDAO articleVenduDAO;
 	
 	
-// SINGLETON MANAGER
+	// SINGLETON MANAGER
 	private ArticleVenduManager() {
 		articleVenduDAO = DAOFactory.getArticleVenduDao();
 	}
@@ -26,7 +26,7 @@ public class ArticleVenduManager {
 		return mgr;
 	}
 	
-// - - - - - - - - - - METHODES ARTICLEVENDU
+	// - - - - - - - - - - METHODES ARTICLEVENDU
 
 	// * * * * * METHODE SELECTBYIB * * * * * 
 	public ArticleVendu SelectById(String id) throws BLLException {

@@ -66,9 +66,9 @@
             <!--formulaire-->
             <form class="form-login" action="<%=request.getContextPath()%>/Connecter" method="post">
                 <label for="inputIdentifiant" class="sr-only">Identifiant</label>
-                <input type="text" id="inputIdentifiant" class="form-control" name="pseudo" placeholder="Pseudo" required autofocus>
+                <input type="text" id="inputIdentifiant" class="form-control" name="pseudo" placeholder="Pseudo" value="${pseudo}"required autofocus>
                 <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Mot de passe" required>
+                <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Mot de passe" value="${mdp}" required>
                	<div class="checkbox mb-3">
                     <label>
                     <input type="checkbox" name="remember" value="remember"> Se souvenir de moi

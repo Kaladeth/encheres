@@ -40,7 +40,7 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
 		if (request.getParameter("creer") != null) {
 		
 		 String pseudo = request.getParameter("pseudo");
@@ -60,16 +60,19 @@ public class RegisterServlet extends HttpServlet {
 			
 			  try { 
 				  	mgr.ajouterUtilisateur( pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp, confirmationMDP, credit , admin);
-					response.sendRedirect(request.getContextPath()+"/Accueil");
+				  	request.setAttribute("pseudo", pseudo);
+				  	request.setAttribute("mdp", mdp);
+				  	rd = request.getRequestDispatcher("/WEB-INF/login.jsp");
 				  } 
 			  catch (BLLException e) {
-				  e.printStackTrace(); 
+				  request.setAttribute("erreurs",e);
 			  }
 		}
 		else if (request.getParameter("annuler") != null) {	
 		
-			response.sendRedirect(request.getContextPath()+"/Accueil");
+			//response.sendRedirect(request.getContextPath()+"/Accueil");
+			rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
 		}
-
+		rd.forward(request, response);
 	}
 }

@@ -1,6 +1,8 @@
 
 package fr.eni.encheres.bll;
 
+import com.microsoft.sqlserver.jdbc.StringUtils;
+
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.DAOFactory;
@@ -115,6 +117,32 @@ public class UtilisateurManager {
 			bllExceptions.addException(ex);
 			throw bllExceptions;
 		}
+	}
+	
+	public Utilisateur SelectById(String id) throws BLLException {
+		BLLException bllExceptions = new BLLException();
+		Utilisateur utilisateur = null;
+		int idInt = 0;
+		if(!StringUtils.isNumeric(id)) {
+			 Exception ex = new Exception("Erreur dans l'identifiant de l'utilisateur");
+			 bllExceptions.addException(ex);
+			 throw bllExceptions;
+		}
+		else{
+			idInt = Integer.valueOf(id);}
+			
+		try {
+			utilisateur = utilisateurDao.selectById(idInt);
+			if(utilisateur == null) {
+				Exception ex = new Exception("Erreur : Utilisateur introuvable");
+				bllExceptions.addException(ex);
+				throw bllExceptions;
+			}
+		} catch (DALException e) {
+			bllExceptions.addException(e);
+			throw bllExceptions;
+		}
+		return utilisateur;
 	}
 	
 	// * * * * * METHODE DELETE * * * * *

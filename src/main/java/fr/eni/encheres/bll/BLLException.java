@@ -11,7 +11,11 @@ public class BLLException extends Exception {
 	private List<Exception> bllExceptions = new ArrayList<Exception>();
 	
 	public void addException(Exception e) {
-	        bllExceptions.add(e) ;
+	    if (bllExceptions !=null) {  
+	    bllExceptions = new  ArrayList<Exception>();
+	    		}
+	    bllExceptions.add(e) ;
+	    
 	}
 	
 	public boolean isEmpty() {

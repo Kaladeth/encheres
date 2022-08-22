@@ -13,9 +13,11 @@ public class ArticleVendu {
 	private int prixVente;
 	private String etatVente;
 	private int utilisateur;
+	private Utilisateur vendeur;
 	private Enchere enchere;
 	private Categorie categorie;
 	private Retrait retrait;
+	
 
 	// - - - - - - - - - - CONSTRUCTEURS - - - - - - - - - -
 
@@ -130,6 +132,7 @@ public class ArticleVendu {
 	}
 
 	public void setUtilisateur(int utilisateur) {
+		
 		this.utilisateur = utilisateur;
 	}
 
@@ -146,7 +149,11 @@ public class ArticleVendu {
 	}
 
 	public void setCategorie(Categorie categorie) {
-		this.categorie = categorie;
+		if (this.categorie == null) {
+			this.categorie = new Categorie();
+		}	
+			this.categorie = categorie;
+		
 	}
 
 		
@@ -155,7 +162,30 @@ public class ArticleVendu {
 	}
 
 	public void setRetrait(Retrait retrait) {
+		if(this.retrait == null) {
+			this.retrait = new Retrait();
+		}
 		this.retrait = retrait;
+	}
+	
+	
+
+	public Utilisateur getVendeur() {
+		return vendeur;
+	}
+
+	public void setVendeur(Utilisateur vendeur) {
+		if(this.vendeur == null) {
+			this.vendeur = new Utilisateur();
+		}		
+		this.vendeur = vendeur;
+	}
+
+	public void setEnchere(Enchere enchere) 
+		{if(this.enchere == null) {
+			this.enchere = new Enchere();		
+			}
+		this.enchere = enchere;
 	}
 
 	// - - - - - - - - - - METHODE TO STRING - - - - - - - - - -

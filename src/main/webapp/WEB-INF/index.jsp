@@ -178,6 +178,9 @@
 	
 	<form action="<%=request.getContextPath()%>/connecte/afficher/enchere" method="post">
 		<input type="submit" class="nav-link"  name="noArticleVendu" value ="1">
+		<input type="submit" class="nav-link"  name="noArticleVendu" value ="2">
+		<input type="submit" class="nav-link"  name="noArticleVendu" value ="3">
+		<input type="submit" class="nav-link"  name="noArticleVendu" value ="4">
 	</form>
 	<%@ include file="/WEB-INF/fragmentsJsp/footer.jspf"%>
 

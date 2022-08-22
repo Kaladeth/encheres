@@ -82,15 +82,15 @@
 							</div>
 							<div class="row">
 								<label class="col-3 offset-1">Catégorie : </label>
-								<p class="col-8"> ${requestScope.articleVendu.categorie }</p>
+								<p class="col-8"> ${requestScope.articleVendu.categorie.libelle }</p>
 							</div>
 							<div class="row">
 								<label class="col-3 offset-1">Meilleur Offre : </label>
-								<p class="col-8"> ${requestScope.articleVendu.prixVente } par "Enchere.get utilisateur ById	 </p>
+								<p class="col-8"> ${requestScope.enchere.montant_enchere } par ${requestScope.enchere.acheteur.pseudo }	 </p>
 							</div>					
 							<div class="row">
-								<label class="col-3 offset-1">Meilleur Offre : </label>
-								<p class="col-8"> ${requestScope.articleVendu.prixVente }</p>
+								<label class="col-3 offset-1">Mise à prix : </label>
+								<p class="col-8"> ${requestScope.articleVendu.miseAPrix }</p>
 							</div>
 							<div class="row">
 								<label class="col-3 offset-1">Fin de l'enchère : </label>
@@ -98,15 +98,13 @@
 							</div>
 							<div class="row">
 								<label class="col-3 offset-1">Retrait : </label>
-								<p class="col-8 p-1"> créer un get retrait ? adresse vendeur utilisateur.getById</p>
+								<p class="col-8 p-1"> ${requestScope.articleVendu.retrait.rue} 
+								${requestScope.articleVendu.retrait.code_postale}, ${requestScope.articleVendu.retrait.ville}
+													</p>
 							</div>
 							<div class="row">
 								<label class="col-3 offset-1">Vendeur : </label>
-								<p class="col-8"> ${requestScope.articleVendu.dateFinEncheres }.getpeudoById</p>
-							</div>
-								<div class="row">
-								<label class="col-3 offset-1">Vendeur : </label>
-								<p class="col-8"> ${requestScope.articleVendu.dateFinEncheres }.getpeudoById</p>
+								<p class="col-8"> ${requestScope.articleVendu.vendeur.pseudo }</p>
 							</div>
                        </div>	
 					</div>

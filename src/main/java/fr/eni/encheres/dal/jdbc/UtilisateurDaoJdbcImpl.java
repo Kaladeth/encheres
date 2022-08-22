@@ -51,39 +51,44 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 	}
 
 	public void insert(Utilisateur element) throws DALException {
-		try (Connection cnx = ConnectionProvider.getConnection();){
-			
-			PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_PSEUDO_EMAIL, PreparedStatement.RETURN_GENERATED_KEYS);
-			stmt.setString(1, element.getPseudo());
-			stmt.setString(2, element.getEmail());
-			ResultSet rs = stmt.executeQuery();
-			
-			if(!rs.next()) {			
-				stmt = cnx.prepareStatement(INSERT_USER, PreparedStatement.RETURN_GENERATED_KEYS);
-				stmt.setString(1, element.getPseudo() );
-				stmt.setString(2, element.getNom());
-				stmt.setString(3, element.getPrenom() );
-				stmt.setString(4, element.getEmail());
-				stmt.setString(5, element.getTelephone());
-				stmt.setString(6, element.getRue());
-				stmt.setString(7, element.getCodePostal());
-				stmt.setString(8, element.getVille());
-				stmt.setString(9, element.getMotDePasse());
-				stmt.setInt(10, element.getCredit());
-				stmt.setBoolean(11, element.getAdministrateur());
-				stmt.executeUpdate();
-				rs = stmt.getGeneratedKeys();
-				if(rs.next()) {
-					element.setNoUtilisateur(rs.getInt(1));
+		try (Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement stmt = cnx.prepareStatement(INSERT_USER, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement stmtChk = cnx.prepareStatement(SELECT_BY_PSEUDO_EMAIL, PreparedStatement.RETURN_GENERATED_KEYS)){
+			try {
+				cnx.setAutoCommit(false);
+				stmtChk.setString(1, element.getPseudo());
+				stmtChk.setString(2, element.getEmail());
+				ResultSet rs = stmtChk.executeQuery();
+				if(!rs.next()) {			
+					stmt.setString(1, element.getPseudo() );
+					stmt.setString(2, element.getNom());
+					stmt.setString(3, element.getPrenom() );
+					stmt.setString(4, element.getEmail());
+					stmt.setString(5, element.getTelephone());
+					stmt.setString(6, element.getRue());
+					stmt.setString(7, element.getCodePostal());
+					stmt.setString(8, element.getVille());
+					stmt.setString(9, element.getMotDePasse());
+					stmt.setInt(10, element.getCredit());
+					stmt.setBoolean(11, element.getAdministrateur());
+					stmt.executeUpdate();
+					rs = stmt.getGeneratedKeys();
+					if(rs.next()) {
+						element.setNoUtilisateur(rs.getInt(1));
+					}
 				}
+				else
+				{				
+					DALException ex = new DALException("L'identifiant et/ou l'email existent déjà !" );
+					throw (ex);				
+				}
+				
+				cnx.commit();
+			}catch(SQLException e) {
+				cnx.rollback();
+				DALException ex = new DALException("Probleme d'ajout d'utilisateur", e);
+				throw (ex);	
 			}
-			else
-			{
-				DALException ex = new DALException("L'identifiant et/ou l'email existent déjà !" );
-				throw (ex);				
-			}
-			rs.close();
-			stmt.close();
 		}catch (SQLException e) {
 			DALException ex = new DALException("Probleme d'ajout d'utilisateur", e);
 			throw (ex);				

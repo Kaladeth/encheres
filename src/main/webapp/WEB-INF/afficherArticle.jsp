@@ -82,7 +82,7 @@
 							</div>
 							<div class="row">
 								<label class="col-3 offset-1">Catégorie : </label>
-								<p class="col-8"> ${requestScope.articleVendu.categorie }</p>
+								<p class="col-8"> ${requestScope.articleVendu.categorieStr }</p>
 							</div>
 							<div class="row">
 								<label class="col-3 offset-1">Meilleur Offre : </label>

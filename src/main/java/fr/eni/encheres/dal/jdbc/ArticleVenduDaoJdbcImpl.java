@@ -16,6 +16,7 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=?";
 	
 	@Override
+	// METHODE SELECT BY ID
 	public ArticleVendu selectById(int id) throws DALException {
 		ArticleVendu article = null;
 		try(Connection cnx = ConnectionProvider.getConnection();
@@ -47,9 +48,9 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 		return null;
 	}
 
-	@Override
+	// METHODE INSERT
 	public void insert(ArticleVendu element) throws DALException {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

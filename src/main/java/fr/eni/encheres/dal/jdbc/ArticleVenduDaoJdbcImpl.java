@@ -24,14 +24,10 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	
 	String SELECT_BY_NAME_ATRICLE = "SELECT * FROM ARTICLES_VENDUS where nom_article LIKE ? ";
 	
-	String SELECT_BY_ID = "SELECT a.nom_article ,a.description ,c.libelle ,e.montant_enchere ,u2.pseudo as acheteur "
-			+ "	  ,r.rue ,r.code_postal ,r.ville ,prix_initial ,date_fin_enchere ,u.pseudo as vendeur ,image\r\n"
-			+ "  FROM ARTICLES_VENDUS a\r\n"
-			+ "  LEFT JOIN encheres e on e.no_article = a.no_article\r\n"
-			+ "  LEFT JOIN utilisateurs u on u.no_utilisateur = a.no_utilisateur\r\n"
-			+ "  LEFT JOIN utilisateurs u2 on u.no_utilisateur = e.no_utilisateur\r\n"
-			+ "  LEFT JOIN CATEGORIES c on c.no_categorie = a.no_categorie\r\n"
-			+ "  LEFT JOIN RETRAITS r on r.no_article = a.no_article\\r\\n"
+	String SELECT_BY_ID = "SELECT a.no_article, a.nom_article, a.description, c.libelle, e.montant_enchere, ut.no_utilisateur, ut.pseudo, r.rue, r.code_postal, r.ville, a.prix_initial, a.date_debut_enchere, a.date_fin_enchere, ut.no_utilisateur, u.pseudo, a.etat_vente "
+			+ "  FROM ARTICLES_VENDUS a LEFT JOIN encheres e on e.no_article = a.no_article LEFT JOIN utilisateurs u on u.no_utilisateur = a.no_utilisateur "
+			+ "  LEFT JOIN utilisateurs ut on ut.no_utilisateur = e.no_utilisateur  LEFT JOIN CATEGORIES c on c.no_categorie = a.no_categorie "
+			+ "LEFT JOIN RETRAITS r on r.no_article = a.no_article "
 			+ "  WHERE a.no_article=?";
 	String SELECT_CATEGORIE_BY_ID = "SELECT * FROM CATEGORIES WHERE no_categorie=?";
 	String INSERT = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial,"
@@ -41,23 +37,28 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	@Override
 	// METHODE SELECT BY ID
 	public ArticleVendu selectById(int id) throws DALException {
+        System.out.println("coucou");
         ArticleVendu article = null;
+        System.out.println("coucou1");
         Categorie categorie = new Categorie();
+        System.out.println("coucou2");
         Retrait retrait = new Retrait();
+        System.out.println("coucou3");
         Utilisateur acheteur  = new Utilisateur();
+        System.out.println("coucou4");
         Utilisateur vendeur  = new Utilisateur();
+        System.out.println("coucou5");
         Enchere enchere = new Enchere();
+        System.out.println("coucou6");
         try(Connection cnx = ConnectionProvider.getConnection();
             PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_ID)) {
-            stmt.setInt(1, id);     
+        	System.out.println("coucou7");
+            stmt.setInt(1, id);   
+            System.out.println("coucou8");
             ResultSet rs =stmt.executeQuery();
+            System.out.println("coucou9");
             while(rs.next()) {
                 article = new ArticleVendu();
-                categorie = new Categorie();
-                retrait = new Retrait();
-                acheteur = new Utilisateur();
-                vendeur = new Utilisateur();
-                enchere = new Enchere();
                 article.setNoArticle(rs.getInt(1));
                 System.out.println("1 - " +rs.getInt(1));
                 article.setNomArticle(rs.getString(2));
@@ -91,7 +92,8 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
                 System.out.println("14 - "+rs.getString(15));
                 article.setEtatVente(rs.getString(16));
                 System.out.println("15 - " +rs.getString(16));
-            }       
+            }
+            System.out.println("coucou10");
             article.setCategorie(categorie);
             System.out.println("categorie - " + categorie);
             enchere.setAcheteur(acheteur);

@@ -34,17 +34,22 @@ public class ArticleVenduManager {
 
 	// * * * * * METHODE SELECTBYIB * * * * * 
 	public ArticleVendu SelectById(String id) throws BLLException {
-		BLLException bllExceptions = new BLLException();
-		ArticleVendu article = null;
+		System.out.println(-1);BLLException bllExceptions = new BLLException();
+		System.out.println(0);ArticleVendu article = null;
 		int idInt = 0;
+		System.out.println(1);
 		if(!StringUtils.isNumeric(id)) {
+			 System.out.println(2);
 			 Exception ex = new Exception("Erreur dans l'identifiant de l'article");
 			 bllExceptions.addException(ex);
 			 throw bllExceptions;
+			 
 		}
 		
 		else{
-			idInt = Integer.valueOf(id);}
+			System.out.println(22);
+			idInt = Integer.valueOf(id);
+			}
 		try {
 			article = articleVenduDAO.selectById(idInt);
 			if(article == null) {

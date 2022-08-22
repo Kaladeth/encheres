@@ -14,7 +14,8 @@ import fr.eni.encheres.dal.DALException;
 
 public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=?";
-	
+	String SELECT_BY_FILTER = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article=? OR no_categorie=?";
+
 	@Override
 	public ArticleVendu selectById(int id) throws DALException {
 		ArticleVendu article = null;

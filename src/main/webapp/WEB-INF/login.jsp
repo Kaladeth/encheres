@@ -76,7 +76,7 @@
                 </div>
                 
                 <button class="btn btn-lg btn-primary btn-block" type="submit" title="Me connecter">
-                	<img class="small-icon" src="images/connect.svg" alt="Me connecter">
+                	<img class="small-icon" src="imgs/connect.svg" alt="Me connecter">
                 </button>
                 <a href="#">Mot de passe oublié</a>
                 <p style="color:red">${message} </p>

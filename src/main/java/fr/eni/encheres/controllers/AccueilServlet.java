@@ -45,7 +45,7 @@ public class AccueilServlet extends HttpServlet {
 		request.setAttribute("utilisateurMgr", utilisateurMgr);
 
 		try {
-			List<Enchere> listeEncheres = enchereMgr.listesEnchers();
+			List<Enchere> listeEncheres = enchereMgr.selectAllEncheres();
 			request.setAttribute("listeEncheres", listeEncheres);
 		} catch (BLLException e) {
 			
@@ -55,13 +55,14 @@ public class AccueilServlet extends HttpServlet {
         rd.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/login.jsp");
-        rd.forward(request, response);
+		
+		     
+		}
+		
+		
 	}
 
-}
+

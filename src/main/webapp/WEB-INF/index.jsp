@@ -64,13 +64,13 @@
             <%@ include file="/WEB-INF/fragmentsJsp/affichageErreurs.jspf"%>
 			
 			<!--filtre-->
-			<form class="form-filter border mb-3" action="#" method="">
+			<form class="form-filter border mb-3" action="<%=request.getContextPath()%>/Accueil" method="post">
 				<div class="row">
 					<!--Partie gauche-->
 					<div class="col-md-6 mb-3">
 						<div class="form-group">
 							<label for="filter-input">Filtre</label> <input type="text"
-								class="form-control" id="filter-input" name="q"
+								class="form-control" id="filter-input" name="nomArticle"
 								placeholder="articles contenant...">
 						</div>
 						<div class="form-group">
@@ -85,7 +85,7 @@
 						</div>
 					</div>
 					<!--Partie droite-->
-					<div class="col-md-6 mb-3">
+					<!--<div class="col-md-6 mb-3">
 						<div class="form-check">
 							<label class="form-check-label"> <input type="radio"
 								class="form-check-input" checked name="type-encheres"
@@ -140,8 +140,8 @@
 						</div>
 
 					</div>
-				</div>
-				<button class="btn btn-primary btn-lg btn-block" type="submit">
+				</div>-->
+				<button class="btn btn-primary btn-lg btn-block" type="submit" name="filtrer">
 					<img class="small-icon" src="imgs/search.svg" alt="Filtrer">
 				</button>
 			</form>
@@ -159,8 +159,8 @@
                                 <img class="img-fluid img-thumbnail" src="images/photo.svg" alt="pas de photo" />
                             </div>
                             <ul class="col-9 list-unstyled p-2">
-                                <li>Prix : ${enchere.getMontant_enchere()} point(s)</li>
-                                <li>Meilleure enchère : 0 point(s)</li>
+                                <li>Prix : ${articleMgr.SelectById(enchere.getNoArticle()).getMiseAPrix()} point(s)</li>
+                                <li>Meilleure enchère : ${enchere.getMontant_enchere()} point(s)</li>
                                 <li>Fin de l'enchère : ${enchere.getDateEnchere()} </li>
                                 <li>Vendeur : ${utilisateurMgr.SelectById(enchere.getNoUtilisateur()).getPrenomNom()}</li>
                             </ul>
@@ -169,8 +169,8 @@
                             <img class="small-icon" src="imgs/bid.svg">
                         </a>
                     </div>
-                    </c:forEach>
                 </div>
+                                    </c:forEach>
 		</main>
 
 

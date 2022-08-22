@@ -85,8 +85,8 @@
 								<p class="col-8"> ${requestScope.articleVendu.categorie.libelle }</p>
 							</div>
 							<div class="row">
-								<label class="col-3 offset-1">Meilleur Offre : </label>
-								<p class="col-8"> ${requestScope.enchere.montant_enchere } par ${requestScope.enchere.acheteur.pseudo }	 </p>
+								<label class="col-3 offset-1">Meilleure Offre : </label>
+								<p class="col-8"> ${requestScope.articleVendu.enchere.montant_enchere } par ${requestScope.articleVendu.enchere.acheteur.pseudo }	 </p>
 							</div>					
 							<div class="row">
 								<label class="col-3 offset-1">Mise à prix : </label>

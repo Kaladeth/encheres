@@ -44,8 +44,8 @@ public class AccueilServlet extends HttpServlet {
 		
 		  EnchereManager enchereMgr = EnchereManager.getInstance(); ArticleVenduManager
 		  articleMgr = ArticleVenduManager.getInstance();
-		  request.setAttribute("articleMgr", articleMgr); UtilisateurManager
-		 utilisateurMgr = UtilisateurManager.getInstance();
+		  request.setAttribute("articleMgr", articleMgr);
+		  UtilisateurManager utilisateurMgr = UtilisateurManager.getInstance();
 		  request.setAttribute("utilisateurMgr", utilisateurMgr);
 		 
 		CategorieManager categorieMgr = CategorieManager.getInstance();
@@ -99,7 +99,7 @@ public class AccueilServlet extends HttpServlet {
 		    
 			/*
 			 * EnchereManager enchereMgr = EnchereManager.getInstance(); try { Enchere
-			 * encheresFiltrés = enchereMgr.filtrerListeEncheres(listeIdArticle,
+			 * encheresFiltrï¿½s = enchereMgr.filtrerListeEncheres(listeIdArticle,
 			 * listeIdCategorie); } catch (BLLException e) { // TODO Auto-generated catch
 			 * block e.printStackTrace(); }
 			 */

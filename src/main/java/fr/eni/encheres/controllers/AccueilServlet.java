@@ -45,23 +45,21 @@ public class AccueilServlet extends HttpServlet {
 		request.setAttribute("utilisateurMgr", utilisateurMgr);
 
 		try {
-			List<Enchere> listeEncheres = enchereMgr.listesEnchers();
+			List<Enchere> listeEncheres = enchereMgr.selectAllEncheres();
 			request.setAttribute("listeEncheres", listeEncheres);
 		} catch (BLLException e) {
-			
 			e.printStackTrace();
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
         rd.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-//		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/login.jsp");
-//        rd.forward(request, response);
-	}
 
+		doGet(request, response);
+
+	}
 }
+
+

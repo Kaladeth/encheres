@@ -17,6 +17,13 @@ public class Categorie {
 		this.libelle = libelle;
 		this.listesArticles = listesArticles;
 	}
+	//construteur sans liste 
+	public Categorie(int noCategorie, String libelle) {
+		super();
+		this.noCategorie = noCategorie;
+		this.libelle = libelle;
+		
+	}
 	// construteur sans ID
 	public Categorie(String libelle, List<ArticleVendu> listesArticles) {
 		super();

@@ -15,6 +15,7 @@ public class ArticleVendu {
 	private int utilisateur;
 	private int enchere;
 	private int categorie;
+	private String categorieStr;
 	private int retrait;
 
 	// - - - - - - - - - - CONSTRUCTEURS - - - - - - - - - -
@@ -148,7 +149,18 @@ public class ArticleVendu {
 	public void setCategorie(int categorie) {
 		this.categorie = categorie;
 	}
+<<<<<<< HEAD
 
+=======
+	public String getCategorieStr() {
+		return categorieStr;
+	}
+
+	public void setCategorieStr(String categorie) {
+		this.categorieStr = categorie;
+	}
+	
+>>>>>>> branch 'main' of https://github.com/Kaladeth/encheres.git
 	public int getRetrait() {
 		return retrait;
 	}

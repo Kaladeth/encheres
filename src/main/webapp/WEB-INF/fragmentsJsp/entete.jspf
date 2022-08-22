@@ -9,7 +9,7 @@
 		<h1 id="titleEtt">ENI Enchères</h1>
 		<div id="deuxBlockEtt">
 			<a class="nav-link" href="#" alt="Administrer le site">Administrer</a>
-			<a class="nav-link" href="#" alt="Vendre un article">Vendre un
+			<a class="nav-link" href="<%=request.getContextPath()+"/vendre/article"%>" alt="Vendre un article">Vendre un
 				article</a>
 			<c:if test="${not empty sessionScope.utilisateur.nom}">
 				<a class="nav-link" href="<%=request.getContextPath()+"/Deconnecter"%>"" alt="Me déconnecter">Me déconnecter</a>

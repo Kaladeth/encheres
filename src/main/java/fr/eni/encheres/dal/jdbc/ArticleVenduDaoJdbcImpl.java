@@ -15,6 +15,9 @@ import fr.eni.encheres.dal.DALException;
 public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=?";
 	String SELECT_CATEGORIE_BY_ID = "SELECT * FROM CATEGORIES WHERE no_categorie=?";
+	String INSERT = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial,"
+			+ " prix_vente, no_utilisateur, no_categorie, etat_vente)"
+			+ "values (?,?,?,?,?,?,?,?,?)";
 	
 	@Override
 	// METHODE SELECT BY ID

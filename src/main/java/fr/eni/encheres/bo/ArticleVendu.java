@@ -13,39 +13,40 @@ public class ArticleVendu {
 	private int prixVente;
 	private String etatVente;
 	private int utilisateur;
-	private List<Enchere> encheres;
+	private int enchere;
 	private int categorie;
+	private String categorieStr;
 	private int retrait;
-	
-	// - - - - - - - - - - CONSTRUCTEURS - - - - - - - - - - 
-	
+
+	// - - - - - - - - - - CONSTRUCTEURS - - - - - - - - - -
+
 	// CONSTRUCTEUR VIDE
 	public ArticleVendu() {
-		
+
 	}
-	
+
 	// CONSTRUCTEUR TOTAL
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
-			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, String etatVente, int utilisateur, 
-			List<Enchere> encheres, int categorie, int retrait) {
+			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, String etatVente, int utilisateur, int enchere,
+			int categorie, int retrait) {
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAPrix = miseAPrix;
-		this.prixVente = prixVente;
+		this.prixVente = miseAPrix;
 		this.etatVente = etatVente;
 		this.utilisateur = utilisateur;
-		this.encheres = encheres;
+		this.enchere = enchere;
 		this.categorie = categorie;
 		this.retrait = retrait;
 	}
-	
+
 	// CONSTRUCTEUR DANS LE NO ARTICLE
 	public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEncheres,
-			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, String etatVente, int utilisateur, 
-			List<Enchere> encheres, int categorie, int retrait) {
+			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, String etatVente, int utilisateur, int enchere,
+			int categorie, int retrait) {
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
@@ -54,15 +55,13 @@ public class ArticleVendu {
 		this.prixVente = prixVente;
 		this.etatVente = etatVente;
 		this.utilisateur = utilisateur;
-		this.encheres = encheres;
+		this.enchere = enchere;
 		this.categorie = categorie;
 		this.retrait = retrait;
 	}
 
-	
-	
 	// - - - - - - - - - - GETTERS & SETTERS - - - - - - - - - -
-	
+
 	public int getNoArticle() {
 		return noArticle;
 	}
@@ -135,12 +134,12 @@ public class ArticleVendu {
 		this.utilisateur = utilisateur;
 	}
 
-	public List<Enchere> getEncheres() {
-		return encheres;
+	public int getEnchere() {
+		return enchere;
 	}
 
-	public void setEncheres(List<Enchere> encheres) {
-		this.encheres = encheres;
+	public void setEncheres(int enchere) {
+		this.enchere = enchere;
 	}
 
 	public int getCategorie() {
@@ -149,6 +148,14 @@ public class ArticleVendu {
 
 	public void setCategorie(int categorie) {
 		this.categorie = categorie;
+	}
+
+	public String getCategorieStr() {
+		return categorieStr;
+	}
+
+	public void setCategorieStr(String categorie) {
+		this.categorieStr = categorie;
 	}
 	
 	public int getRetrait() {
@@ -159,24 +166,12 @@ public class ArticleVendu {
 		this.retrait = retrait;
 	}
 
-	// - - - - - - - - - - METHODE TO STRING - - - - - - - - - - 
+	// - - - - - - - - - - METHODE TO STRING - - - - - - - - - -
 	@Override
 	public String toString() {
 		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
 				+ ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", miseAPrix="
 				+ miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", utilisateur=" + utilisateur
-				+ ", encheres=" + encheres + ", categorie=" + categorie + "]" + ", retrait=" + retrait;
+				+ ", encheres=" + enchere + ", categorie=" + categorie + "]" + ", retrait=" + retrait;
 	}
-	
-	// - - - - - - - - - - ADDER & REMOVER POUR LA LISTE - - - - - - - - - - 
-	public void addEnchere(Enchere enchere) {
-		encheres.add(enchere);
-	}
-	public void removeEnchere(Enchere enchere) {
-		encheres.remove(enchere);
-	}
-	
 }
-
-
-

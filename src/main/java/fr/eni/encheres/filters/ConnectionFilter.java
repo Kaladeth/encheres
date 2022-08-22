@@ -60,7 +60,7 @@ public class ConnectionFilter extends HttpFilter implements Filter {
 				if (feu == null) {
 					//intercepter la requete en cours et établir une redirection
 					httpRequest.setAttribute("messageErreur", "Vous devez être connecté pour accéder à cette partie du site !");
-					httpRequest.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+					httpRequest.getRequestDispatcher("/Accueil").forward(request, response);
 
 				} else {
 					// pass the request along the filter chain

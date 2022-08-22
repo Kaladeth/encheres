@@ -14,13 +14,17 @@ import fr.eni.encheres.dal.DALException;
 
 public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=?";
-	String SELECT_BY_FILTER = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article=? OR no_categorie=?";
+//	String SELECT_BY_FILTER = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article=? OR no_categorie=?";
+	String SELECT_CATEGORIE_BY_ID = "SELECT * FROM CATEGORIES WHERE no_categorie=?";
+	
 
 	@Override
+	// METHODE SELECT BY ID
 	public ArticleVendu selectById(int id) throws DALException {
 		ArticleVendu article = null;
 		try(Connection cnx = ConnectionProvider.getConnection();
-			PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_ID)){
+			PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_ID);
+			PreparedStatement stmtCat = cnx.prepareStatement(SELECT_CATEGORIE_BY_ID)) {
 			stmt.setInt(1, id);			
 			ResultSet rs =stmt.executeQuery();
 			while(rs.next()) {
@@ -33,8 +37,13 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 				article.setMiseAPrix(rs.getInt("prix_initial"));
 				article.setPrixVente(rs.getInt("prix_vente"));
 				article.setUtilisateur(rs.getInt("no_utilisateur"));
-				article.setCategorie(rs.getInt("no_categorie"));
 				article.setEtatVente(rs.getString("etat_vente"));
+				article.setCategorie(rs.getInt("no_categorie"));
+			}		
+			stmtCat.setInt(1, article.getCategorie());
+			ResultSet rsCat = stmtCat.executeQuery();
+			while(rsCat.next()) {
+				article.setCategorieStr(rsCat.getString("libelle"));
 				}
             }catch (SQLException e) {
             	DALException ex = new DALException("problème d'accès à cet article", e);
@@ -48,9 +57,9 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 		return null;
 	}
 
-	@Override
+	// METHODE INSERT
 	public void insert(ArticleVendu element) throws DALException {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

@@ -149,9 +149,7 @@ public class ArticleVendu {
 	public void setCategorie(int categorie) {
 		this.categorie = categorie;
 	}
-<<<<<<< HEAD
 
-=======
 	public String getCategorieStr() {
 		return categorieStr;
 	}
@@ -160,7 +158,6 @@ public class ArticleVendu {
 		this.categorieStr = categorie;
 	}
 	
->>>>>>> branch 'main' of https://github.com/Kaladeth/encheres.git
 	public int getRetrait() {
 		return retrait;
 	}

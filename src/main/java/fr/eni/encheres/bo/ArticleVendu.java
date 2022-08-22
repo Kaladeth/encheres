@@ -13,10 +13,9 @@ public class ArticleVendu {
 	private int prixVente;
 	private String etatVente;
 	private int utilisateur;
-	private int enchere;
-	private int categorie;
-	private String categorieStr;
-	private int retrait;
+	private Enchere enchere;
+	private Categorie categorie;
+	private Retrait retrait;
 
 	// - - - - - - - - - - CONSTRUCTEURS - - - - - - - - - -
 
@@ -27,8 +26,8 @@ public class ArticleVendu {
 
 	// CONSTRUCTEUR TOTAL
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
-			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, String etatVente, int utilisateur, int enchere,
-			int categorie, int retrait) {
+			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, String etatVente, int utilisateur, Enchere enchere,
+			Categorie categorie, Retrait retrait) {
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -45,8 +44,8 @@ public class ArticleVendu {
 
 	// CONSTRUCTEUR DANS LE NO ARTICLE
 	public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEncheres,
-			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, String etatVente, int utilisateur, int enchere,
-			int categorie, int retrait) {
+			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, String etatVente, int utilisateur, Enchere enchere,
+			Categorie categorie, Retrait retrait) {
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
@@ -134,35 +133,28 @@ public class ArticleVendu {
 		this.utilisateur = utilisateur;
 	}
 
-	public int getEnchere() {
+	public Enchere getEnchere() {
 		return enchere;
 	}
 
-	public void setEncheres(int enchere) {
+	public void setEncheres(Enchere enchere) {
 		this.enchere = enchere;
 	}
 
-	public int getCategorie() {
+	public Categorie getCategorie() {
 		return categorie;
 	}
 
-	public void setCategorie(int categorie) {
+	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
 	}
 
-	public String getCategorieStr() {
-		return categorieStr;
-	}
-
-	public void setCategorieStr(String categorie) {
-		this.categorieStr = categorie;
-	}
-	
-	public int getRetrait() {
+		
+	public Retrait getRetrait() {
 		return retrait;
 	}
 
-	public void setRetrait(int retrait) {
+	public void setRetrait(Retrait retrait) {
 		this.retrait = retrait;
 	}
 

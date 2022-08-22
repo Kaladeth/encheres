@@ -1,8 +1,12 @@
 package fr.eni.encheres.bll;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.microsoft.sqlserver.jdbc.StringUtils;
 
 import fr.eni.encheres.bo.ArticleVendu;
+import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.dal.ArticleVenduDAO;
 import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.DALException;
@@ -54,4 +58,22 @@ public class ArticleVenduManager {
 		}
 		return article;
 	}
+
+	
+	public  List<ArticleVendu> SelectByNameArticle(String nomArticle) throws BLLException {
+		BLLException bllExceptions = new BLLException();
+		List<ArticleVendu> listeArticleVendu = new ArrayList<ArticleVendu>();
+
+		try {
+			
+			listeArticleVendu = articleVenduDAO.selectByNamArticle(nomArticle);
+		} catch (DALException e) {
+			Exception ex = new Exception(e.getMessage());
+			throw bllExceptions;
+		}
+		return listeArticleVendu;
+	}
+	
+
+	
 }

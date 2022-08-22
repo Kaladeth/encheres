@@ -71,16 +71,15 @@
 						<div class="form-group">
 							<label for="filter-input">Filtre</label> <input type="text"
 								class="form-control" id="filter-input" name="nomArticle"
-								placeholder="articles contenant...">
+								placeholder="articles contenant..." value="">
 						</div>
 						<div class="form-group">
 							<label for="categories-select">Catégories</label> <select
 								class="form-control" id="categories-select" name="categorie">
 								<option selected>Toutes</option>
-								<option name="categorie" value="">Informatique</option>
-								<option name="categorie" value="">Ameublement</option>
-								<option name="categorie" value="">Vêtement</option>
-								<option name="categorie" value="">Sport & Loisirs</option>
+								<c:forEach items="${listesCategories}" var="categorie">
+								<option name="categorie" value="${categorie.getLibelle()}">${categorie.getLibelle()}</option>
+								</c:forEach>
 							</select>
 						</div>
 					</div>
@@ -147,6 +146,7 @@
 			</form>
 
 			<!--enchères-->
+			
 			<div class="row justify-content-center border-top card-deck">
 						<c:forEach var="enchere" items="${listeEncheres}">
 				<div class="col-12 col-sm-6 p-2" >
@@ -175,6 +175,7 @@
 
 
 	</div>
+	
 	<form action="<%=request.getContextPath()%>/connecte/afficher/enchere" method="post">
 		<input type="submit" class="nav-link"  name="noArticleVendu" value ="1">
 		<input type="submit" class="nav-link"  name="noArticleVendu" value ="2">

@@ -61,7 +61,7 @@ public class UtilisateurManager {
 	
 	// * * * * * METHODE INSERT * * * * *
 	public void ajouterUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String cp, String ville, String mdp, int credit, boolean admin) throws BLLException {
+			String cp, String ville, String mdp,String cmdp, int credit, boolean admin) throws BLLException {
 		BLLException bllExceptions = new BLLException();
 		
 		// VERIFICATION DES REGLES METIER
@@ -71,6 +71,10 @@ public class UtilisateurManager {
 		}
 		if(pseudo.indexOf('@') != -1) {
 			Exception e = new Exception("L'identifiant ne peut pas contenir d'arobase !");
+			bllExceptions.addException(e);
+		}
+		if(pseudo.matches("[a-zA-Z0-9]")) {
+			Exception e = new Exception("L'identifiant n’accepte que des caractères alphanumériques !");
 			bllExceptions.addException(e);
 		}
 		if(nom == null) {
@@ -105,10 +109,12 @@ public class UtilisateurManager {
 			Exception e = new Exception("Le mot de passe est obligatoire !");
 			bllExceptions.addException(e);
 		}
+		if(mdp == cmdp) {
+			Exception e = new Exception("Les mots de passe sont différents !");
+			bllExceptions.addException(e);
+		}
 		
 		// CREATION DE L'UTILISATEUR A ENVOYER EN BASE DE DONNEES
-		credit = 0;
-		admin = false;
 		Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp, credit, admin);
 		try {
 			utilisateurDao.insert(utilisateur);

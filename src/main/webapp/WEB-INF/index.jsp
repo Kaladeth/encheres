@@ -71,7 +71,7 @@
 						<div class="form-group">
 							<label for="filter-input">Filtre</label> <input type="text"
 								class="form-control" id="filter-input" name="nomArticle"
-								placeholder="articles contenant...">
+								placeholder="articles contenant..." value="">
 						</div>
 						<div class="form-group">
 							<label for="categories-select">Catégories</label> <select

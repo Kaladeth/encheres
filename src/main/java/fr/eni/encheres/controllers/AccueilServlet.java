@@ -57,9 +57,24 @@ public class AccueilServlet extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		 if (request.getParameter("filtrer") != null) {
+				
+				String nomArticle = request.getParameter("nomArticle");
+			    String categorie = request.getParameter("categorie");
+		 try {
+		     	ArticleVenduManager mgr = ArticleVenduManager.getInstance();
+		    	ArticleVendu articleVendu = mgr.SelectById(categorie);
+		        request.setAttribute("articleVendu",articleVendu);
+		        
+		 }catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		doGet(request, response);
 
 	}
 
 
+}
+}

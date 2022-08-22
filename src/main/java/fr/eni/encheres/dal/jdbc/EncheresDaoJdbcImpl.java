@@ -2,6 +2,7 @@ package fr.eni.encheres.dal.jdbc;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,6 +10,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.encheres.bo.ArticleVendu;
+import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.dal.ConnectionProvider;
 import fr.eni.encheres.dal.DALException;
@@ -16,7 +19,8 @@ import fr.eni.encheres.dal.EnchereDAO;
 
 public class EncheresDaoJdbcImpl implements EnchereDAO {
 	private static final String SELECT_ALL ="select * from encheres";
-	
+	private static final String SELECT_BY_ARTICLE ="select * from encheres where no_article = ?";
+
 
 	@Override
 	public List<Enchere> selectAll() throws DALException {
@@ -42,6 +46,26 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 			}
 			return listEncheres;	
 		}
+
+	@Override
+	public Enchere selectByArticle(int id) throws DALException {
+		Enchere enchere = null;
+		try(Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_ARTICLE)){
+			stmt.setInt(1, id);			
+			ResultSet rs =stmt.executeQuery();
+			while(rs.next()) {
+				int noUtilisateur = rs.getInt("no_utilisateur");
+				int noArticle = rs.getInt("no_article");
+				LocalDateTime dateEnchere = LocalDateTime.of((rs.getDate("date_enchere").toLocalDate()), rs.getTime("date_enchere").toLocalTime());
+				int montant_enchere = rs.getInt("montant_enchere");
+				enchere = new Enchere(noUtilisateur , noArticle, dateEnchere, montant_enchere);
+				}
+            }catch (SQLException e) {
+            	DALException ex = new DALException("problème d'accès à cet article", e);
+            	throw ex;}
+		return enchere;
+	}
 
 	@Override
 	public void insert(Enchere element) throws DALException {

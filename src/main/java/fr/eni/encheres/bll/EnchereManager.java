@@ -3,6 +3,7 @@ package fr.eni.encheres.bll;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.DAOFactory;
@@ -26,14 +27,15 @@ public class EnchereManager {
 	}
 
 	// - - - - - - - - - - METHODES ENCHERE - - - - - - - - - - 
-		// * * * * * METHODE listesEncheres * * * * * 
-	public List<Enchere> listesEnchers() throws BLLException {
+	
+	// * * * * * METHODE selectAllEncheres * * * * * 
+	public List<Enchere> selectAllEncheres() throws BLLException {
 			BLLException bllExceptions = new BLLException();
 			List<Enchere> listesEncheres = new ArrayList<Enchere>();
 
 		try {
 			
-			listesEncheres =enchereDao.selectAll();
+			listesEncheres = enchereDao.selectAll();
 		} catch (DALException e) {
 			Exception ex = new Exception(e.getMessage());
 			throw bllExceptions;
@@ -41,6 +43,22 @@ public class EnchereManager {
 		return listesEncheres;
 		
 	}
+
+	// * * * * * METHODE filtrerListeEncheres * * * * * 
+		public Enchere filtrerListeEncheres(int idArticle) throws BLLException {
+				BLLException bllExceptions = new BLLException();
+				Enchere enchere = new Enchere();
+
+			try {
+				enchere = enchereDao.selectByArticle(idArticle);
+			} catch (DALException e) {
+				Exception ex = new Exception(e.getMessage());
+				throw bllExceptions;
+			}
+			//CHAQUE ARTICLE A UNE SEULE ENCHERE EN COURS
+			return enchere;
+			
+		}
 
 	
 

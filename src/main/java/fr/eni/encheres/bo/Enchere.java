@@ -9,6 +9,7 @@ public class Enchere {
 	private int noArticle;
 	private LocalDateTime dateEnchere;
 	private int montant_enchere;
+	private Utilisateur acheteur = new Utilisateur();
 	/**
 	 * @param noUtilisateur
 	 * @param noArticle
@@ -21,6 +22,7 @@ public class Enchere {
 		this.noArticle = noArticle;
 		this.dateEnchere = dateEnchere;
 		this.montant_enchere = montant_enchere;
+		
 	}
 	/**
 	 * 
@@ -52,9 +54,15 @@ public class Enchere {
 	public void setMontant_enchere(int montant_enchere) {
 		this.montant_enchere = montant_enchere;
 	}
+	public Utilisateur getAcheteur() {
+		return acheteur;
+	}
+	public void setAcheteur(Utilisateur acheteur) {
+		this.acheteur = acheteur;
+	}
 	@Override
 	public String toString() {
-		return "Enchere [noUtilisateur=" + noUtilisateur + ", noArticle=" + noArticle + ", dateEnchere=" + dateEnchere
+		return "Enchere [ acheteur=" + acheteur+ "noUtilisateur=" + noUtilisateur + ", noArticle=" + noArticle + ", dateEnchere=" + dateEnchere
 				+ ", montant_enchere=" + montant_enchere + "]";
 	}
 	

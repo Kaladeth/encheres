@@ -7,8 +7,7 @@ public class Retrait {
 	
 	// construteur vide
 	public Retrait() {
-		super();
-	}
+		}
 	// construteur complet
 	public Retrait(String rue, String code_postale, String ville) {
 		super();

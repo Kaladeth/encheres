@@ -24,6 +24,9 @@ public class Categorie {
 		this.listesArticles = listesArticles;
 	}
 	
+	public Categorie() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getNoCategorie() {
 		return noCategorie;
 	}

@@ -41,21 +41,22 @@ public class AccueilServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		/*
-		 * EnchereManager enchereMgr = EnchereManager.getInstance(); ArticleVenduManager
-		 * articleMgr = ArticleVenduManager.getInstance();
-		 * request.setAttribute("articleMgr", articleMgr); UtilisateurManager
-		 * utilisateurMgr = UtilisateurManager.getInstance();
-		 * request.setAttribute("utilisateurMgr", utilisateurMgr);
-		 */
+		
+		  EnchereManager enchereMgr = EnchereManager.getInstance(); ArticleVenduManager
+		  articleMgr = ArticleVenduManager.getInstance();
+		  request.setAttribute("articleMgr", articleMgr); UtilisateurManager
+		 utilisateurMgr = UtilisateurManager.getInstance();
+		  request.setAttribute("utilisateurMgr", utilisateurMgr);
+		 
 		CategorieManager categorieMgr = CategorieManager.getInstance();
 		 
 
-		/*
-		 * try { List<Enchere> listeEncheres = enchereMgr.selectAllEncheres();
-		 * request.setAttribute("listeEncheres", listeEncheres); } catch (BLLException
-		 * e) { e.printStackTrace(); }
-		 */
+		
+		  try { List<Enchere> listeEncheres = enchereMgr.selectAllEncheres();
+		  request.setAttribute("listeEncheres", listeEncheres); 
+		  } catch (BLLException e) {
+			  e.printStackTrace(); }
+		 
 		try {
 			List<Categorie> listesCategories = categorieMgr.selectAllCategorie();
 			request.setAttribute("listesCategories", listesCategories);
@@ -74,15 +75,34 @@ public class AccueilServlet extends HttpServlet {
 				
 				String nomArticle = request.getParameter("nomArticle");
 			    String categorie = request.getParameter("categorie");
-		 try {
-		     	ArticleVenduManager mgr = ArticleVenduManager.getInstance();
-		    	ArticleVendu articleVendu = mgr.SelectById(categorie);
-		        request.setAttribute("articleVendu",articleVendu);
-		        
-		 }catch (Exception e) {
-			// TODO: handle exception
-		}
-		
+				/*
+				 * try { ArticleVenduManager mgr = ArticleVenduManager.getInstance();
+				 * ArticleVendu articleVendu = mgr.SelectById(categorie);
+				 * request.setAttribute("articleVendu",articleVendu);
+				 * 
+				 * }catch (Exception e) { }
+				 */
+		    
+		    try {
+		    	CategorieManager categorieMgr =  CategorieManager.getInstance();
+				List<Categorie> listeCategorie =categorieMgr.selectAllCategorie();
+				request.setAttribute("listecategorie",listeCategorie);
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		   
+		    //List <Integer> listeIdCategorie = categorieMgr.selectByLibelle(categorie);
+		    
+		    //ArticleVenduManager articleMgr = ArticleVenduManager.getInstance();
+	     	//List <Integer> listeIdArticle = articleMgr.selectByName(nomArticle);
+		    
+			/*
+			 * EnchereManager enchereMgr = EnchereManager.getInstance(); try { Enchere
+			 * encheresFiltrés = enchereMgr.filtrerListeEncheres(listeIdArticle,
+			 * listeIdCategorie); } catch (BLLException e) { // TODO Auto-generated catch
+			 * block e.printStackTrace(); }
+			 */
 		doGet(request, response);
 
 	}

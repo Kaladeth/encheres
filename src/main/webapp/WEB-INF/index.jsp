@@ -146,7 +146,7 @@
 			</form>
 
 			<!--enchères-->
-			<!--  
+			
 			<div class="row justify-content-center border-top card-deck">
 						<c:forEach var="enchere" items="${listeEncheres}">
 				<div class="col-12 col-sm-6 p-2" >
@@ -175,7 +175,7 @@
 
 
 	</div>
-	-->
+	
 	<form action="<%=request.getContextPath()%>/connecte/afficher/enchere" method="post">
 		<input type="submit" class="nav-link"  name="noArticleVendu" value ="1">
 	</form>

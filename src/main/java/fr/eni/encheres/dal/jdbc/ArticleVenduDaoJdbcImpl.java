@@ -16,9 +16,9 @@ import fr.eni.encheres.dal.DALException;
 
 public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	
-	String SELECT_BY_NAME_ATRICLE = "SELECT * FROM ARTICLES_VENDUS where nom_article LIKE '%article%' ";
+	String SELECT_BY_NAME_ATRICLE = "SELECT * FROM ARTICLES_VENDUS where nom_article LIKE ? ";
 	
-	String SELECT_BY_ID = "SELECT a.nom_article ,a.description ,c.libelle ,e.montant_enchere ,u2.pseudo as acheteur\r\n"
+	String SELECT_BY_ID = "SELECT a.nom_article ,a.description ,c.libelle ,e.montant_enchere ,u2.pseudo as acheteur "
 			+ "	  ,r.rue ,r.code_postal ,r.ville ,prix_initial ,date_fin_enchere ,u.pseudo as vendeur ,image\r\n"
 			+ "  FROM ARTICLES_VENDUS a\r\n"
 			+ "  LEFT JOIN encheres e on e.no_article = a.no_article\r\n"
@@ -65,8 +65,8 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 		ArticleVendu article = null;
 		try(Connection cnx = ConnectionProvider.getConnection();
 			PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_NAME_ATRICLE)) {
-			System.out.println("hello");
-			stmt.setString(1, nomArticle);			
+			
+			stmt.setString(1, "%" + nomArticle + "%");			
 			ResultSet rs =stmt.executeQuery();
 			while(rs.next()) {
 				

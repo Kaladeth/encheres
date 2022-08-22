@@ -15,6 +15,7 @@ public class ArticleVendu {
 	private int utilisateur;
 	private List<Enchere> encheres;
 	private int categorie;
+	private String categorieStr;
 	private int retrait;
 	
 	// - - - - - - - - - - CONSTRUCTEURS - - - - - - - - - - 
@@ -149,6 +150,13 @@ public class ArticleVendu {
 
 	public void setCategorie(int categorie) {
 		this.categorie = categorie;
+	}
+	public String getCategorieStr() {
+		return categorieStr;
+	}
+
+	public void setCategorieStr(String categorie) {
+		this.categorieStr = categorie;
 	}
 	
 	public int getRetrait() {

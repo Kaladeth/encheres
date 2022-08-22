@@ -64,48 +64,49 @@
             <%@ include file="/WEB-INF/fragmentsJsp/affichageErreurs.jspf"%>
 			
 			<!--filtre-->
-				<div class=container>
+				<div class=container-fluid>
 									<!--Partie droite-->
 					<div class="d-flex">
-						<div class="col-2 p-1">
+						<div class="col-2 offset-1">
 							<img class="img-fluid img-thumbnail" src="images/photo.svg"
 								alt="pas de photo" />
 						</div>
+			
 						
-						<div class="col-8 p=1">
+						<div class="col-8">
 						
 							<h2>${requestScope.articleVendu.nomArticle }</h2>
-							<div class="container-fluid">
-								<label class="col-3 p-1">Description : </label>
-								<p class="col-7  p-1"> ${requestScope.articleVendu.description }</p>
+							<div class="row">
+								<label class="col-3 offset-1">Description : </label>
+								<p class="col-8 "> ${requestScope.articleVendu.description }</p>
 							</div>
-							<div class="container-fluid">
-								<label class="col-3 p-1">Catégorie : </label>
-								<p class="col-7 p-1"> ${requestScope.articleVendu.categorie }</p>
+							<div class="row">
+								<label class="col-3 offset-1">Catégorie : </label>
+								<p class="col-8"> ${requestScope.articleVendu.categorie }</p>
 							</div>
-							<div class="container-fluid">
-								<label class="col-3 p-1">Meilleur Offre : </label>
-								<p class="col-7 p-1"> ${requestScope.articleVendu.prixVente } par "Enchere.get utilisateur ById	 </p>
+							<div class="row">
+								<label class="col-3 offset-1">Meilleur Offre : </label>
+								<p class="col-8"> ${requestScope.articleVendu.prixVente } par "Enchere.get utilisateur ById	 </p>
 							</div>					
-							<div class="container-fluid">
-								<label class="col-3 p-1">Meilleur Offre : </label>
-								<p class="col-7 p-1"> ${requestScope.articleVendu.prixVente }</p>
+							<div class="row">
+								<label class="col-3 offset-1">Meilleur Offre : </label>
+								<p class="col-8"> ${requestScope.articleVendu.prixVente }</p>
 							</div>
-							<div class="container-fluid">
-								<label class="col-3 p-1">Fin de l'enchère : </label>
-								<p class="col-7 p-1"> ${requestScope.articleVendu.dateFinEncheres }</p>
+							<div class="row">
+								<label class="col-3 offset-1">Fin de l'enchère : </label>
+								<p class="col-8"> ${requestScope.articleVendu.dateFinEncheres }</p>
 							</div>
-							<div class="container-fluid">
-								<label class="col-3 p-1">Retrait : </label>
-								<p class="col-7 p-1"> créer un get retrait ? adresse vendeur utilisateur.getById</p>
+							<div class="row">
+								<label class="col-3 offset-1">Retrait : </label>
+								<p class="col-8 p-1"> créer un get retrait ? adresse vendeur utilisateur.getById</p>
 							</div>
-							<div class="container-fluid">
-								<label class="col-3 p-1">Vendeur : </label>
-								<p class="col-7 p-1"> ${requestScope.articleVendu.dateFinEncheres }.getpeudoById</p>
+							<div class="row">
+								<label class="col-3 offset-1">Vendeur : </label>
+								<p class="col-8"> ${requestScope.articleVendu.dateFinEncheres }.getpeudoById</p>
 							</div>
-								<div class="container-fluid">
-								<label class="col-3 p-1">Vendeur : </label>
-								<p class="col-7 p-1"> ${requestScope.articleVendu.dateFinEncheres }.getpeudoById</p>
+								<div class="row">
+								<label class="col-3 offset-1">Vendeur : </label>
+								<p class="col-8"> ${requestScope.articleVendu.dateFinEncheres }.getpeudoById</p>
 							</div>
                        </div>	
 					</div>

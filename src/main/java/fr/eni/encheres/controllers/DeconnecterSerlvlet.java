@@ -31,7 +31,7 @@ public class DeconnecterSerlvlet extends HttpServlet {
 	    if(session != null){
 	    session.invalidate();
 	    }
-	    RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/index.jsp");
+	    RequestDispatcher rd =request.getRequestDispatcher("/Accueil");
 	    rd.forward(request, response);
 	    }
 

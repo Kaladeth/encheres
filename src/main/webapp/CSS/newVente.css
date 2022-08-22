@@ -1,0 +1,9 @@
+@charset "UTF-8";
+.boutons {
+	border-radius:0%;
+	height:40px;
+}
+.boutons:hover {
+	color:white;
+	background-color:grey;
+}

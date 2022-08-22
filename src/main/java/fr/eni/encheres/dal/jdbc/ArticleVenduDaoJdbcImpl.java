@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +27,11 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 			+ "  LEFT JOIN CATEGORIES c on c.no_categorie = a.no_categorie\r\n"
 			+ "  LEFT JOIN RETRAITS r on r.no_article = a.no_article\\r\\n"
 			+ "  WHERE a.no_article=?";
-
-
+	String SELECT_CATEGORIE_BY_ID = "SELECT * FROM CATEGORIES WHERE no_categorie=?";
+	String INSERT = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial,"
+			+ " prix_vente, no_utilisateur, no_categorie, etat_vente)"
+			+ "values (?,?,?,?,?,?,?,?,?)";
+	
 	@Override
 	// METHODE SELECT BY ID
 	public ArticleVendu selectById(int id) throws DALException {

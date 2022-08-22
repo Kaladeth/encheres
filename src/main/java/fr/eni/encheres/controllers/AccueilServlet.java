@@ -48,7 +48,6 @@ public class AccueilServlet extends HttpServlet {
 			List<Enchere> listeEncheres = enchereMgr.selectAllEncheres();
 			request.setAttribute("listeEncheres", listeEncheres);
 		} catch (BLLException e) {
-			
 			e.printStackTrace();
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
@@ -61,5 +60,6 @@ public class AccueilServlet extends HttpServlet {
 		doGet(request, response);
 
 	}
+}
 
 

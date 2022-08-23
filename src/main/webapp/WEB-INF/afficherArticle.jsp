@@ -99,11 +99,15 @@
 							<div class="row">
 								<label class="col-3 offset-1">Retrait : </label>
 								<p class="col-8 p-1"> ${requestScope.articleVendu.retrait.rue} 
-								${requestScope.articleVendu.retrait.code_postale}, ${requestScope.articleVendu.retrait.ville}
-													</p>
+								${requestScope.articleVendu.retrait.code_postale}, ${requestScope.articleVendu.retrait.ville}</p>
 							</div>
 							<div class="row">
 								<label class="col-3 offset-1">Vendeur : </label>
+								<p class="col-8"> ${requestScope.articleVendu.vendeur.pseudo }</p>
+							</div>
+							
+							<div class="row">
+								<label class="col-3 offset-1">Ma proposition: </label>
 								<p class="col-8"> ${requestScope.articleVendu.vendeur.pseudo }</p>
 							</div>
                        </div>	

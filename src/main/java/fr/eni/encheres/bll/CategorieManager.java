@@ -35,13 +35,13 @@ public class CategorieManager {
 			
 			listesCategories= categorieDao.selectAll();
 		} catch (DALException e) {
-			Exception ex = new Exception(e.getMessage());
+			Exception ex = new Exception("Erreur : imposssible d'afficher de catégorie");
+			bllExceptions.addException(ex);
 			throw bllExceptions;
 		}
+		
 		return listesCategories;
 		
 	}
 	
-	
-
 }

@@ -37,27 +37,29 @@ public class EnchereManager {
 			
 			listesEncheres = enchereDao.selectAll();
 		} catch (DALException e) {
-			Exception ex = new Exception(e.getMessage());
-			throw bllExceptions;
+			Exception ex = new Exception("Erreur : imposssible d'afficher des articles");
+			bllExceptions.addException(ex);
+			throw bllExceptions; 
 		}
+		
+		
 		return listesEncheres;
 		
 	}
 
-	// * * * * * METHODE filtrerListeEncheres * * * * * 
-		public Enchere filtrerListeEncheres(int idArticle) throws BLLException {
+		// * * * * * METHODE FiltrerListeEncheres * * * * * 
+		public List<Enchere> FiltrerListeEncheres(String nomArticle, String categorie) throws BLLException {
 				BLLException bllExceptions = new BLLException();
-				Enchere enchere = new Enchere();
+				List<Enchere> listesEncheres = new ArrayList<Enchere>();
 
 			try {
-				enchere = enchereDao.selectByArticle(idArticle);
+				listesEncheres = enchereDao.filtrerListeEncheres(nomArticle, categorie);
 			} catch (DALException e) {
-				Exception ex = new Exception(e.getMessage());
+				Exception ex = new Exception("Erreur : imposssible d'afficher des articles");
+				bllExceptions.addException(ex);
 				throw bllExceptions;
 			}
-			//CHAQUE ARTICLE A UNE SEULE ENCHERE EN COURS
-			return enchere;
-			
+			return listesEncheres;			
 		}
 
 	

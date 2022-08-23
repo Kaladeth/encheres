@@ -76,7 +76,7 @@
 						<div class="form-group">
 							<label for="categories-select">Catégories</label> <select
 								class="form-control" id="categories-select" name="categorie">
-								<option selected>Toutes</option>
+								<option value="Toutes" selected>Toutes</option>
 								<c:forEach items="${listesCategories}" var="categorie">
 								<option name="categorie" value="${categorie.getLibelle()}">${categorie.getLibelle()}</option>
 								</c:forEach>
@@ -148,29 +148,29 @@
 			<!--enchères-->
 			
 			<div class="row justify-content-center border-top card-deck">
-						<c:forEach var="enchere" items="${listeEncheres}">
-				<div class="col-12 col-sm-6 p-2" >
-                    <div class="card">
-                        <div class="card-header text-center">
-                            <h4 class="my-0 font-weight-normal">${articleMgr.SelectById(enchere.getNoArticle()).getNomArticle()}</h4>
-                        </div>
-                        <div class="d-flex">
-                            <div class="col-3 p-2">
-                                <img class="img-fluid img-thumbnail" src="images/photo.svg" alt="pas de photo" />
-                            </div>
-                            <ul class="col-9 list-unstyled p-2">
-                                <li>Prix : ${articleMgr.SelectById(enchere.getNoArticle()).getMiseAPrix()} point(s)</li>
-                                <li>Meilleure enchère : ${enchere.getMontant_enchere()} point(s)</li>
-                                <li>Fin de l'enchère : ${enchere.getDateEnchere()} </li>
-                                <li>Vendeur : ${utilisateurMgr.SelectById(enchere.getNoUtilisateur()).getPrenomNom()}</li>
-                            </ul>
-                        </div>
-                        <a class="mt-3 btn btn-lg btn-block btn-primary" href="#" title="faire une enchère">
-                            <img class="small-icon" src="imgs/bid.svg">
-                        </a>
-                    </div>
-                </div>
-                                    </c:forEach>
+				<c:forEach var="enchere" items="${listeEncheres}">
+					<div class="col-12 col-sm-6 p-2" >
+	                    <div class="card">
+	                        <div class="card-header text-center">
+	                            <h4 class="my-0 font-weight-normal">${articleMgr.SelectById(enchere.getNoArticle()).getNomArticle()}</h4>
+	                        </div>
+	                        <div class="d-flex">
+	                            <div class="col-3 p-2">
+	                                <img class="img-fluid img-thumbnail" src="images/photo.svg" alt="pas de photo" />
+	                            </div>
+	                            <ul class="col-9 list-unstyled p-2">
+	                                <li>Prix : ${articleMgr.SelectById(enchere.getNoArticle()).getMiseAPrix()} point(s)</li>
+	                                <li>Meilleure enchère : ${enchere.getMontant_enchere()} point(s)</li>
+	                                <li>Fin de l'enchère : ${enchere.getDateEnchere()} </li>
+	                                <li>Vendeur : ${utilisateurMgr.SelectById(enchere.getNoUtilisateur()).getPrenomNom()}</li>
+	                            </ul>
+	                        </div>
+	                        <a class="mt-3 btn btn-lg btn-block btn-primary" href="#" title="faire une enchère">
+	                            <img class="small-icon" src="imgs/bid.svg">
+	                        </a>
+	                    </div>
+	                </div>
+               </c:forEach>
 		</main>
 
 

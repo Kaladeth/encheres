@@ -19,7 +19,8 @@ import fr.eni.encheres.dal.EnchereDAO;
 
 public class EncheresDaoJdbcImpl implements EnchereDAO {
 	private static final String SELECT_ALL ="select * from encheres";
-	private static final String SELECT_BY_ARTICLE ="select * from encheres where no_article = ?";
+	private static final String SELECT_BY_ARTICLE_LIBELLE ="select * from ENCHERES E, ARTICLES_VENDUS A, CATEGORIES C where E.no_article = A.no_article AND A.no_categorie = C.no_categorie AND nom_article like ? AND libelle = ?";
+	private static final String SELECT_BY_ARTICLE ="select * from ENCHERES E, ARTICLES_VENDUS A, CATEGORIES C where E.no_article = A.no_article AND A.no_categorie = C.no_categorie AND nom_article like ?";
 
 
 	@Override
@@ -67,6 +68,43 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 		return enchere;
 	}
 
+	@Override
+	public List<Enchere> filtrerListeEncheres(String nomArticle, String categorie) throws DALException {
+
+			List<Enchere> listEncheres = new ArrayList<Enchere>();
+			try (Connection cnx = ConnectionProvider.getConnection();){
+			PreparedStatement stmt = null;
+				
+				if (categorie.toLowerCase().equals("toutes"))
+				{
+					stmt = cnx.prepareStatement(SELECT_BY_ARTICLE);
+					stmt.setString(1, "%" + nomArticle + "%");
+				}
+				else
+				{
+					stmt = cnx.prepareStatement(SELECT_BY_ARTICLE_LIBELLE);
+					stmt.setString(1, "%" + nomArticle + "%");
+					stmt.setString(2, categorie);
+				}
+				
+				ResultSet rs =stmt.executeQuery();
+				while(rs.next()) {
+					int noUtilisateur = rs.getInt("no_utilisateur");
+					int noArticle = rs.getInt("no_article");
+					LocalDateTime dateEnchere = LocalDateTime.of((rs.getDate("date_enchere").toLocalDate()), rs.getTime("date_enchere").toLocalTime());
+					int montant_enchere = rs.getInt("montant_enchere");
+					Enchere enchere = new Enchere(noUtilisateur , noArticle, dateEnchere, montant_enchere);
+					listEncheres.add(enchere);
+				}	
+
+			}catch (SQLException e) {
+				DALException ex = new DALException("Probleme d'afficher listes Encheres", e);
+				throw (ex);				
+			}
+			return listEncheres;	
+	}
+
+	
 	@Override
 	public void insert(Enchere element) throws DALException {
 		// TODO Auto-generated method stub

@@ -30,7 +30,7 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 	private static final String SELECT_CREDIT_NOUVEL_ACHETEUR = "select * from utilisateurs where no_utilisateur=?";
 	private static final String UPDATE_MONTANT_ENCHERE = "UPDATE ENCHERES SET montant_enchere=?, no_utilisateur=?, date_enchere=? WHERE no_article=?";
 	private static final String UPDATE_CREDIT_NOUVEL_ACHETEUR ="UPDATE UTILISATEURS SET credit=? WHERE no_utilisateur=?";
-
+	private static final String ADD_ENCHERE = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?, ?, ?, ?)";
 	@Override
 	public List<Enchere> selectAll() throws DALException {
 
@@ -151,7 +151,8 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 			PreparedStatement stmtUpdateMontantEnchere = cnx.prepareStatement(UPDATE_MONTANT_ENCHERE);
 			PreparedStatement stmtUpdateNouvelAcheteur = cnx.prepareStatement(UPDATE_CREDIT_NOUVEL_ACHETEUR);
 			PreparedStatement stmtSelectAncienAcheteur = cnx.prepareStatement(SELECT_CREDIT_ANCIEN_ACHETEUR);
-			PreparedStatement stmtSelectNouvelAcheteur = cnx.prepareStatement(SELECT_CREDIT_NOUVEL_ACHETEUR)) {
+			PreparedStatement stmtSelectNouvelAcheteur = cnx.prepareStatement(SELECT_CREDIT_NOUVEL_ACHETEUR);
+			PreparedStatement stmtAddEnchere = cnx.prepareStatement(ADD_ENCHERE)) {
 			try {
 				cnx.setAutoCommit(false);
 				System.out.println(1);
@@ -159,17 +160,38 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 				int creditNouvelAcheteur = 0;
 				int idAncienAcheteur = 0;
 				
-				stmtSelectAncienAcheteur.setInt(1, idArticle);
-				ResultSet rsAA = stmtSelectAncienAcheteur.executeQuery();
-				while(rsAA.next()) {
-					creditAncienAcheteur = rsAA.getInt("credit");
-					idAncienAcheteur = rsAA.getInt("no_utilisateur");
+				try{
+					stmtSelectAncienAcheteur.setInt(1, idArticle);
+					ResultSet rsAA = stmtSelectAncienAcheteur.executeQuery();
+					while(rsAA.next()) {
+						creditAncienAcheteur = rsAA.getInt("credit");
+						idAncienAcheteur = rsAA.getInt("no_utilisateur");
+						}
+					if(idAncienAcheteur == 0 || creditAncienAcheteur == 0) {
+						cnx.rollback();
+						DALException ex = new DALException("Problème dans 'accès à l'ancien enchéreur");
+						throw (ex);
 					}
-				if(idAncienAcheteur == 0 || creditAncienAcheteur == 0) {
-					cnx.rollback();
-					DALException ex = new DALException("Problème dans 'accès à l'ancien enchéreur");
-					throw (ex);
-				}
+					System.out.println(3);		
+					
+					stmtUpdateAncienAcheteur.setInt(1, (creditAncienAcheteur + valeurEnchere)); 
+					stmtUpdateAncienAcheteur.setInt(2, idAncienAcheteur); 
+					stmtUpdateAncienAcheteur.executeUpdate();
+					System.out.println(10);
+					
+									
+				}catch (Exception e) {
+					stmtAddEnchere.setInt(1, idAcheteur);
+					stmtAddEnchere.setInt(2, idArticle);
+					Date date = Date.valueOf(LocalDate.now());
+					stmtAddEnchere.setDate(3, date);
+					stmtAddEnchere.setInt(4, 0);
+					stmtAddEnchere.executeUpdate();
+					}
+					
+					
+					
+				
 				
 				stmtSelectNouvelAcheteur.setInt(1, idAcheteur);
 				
@@ -185,16 +207,11 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 					DALException ex = new DALException("Problème dans le crédit disponible");
 					throw (ex);
 					}
-				System.out.println(3);		
+				stmtUpdateNouvelAcheteur.setInt(1, (creditNouvelAcheteur - valeurEnchere)); 
+				stmtUpdateNouvelAcheteur.setInt(2, idAcheteur); 
+				stmtUpdateNouvelAcheteur.executeUpdate();
+				System.out.println(20);	
 				
-				stmtUpdateAncienAcheteur.setInt(1, (creditAncienAcheteur + valeurEnchere)); 
-				stmtUpdateAncienAcheteur.setInt(2, idAncienAcheteur); 
-				stmtUpdateAncienAcheteur.executeUpdate();
-				System.out.println(10);
-				stmtUpdateAncienAcheteur.setInt(1, (creditNouvelAcheteur - valeurEnchere)); 
-				stmtUpdateAncienAcheteur.setInt(2, idAcheteur); 
-				stmtUpdateAncienAcheteur.executeUpdate();
-					System.out.println(20);					
 				stmtUpdateMontantEnchere.setInt(1, valeurEnchere);
 				stmtUpdateMontantEnchere.setInt(2, idAcheteur);
 				Date date = Date.valueOf(LocalDate.now());
@@ -202,9 +219,8 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 				stmtUpdateMontantEnchere.setInt(4, idArticle);
 				stmtUpdateMontantEnchere.executeUpdate();
 				System.out.println(30);
-	               
-	   
-               	cnx.commit();
+	            
+				cnx.commit();
 			}catch(SQLException e) {
 				cnx.rollback();
 				DALException ex = new DALException("Probleme dans la mise à jour de l'enchère", e);

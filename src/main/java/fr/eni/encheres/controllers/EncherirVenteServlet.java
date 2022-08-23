@@ -49,6 +49,8 @@ public class EncherirVenteServlet extends HttpServlet {
 		String idArticle = request.getParameter("noArticle");
 		String valeurEnchere = request.getParameter("valeurEnchere");
 	 	Utilisateur acheteur = (Utilisateur) session.getAttribute("utilisateur");
+	 	System.out.println(idArticle +" - " + valeurEnchere +" - " + acheteur);
+	 	
 	 	
 	 	    try {
 	     	EnchereManager mgr = EnchereManager.getInstance();

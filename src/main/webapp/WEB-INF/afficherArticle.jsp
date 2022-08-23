@@ -108,7 +108,8 @@
 														
 									<label class="col-3 offset-1">Ma proposition: </label>
 									<p class="col-8">
-									<input name="valeurEnchere" type="number" value="${requestScope.articleVendu.enchere.montant_enchere +1}" min="${requestScope.articleVendu.enchere.montant_enchere +1}" max="${sessionScope.utilisateur.credit}">
+									<input name="valeurEnchere" type="number" value="${requestScope.articleVendu.enchere.montant_enchere !=0? requestScope.articleVendu.enchere.montant_enchere +1: requestScope.articleVendu.miseAPrix}" min="${requestScope.articleVendu.enchere.montant_enchere +1}" max="${sessionScope.utilisateur.credit}">
+									
 									<input name="noArticle" value="${requestScope.articleVendu.noArticle}" hidden="true">
 									<input type="submit" class="nav-link"  name="Encherir" value ="Enchérir"></p>
 									<!-- n° article pour la servlet -->

@@ -1,5 +1,6 @@
 package fr.eni.encheres.bo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -91,8 +92,8 @@ public class ArticleVendu {
 		return dateDebutEncheres;
 	}
 
-	public void setDateDebutEncheres(LocalDateTime localDateTime) {
-		this.dateDebutEncheres = localDateTime;
+	public void setDateDebutEncheres(LocalDateTime dateDebutEnchere) {
+		this.dateDebutEncheres = dateDebutEnchere;
 	}
 
 	public LocalDateTime getDateFinEncheres() {

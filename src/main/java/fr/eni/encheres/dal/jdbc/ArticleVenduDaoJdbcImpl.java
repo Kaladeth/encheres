@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bo.ArticleVendu;
 
 
@@ -147,8 +149,46 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	}
 
 	// METHODE INSERT
-	public void insert(ArticleVendu element) throws DALException {
+//	String INSERT = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial,"
+//			+ " prix_vente, no_utilisateur, no_categorie, etat_vente)"
+//			+ "values (?,?,?,?,?,?,?,?,?)";
+	public void insert(ArticleVendu aInserer) throws DALException {
+		if (aInserer == null) {
+			DALException e = new DALException("L'article à insérer ne peut être vide");
+			throw e;
+		}
 		
+		try(Connection cnx = ConnectionProvider.getConnection()) {
+			try(PreparedStatement stmt = cnx.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)){
+				cnx.setAutoCommit(false);
+				stmt.setString(1, aInserer.getNomArticle());
+				stmt.setString(2, aInserer.getDescription());
+				stmt.setTimestamp(3, java.sql.Timestamp.valueOf(aInserer.getDateDebutEncheres()));
+				stmt.setTimestamp(4, java.sql.Timestamp.valueOf(aInserer.getDateFinEncheres()));
+				stmt.setInt(5, aInserer.getMiseAPrix());
+				stmt.setInt(6, aInserer.getMiseAPrix());
+				stmt.setInt(7, aInserer.getUtilisateur());
+				stmt.setInt(8, aInserer.getCategorie().getNoCategorie());
+				stmt.setString(9, "CR");
+				stmt.executeUpdate();
+				
+				ResultSet rs = stmt.getGeneratedKeys();
+				if (rs.next()) {
+					aInserer.setNoArticle(rs.getInt(1));
+				}
+				
+				cnx.commit();
+			} catch (SQLException e) {
+				DALException ex = new DALException("Problème lors de l'insertion d'un article", e);
+				cnx.rollback();
+				throw ex;
+				
+			}
+		} catch (Exception e) {
+			DALException ex = new DALException("Probleme d'ajout d'un article", e);
+			throw (ex);			
+		}
+	
 		
 	}
 

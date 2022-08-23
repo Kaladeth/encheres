@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.encheres.bo.ArticleVendu;
@@ -37,63 +36,63 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	@Override
 	// METHODE SELECT BY ID
 	public ArticleVendu selectById(int id) throws DALException {
-        //System.out.println("coucou");
+        System.out.println("coucou");
         ArticleVendu article = null;
-       // System.out.println("coucou1");
+        System.out.println("coucou1");
         Categorie categorie = new Categorie();
-        //System.out.println("coucou2");
+        System.out.println("coucou2");
         Retrait retrait = new Retrait();
-        //System.out.println("coucou3");
+        System.out.println("coucou3");
         Utilisateur acheteur  = new Utilisateur();
-        //System.out.println("coucou4");
+        System.out.println("coucou4");
         Utilisateur vendeur  = new Utilisateur();
-        //System.out.println("coucou5");
+        System.out.println("coucou5");
         Enchere enchere = new Enchere();
-       // System.out.println("coucou6");
+        System.out.println("coucou6");
         try(Connection cnx = ConnectionProvider.getConnection();
             PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_ID)) {
-        	//System.out.println("coucou7");
+        	System.out.println("coucou7");
             stmt.setInt(1, id);   
-            //System.out.println("coucou8");
+            System.out.println("coucou8");
             ResultSet rs =stmt.executeQuery();
-            //System.out.println("coucou9");
+            System.out.println("coucou9");
             while(rs.next()) {
                 article = new ArticleVendu();
                 article.setNoArticle(rs.getInt(1));
-                //System.out.println("1 - " +rs.getInt(1));
+                System.out.println("1 - " +rs.getInt(1));
                 article.setNomArticle(rs.getString(2));
-               // System.out.println("2 - " + rs.getString(2));
+                System.out.println("2 - " + rs.getString(2));
                 article.setDescription(rs.getString(3));
-               // System.out.println("3 - " +rs.getString(3));
+                System.out.println("3 - " +rs.getString(3));
                 //cration catégorie
                 categorie.setLibelle(rs.getString(4));
-               // System.out.println("4 - "+ rs.getString(4));
+               System.out.println("4 - "+ rs.getString(4));
                 //création enchere
                 enchere.setMontant_enchere(rs.getInt(5));
-              //  System.out.println("5 - "+rs.getInt(5));
+               System.out.println("5 - "+rs.getInt(5));
                 acheteur.setNoUtilisateur(rs.getInt(6));
-               // System.out.println("6 - "+rs.getInt(6));
+                System.out.println("6 - "+rs.getInt(6));
                 acheteur.setPseudo(rs.getString(7));
-               // System.out.println("7 - "+ rs.getString(7));
+                System.out.println("7 - "+ rs.getString(7));
                 //création retrait
                 retrait.setRue(rs.getString("rue"));
-               // System.out.println("8 - "+rs.getString("rue"));
+                System.out.println("8 - "+rs.getString("rue"));
                 retrait.setCode_postale(rs.getString(9));
-               // System.out.println("9 - "+rs.getString(9));
+                System.out.println("9 - "+rs.getString(9));
                 retrait.setVille(rs.getString(10));
-                //System.out.println(" 10 - "+rs.getString(10));
+                System.out.println(" 10 - "+rs.getString(10));
                 article.setMiseAPrix(rs.getInt(11));
-                //System.out.println("11 - " + rs.getInt(11));
+               System.out.println("11 - " + rs.getInt(11));
                 article.setDateDebutEncheres(LocalDateTime.of((rs.getDate(12).toLocalDate()), rs.getTime(12).toLocalTime()));
                 article.setDateFinEncheres(LocalDateTime.of((rs.getDate(13).toLocalDate()), rs.getTime(13).toLocalTime())); 
                 vendeur.setNoUtilisateur(rs.getInt(14));
-               // System.out.println("13 - "+ rs.getInt(14));
+                System.out.println("13 - "+ rs.getInt(14));
                 vendeur.setPseudo(rs.getString(15));
-                //System.out.println("14 - "+rs.getString(15));
+                System.out.println("14 - "+rs.getString(15));
                 article.setEtatVente(rs.getString(16));
-               // System.out.println("15 - " +rs.getString(16));
+                System.out.println("15 - " +rs.getString(16));
             }
-            //System.out.println("coucou10");
+            System.out.println("coucou10");
             article.setCategorie(categorie);
            // System.out.println("categorie - " + categorie);
             enchere.setAcheteur(acheteur);
@@ -102,7 +101,7 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
             //System.out.println("retrait - " + retrait);
             article.setVendeur(vendeur);
             //System.out.println("vendeur - " + vendeur);
-            //System.out.println("article - " + article);
+            System.out.println("article - " + article);
             }catch (SQLException e) {
                 DALException ex = new DALException("problème d'accès à cet article", e);
                 throw ex;}

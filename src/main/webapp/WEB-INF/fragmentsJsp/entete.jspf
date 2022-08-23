@@ -21,7 +21,8 @@
 					alt="Se connecter à ENI-Encheres">Me connecter</a>
 			</c:if>
 			<c:if test="${not empty sessionScope.utilisateur.nom}">
-				<p id="salutationEtt">Bonjour ${sessionScope.utilisateur.prenom}
+				<p>Crédit disponible : ${sessionScope.utilisateur.credit}   </p>
+				<p id="salutationEtt">  Bonjour ${sessionScope.utilisateur.prenom}
 					${sessionScope.utilisateur.nom}</p>
 			</c:if>
 		</div>

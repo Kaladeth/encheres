@@ -34,6 +34,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 				utilisateur.setNom(rs.getString("nom"));
 				utilisateur.setPrenom(rs.getString("prenom"));
 				utilisateur.setEmail(rs.getString("email"));
+				utilisateur.setCredit(rs.getInt("credit"));
 				utilisateur.setTelephone(rs.getString("telephone"));
 				utilisateur.setRue(rs.getString("rue"));
 				utilisateur.setCodePostal(rs.getString("code_postal"));
@@ -129,6 +130,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 				utilisateur.setRue(rs.getString("rue"));
 				utilisateur.setCodePostal(rs.getString("code_postal"));
 				utilisateur.setVille(rs.getString("ville"));
+				utilisateur.setCredit(rs.getInt("credit"));
 				
 				if(rs.getByte("administrateur") ==0) {
 					utilisateur.setAdministrateur(false);

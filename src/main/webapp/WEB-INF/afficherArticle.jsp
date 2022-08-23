@@ -70,12 +70,9 @@
 						<div class="col-2 offset-1">
 							<img class="img-fluid img-thumbnail" src="images/photo.svg"
 								alt="pas de photo" />
-						</div>
-			
-						
-						<div class="col-8">
-						
-							<h2>${requestScope.articleVendu.nomArticle }</h2>
+						</div>						
+						<div class="col-8">						
+							<h2>${requestScope.articleVendu.nomArticle }</h2>								
 							<div class="row">
 								<label class="col-3 offset-1">Description : </label>
 								<p class="col-8 "> ${requestScope.articleVendu.description }</p>
@@ -94,33 +91,38 @@
 							</div>
 							<div class="row">
 								<label class="col-3 offset-1">Fin de l'enchère : </label>
-								<p class="col-8"> ${requestScope.articleVendu.dateFinEncheres }</p>
+
+								<p class="col-8"> <input type="date" value="${requestScope.articleVendu.dateFinEncheres.toLocalDate()}" disabled="disabled"></p>
 							</div>
 							<div class="row">
 								<label class="col-3 offset-1">Retrait : </label>
-								<p class="col-8 p-1"> ${requestScope.articleVendu.retrait.rue} 
+								<p class="col-8 "> ${requestScope.articleVendu.retrait.rue} 
 								${requestScope.articleVendu.retrait.code_postale}, ${requestScope.articleVendu.retrait.ville}</p>
 							</div>
 							<div class="row">
 								<label class="col-3 offset-1">Vendeur : </label>
 								<p class="col-8"> ${requestScope.articleVendu.vendeur.pseudo }</p>
 							</div>
-							
-							<div class="row">
-								<label class="col-3 offset-1">Ma proposition: </label>
-								<p class="col-8"> ${requestScope.articleVendu.vendeur.pseudo }</p>
-							</div>
+							<form action="${pageContext.request.contextPath}/connecte/afficher/enchere/encherir" method="post">		
+								<div class="row">
+														
+									<label class="col-3 offset-1">Ma proposition: </label>
+									<p class="col-8">
+									<input name="valeurEnchere" type="number" value="${requestScope.articleVendu.enchere.montant_enchere +1}" min="${requestScope.articleVendu.enchere.montant_enchere +1}" max="${sessionScope.utilisateur.credit}">
+									<input name="noArticle" value="${requestScope.articleVendu.noArticle}" hidden="true">
+									<input type="submit" class="nav-link"  name="Encherir" value ="Enchérir"></p>
+									<!-- n° article pour la servlet -->
+									
+								</div>
+							</form>
                        </div>	
 					</div>
-						
-						
-
-					</div>
-				</div>
+				</div>		
+				
 				
 				<form action="${pageContext.request.contextPath}/Accueil">
 					<button class="btn btn-primary btn-lg btn-block" type="submit" title="retour à l'index">
-					<img class="small-icon" src="images/search.svg" alt="Eni Ecole"/>
+					<img class="small-icon" src="images/search.svg" alt="Eni Ecole">
 					</button>
 				</form>
 

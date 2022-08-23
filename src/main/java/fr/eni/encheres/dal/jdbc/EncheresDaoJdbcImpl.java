@@ -106,7 +106,7 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 				}	
 
 			}catch (SQLException e) {
-				DALException ex = new DALException("Probleme d'afficher listes Encheres", e);
+				DALException ex = new DALException("Probleme d'affichage de la listes d'encheres", e);
 				throw (ex);				
 			}
 			return listEncheres;	

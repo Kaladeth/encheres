@@ -8,7 +8,9 @@
 	<div id="blockEtt">
 		<h1 id="titleEtt">ENI Enchères</h1>
 		<div id="deuxBlockEtt">
+			<c:if test="${not empty sessionScope.utilisateur.administrateur}">
 			<a class="nav-link" href="#" alt="Administrer le site">Administrer</a>
+			</c:if>
 			<a class="nav-link" href="<%=request.getContextPath()+"/vendre/article"%>" alt="Vendre un article">Vendre un
 				article</a>
 			<c:if test="${not empty sessionScope.utilisateur.nom}">
@@ -19,11 +21,14 @@
 					alt="S'inscrire à ENI-Encheres">M'inscrire</a>
 				<a class="nav-link" href="${pageContext.request.contextPath}/Connecter"
 					alt="Se connecter à ENI-Encheres">Me connecter</a>
+				
 			</c:if>
 			<c:if test="${not empty sessionScope.utilisateur.nom}">
 				<p>Crédit disponible : ${sessionScope.utilisateur.credit}   </p>
-				<p id="salutationEtt">  Bonjour ${sessionScope.utilisateur.prenom}
+				<p id="salutationEtt">   Bonjour ${sessionScope.utilisateur.prenom}
 					${sessionScope.utilisateur.nom}</p>
+				<a class="nav-link" href="${pageContext.request.contextPath}/connecte/modifier/profil"
+					alt="Modifier mon profil">Modifier mon profil</a>
 			</c:if>
 		</div>
 	</div>

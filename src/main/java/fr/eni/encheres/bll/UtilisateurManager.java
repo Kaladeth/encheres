@@ -1,6 +1,11 @@
 
 package fr.eni.encheres.bll;
 
+import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import com.microsoft.sqlserver.jdbc.StringUtils;
 
 import fr.eni.encheres.bo.Utilisateur;
@@ -74,7 +79,7 @@ public class UtilisateurManager {
 			bllExceptions.addException(e);
 		}
 		if(pseudo.matches("[a-zA-Z0-9]")) {
-			Exception e = new Exception("L'identifiant n�accepte que des caract�res alphanum�riques !");
+			Exception e = new Exception("L'identifiant n�accepte que des caract�res alphanum�riques !");
 			bllExceptions.addException(e);
 		}
 		if(nom == null) {
@@ -88,7 +93,12 @@ public class UtilisateurManager {
 		if(email == null) {
 			Exception e = new Exception("L'e-mail est obligatoire !");
 			bllExceptions.addException(e);
-		}
+		}// email au format XXX@XXX.XXX
+        if (!Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$").matcher(email.toUpperCase()).matches()) {
+        	Exception e = new Exception("L'e-mail n'est pas au bon format !");
+			bllExceptions.addException(e);
+        }
+		
 		if(telephone == null) {
 			Exception e = new Exception("Le numéro de téléphone est obligatoire !");
 			bllExceptions.addException(e);
@@ -110,7 +120,7 @@ public class UtilisateurManager {
 			bllExceptions.addException(e);
 		}
 		if(mdp == cmdp) {
-			Exception e = new Exception("Les mots de passe sont diff�rents !");
+			Exception e = new Exception("Les mots de passe sont diff�rents !");
 			bllExceptions.addException(e);
 		}
 		
@@ -124,6 +134,78 @@ public class UtilisateurManager {
 			throw bllExceptions;
 		}
 	}
+	
+	
+	// * * * * * METHODE UPDATE * * * * *
+	public void updateUtilisateur(int idUser, String pseudo, String nom, String prenom, String email, String telephone, String rue,
+			String cp, String ville) throws BLLException {
+		BLLException bllExceptions = new BLLException();
+		
+		// VERIFICATION DES REGLES METIER
+		
+		
+		if(pseudo == null) {
+			Exception e = new Exception("L'identifiant est obligatoire !");
+			bllExceptions.addException(e);
+		}
+		if(pseudo.indexOf('@') != -1) {
+			Exception e = new Exception("L'identifiant ne peut pas contenir d'arobase !");
+			bllExceptions.addException(e);
+		}
+		if(pseudo.matches("[a-zA-Z0-9]")) {
+			Exception e = new Exception("L'identifiant n�accepte que des caractères alphanumériques !");
+			bllExceptions.addException(e);
+		}
+		if(nom == null) {
+			Exception e = new Exception("Le nom est obligatoire !");
+			bllExceptions.addException(e);
+		}
+		if(prenom == null) {
+			Exception e = new Exception("Le prénom est obligatoire !");
+			bllExceptions.addException(e);
+		}
+		if(email == null) {
+			Exception e = new Exception("L'e-mail est obligatoire !");
+			bllExceptions.addException(e);
+		}
+		// email au format XXX@XXX.XXX
+        if (!Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$").matcher(email.toUpperCase()).matches()) {
+        	Exception e = new Exception("L'e-mail n'est pas au bon format !");
+			bllExceptions.addException(e);
+        }
+		
+		if(telephone == null) {
+			Exception e = new Exception("Le numéro de téléphone est obligatoire !");
+			bllExceptions.addException(e);
+		}
+		if(rue == null) {
+			Exception e = new Exception("La rue est obligatoire !");
+			bllExceptions.addException(e);
+		}
+		if(cp == null) {
+			Exception e = new Exception("Le code postal est obligatoire !");
+			bllExceptions.addException(e);
+		}
+		if(ville == null) {
+			Exception e = new Exception("La ville est obligatoire !");
+			bllExceptions.addException(e);
+		}
+		if (!bllExceptions.isEmpty()) {
+			throw bllExceptions;
+		}
+		// CREATION DE L'UTILISATEUR A ENVOYER EN BASE DE DONNEES
+		Utilisateur utilisateur = new Utilisateur(idUser, pseudo, nom, prenom, email, telephone, rue, cp, ville);
+		try {
+			utilisateurDao.update(utilisateur);
+			
+			
+		} catch (DALException e) {
+			bllExceptions.addException(e);
+			throw bllExceptions;
+		}
+	}
+	
+	// * * * * * METHODE SELECT BY ID * * * * *
 	
 	public Utilisateur SelectById(String id) throws BLLException {
 		BLLException bllExceptions = new BLLException();
@@ -150,6 +232,10 @@ public class UtilisateurManager {
 		}
 		return utilisateur;
 	}
+	
+	
+	
+	
 	
 	// * * * * * METHODE DELETE * * * * *
 	public void supprimerUtilisateur(int id) {

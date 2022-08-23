@@ -63,22 +63,5 @@ public class ArticleVenduManager {
 		}
 		return article;
 	}
-
-	
-	public  List<ArticleVendu> SelectByNameArticle(String nomArticle) throws BLLException {
-		BLLException bllExceptions = new BLLException();
-		List<ArticleVendu> listeArticleVendu = new ArrayList<ArticleVendu>();
-
-		try {
-			
-			listeArticleVendu = articleVenduDAO.selectByNamArticle(nomArticle);
-		} catch (DALException e) {
-			Exception ex = new Exception(e.getMessage());
-			throw bllExceptions;
-		}
-		return listeArticleVendu;
-	}
-	
-
 	
 }

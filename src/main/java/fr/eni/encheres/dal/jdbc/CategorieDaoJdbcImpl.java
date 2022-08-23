@@ -1,12 +1,15 @@
 package fr.eni.encheres.dal.jdbc;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.catalina.valves.rewrite.InternalRewriteMap.LowerCase;
 
 import fr.eni.encheres.bo.Categorie;
 
@@ -17,6 +20,7 @@ import fr.eni.encheres.dal.DALException;
 public class CategorieDaoJdbcImpl implements CategorieDAO  {
 	
 	private static final String SELECT_ALL ="select * from categories";
+	private static final String SELECT_ID_BY_LIBELLE ="select no_categorie from categories where libelle = ?";
 
 	@Override
 	public Categorie selectById(int id) throws DALException {
@@ -66,6 +70,4 @@ public class CategorieDaoJdbcImpl implements CategorieDAO  {
 				return listCategories;	
 	}
 	
-	
-
 }

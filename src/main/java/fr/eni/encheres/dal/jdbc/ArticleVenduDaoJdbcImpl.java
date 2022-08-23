@@ -108,38 +108,7 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
                 throw ex;}
         return article;
     }
-	@Override
-	public List<ArticleVendu> selectByNamArticle(String nomArticle) throws DALException {
-		List<ArticleVendu> listArticleVendu = new ArrayList<ArticleVendu>();
-		ArticleVendu article = null;
-		try(Connection cnx = ConnectionProvider.getConnection();
-			PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_NAME_ATRICLE)) {
-			
-			stmt.setString(1, "%" + nomArticle + "%");			
-			ResultSet rs =stmt.executeQuery();
-			while(rs.next()) {
-				
-				article = new ArticleVendu();
-				article.setNoArticle(rs.getInt("no_article"));
-				article.setNomArticle(rs.getString("nom_article"));
-				article.setDescription(rs.getString("description"));
-				article.setDateDebutEncheres(LocalDateTime.of((rs.getDate("date_debut_enchere").toLocalDate()), rs.getTime("date_debut_enchere").toLocalTime()));
-				article.setDateFinEncheres(LocalDateTime.of((rs.getDate("date_fin_enchere").toLocalDate()), rs.getTime("date_fin_enchere").toLocalTime()));
-				article.setMiseAPrix(rs.getInt("prix_initial"));
-				article.setPrixVente(rs.getInt("prix_vente"));
-				article.setUtilisateur(rs.getInt("no_utilisateur"));
-				//article.setCategorie(rs.getInt("no_categorie"));
-				article.setEtatVente(rs.getString("etat_vente"));
-			
-			}		
-			
-            }catch (SQLException e) {
-            	DALException ex = new DALException("problème d'accès à cet article", e);
-            	throw ex;}
-		return listArticleVendu;
 	
-	}
-
 	@Override
 	public List<ArticleVendu> selectAll() throws DALException {
 		// TODO Auto-generated method stub

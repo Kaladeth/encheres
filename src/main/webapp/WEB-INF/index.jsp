@@ -76,7 +76,7 @@
 						<div class="form-group">
 							<label for="categories-select">Catégories</label> <select
 								class="form-control" id="categories-select" name="categorie">
-								<option selected>Toutes</option>
+								<option value="Toutes" selected>Toutes</option>
 								<c:forEach items="${listesCategories}" var="categorie">
 								<option name="categorie" value="${categorie.getLibelle()}">${categorie.getLibelle()}</option>
 								</c:forEach>

@@ -76,8 +76,8 @@ public class AccueilServlet extends HttpServlet {
 			  List<Categorie> listesCategories = categorieMgr.selectAllCategorie();
 			  request.setAttribute("listesCategories", listesCategories);
 		  } catch (BLLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			  request.setAttribute("erreurs", e);
+			  e.printStackTrace();
 		  }
 		  
 		  RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
@@ -112,6 +112,7 @@ public class AccueilServlet extends HttpServlet {
 					request.setAttribute("listeEncheresFiltres", listeEncheres); 
 		    	} catch (BLLException e) { 
 		    		// TODO Auto-generated catch block 
+		    		request.setAttribute("erreurs", e);
 		    		e.printStackTrace(); 
 		    	}
 		    	doGet(request, response);

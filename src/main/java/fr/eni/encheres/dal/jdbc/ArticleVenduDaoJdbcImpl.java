@@ -46,7 +46,8 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
         Enchere enchere = new Enchere();
         try(Connection cnx = ConnectionProvider.getConnection();
             PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_ID)) {
-            stmt.setInt(1, id);   
+            
+        	stmt.setInt(1, id);   
             ResultSet rs =stmt.executeQuery();
             while(rs.next()) {
                 article = new ArticleVendu();
@@ -82,7 +83,9 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
             article.setVendeur(vendeur);
             }catch (SQLException e) {
                 DALException ex = new DALException("problème d'accès à cet article", e);
-                throw ex;}
+                throw ex;
+            }
+        
         return article;
     }
 	

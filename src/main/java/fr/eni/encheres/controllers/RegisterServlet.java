@@ -66,6 +66,7 @@ public class RegisterServlet extends HttpServlet {
 				  } 
 			  catch (BLLException e) {
 				  request.setAttribute("erreurs", e);
+				  e.printStackTrace();
 			  }
 		}
 		else if (request.getParameter("annuler") != null) {	

@@ -48,8 +48,8 @@ public class AfficherUneEnchereServlet extends HttpServlet {
 	        	rd = request.getRequestDispatcher("/WEB-INF/afficherArticle.jsp");
 	        	}        
 	    } catch (BLLException e) {
-	    	request.setAttribute("erreurs", e)
-	    	;e.printStackTrace();
+	    	request.setAttribute("erreurs", e);
+	    	e.printStackTrace();
 	    }
 	    rd.forward(request, response);
 	

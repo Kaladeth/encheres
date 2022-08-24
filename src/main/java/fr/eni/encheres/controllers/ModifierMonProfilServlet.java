@@ -65,7 +65,8 @@ public class ModifierMonProfilServlet extends HttpServlet {
 	    	//à modifier en aficher profil quand il sera fait
 	    	rd = request.getRequestDispatcher("/WEB-INF/modifierProfil.jsp");
 	    	} catch (BLLException e) {
-	    	request.setAttribute("erreurs", e);
+	    		request.setAttribute("erreurs", e);
+				e.printStackTrace();
 	    }
 	    utilisateur.setPseudo(pseudo);
 	    utilisateur.setNom(nom);

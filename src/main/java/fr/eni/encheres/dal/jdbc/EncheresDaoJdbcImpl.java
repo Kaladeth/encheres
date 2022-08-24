@@ -234,9 +234,7 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 						stmtUpdateAncienAcheteur.setInt(1, (creditAncienAcheteur + valeurAncienneEnchere)); 
 						stmtUpdateAncienAcheteur.setInt(2, idAncienAcheteur); 
 						stmtUpdateAncienAcheteur.executeUpdate();
-						System.out.println(10);}
-					
-					
+						System.out.println(10);}	
 									
 				}catch (Exception e) {
 					stmtAddEnchere.setInt(1, idAcheteur);
@@ -246,10 +244,6 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 					stmtAddEnchere.setInt(4, 0);
 					stmtAddEnchere.executeUpdate();
 					}
-					
-					
-					
-				
 				
 				stmtSelectNouvelAcheteur.setInt(1, idAcheteur);
 				

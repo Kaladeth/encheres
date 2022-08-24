@@ -122,19 +122,19 @@
 						<div class="form-group">
 							<div class="form-check">
 								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" name="ventes" value="venteencours"
+									class="form-check-input" name="ventes" value="EC"
 									id="venteencours">Mes ventes en cours
 								</label>
 							</div>
 							<div class="form-check">
 								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" name="ventes" value="nondebutees"
+									class="form-check-input" name="ventes" value="CR"
 									id="nondebutees">Mes ventes non débutées
 								</label>
 							</div>
 							<div class="form-check">
 								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" name="ventes" value="terminees"
+									class="form-check-input" name="ventes" value="VD"
 									id="terminees">Mes ventes terminées
 								</label>
 							</div>

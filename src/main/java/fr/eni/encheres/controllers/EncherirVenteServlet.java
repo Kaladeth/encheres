@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import fr.eni.encheres.bll.ArticleVenduManager;
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.EnchereManager;
+import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.ArticleVendu;
 import fr.eni.encheres.bo.Utilisateur;
 
@@ -50,20 +51,26 @@ public class EncherirVenteServlet extends HttpServlet {
 		String valeurEnchere = request.getParameter("valeurEnchere");
 	 	Utilisateur acheteur = (Utilisateur) session.getAttribute("utilisateur");
 	 	System.out.println(idArticle +" - " + valeurEnchere +" - " + acheteur);
-	 	
-	 	
-	 	    try {
+	
+	 	try {
 	     	EnchereManager mgr = EnchereManager.getInstance();
 	     	ArticleVendu articleVendu = null; 
 	     	
 	     	String idArticleVendu =  Integer.toString(mgr.UpdateEnchere(idArticle, acheteur, valeurEnchere));
+	     	
 	     	ArticleVenduManager mgrArt = ArticleVenduManager.getInstance();
 	     	articleVendu = mgrArt.SelectById(idArticleVendu);
-	    	
+	     	
+	     	UtilisateurManager userMgr = UtilisateurManager.getInstance();
+	     	acheteur = userMgr.SelectById(String.valueOf(acheteur.getNoUtilisateur()));    	
 	    	
 	        if(articleVendu != null) {
 	        	request.setAttribute("articleVendu",articleVendu);
+	        	System.out.println("coucou " + articleVendu);
+	        	session.setAttribute("utilisateur",acheteur);
+	        	
 	        	rd = request.getRequestDispatcher("/WEB-INF/afficherArticle.jsp");
+	        	  	
 	        	}        
 	    } catch (BLLException e) {
 	    	request.setAttribute("erreurs", e);

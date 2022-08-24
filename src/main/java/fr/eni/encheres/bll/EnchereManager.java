@@ -118,6 +118,7 @@ public class EnchereManager {
 			try {
 				idArticleMAJ = enchereDao.updateEnchere(idArticleInt, idAcheteur, valeurEnchereInt);
 				
+				
 				if(idArticleMAJ == 0) {
 					Exception ex = new Exception("Erreur : article introuvable");
 					bllExceptions.addException(ex);

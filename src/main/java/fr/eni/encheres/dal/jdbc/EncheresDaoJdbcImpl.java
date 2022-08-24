@@ -24,6 +24,8 @@ import fr.eni.encheres.dal.EnchereDAO;
 public class EncheresDaoJdbcImpl implements EnchereDAO {
 	private static final String SELECT_ALL ="select * from encheres";
 	private static final String SELECT_BY_ARTICLE ="select * from ENCHERES E, ARTICLES_VENDUS A, CATEGORIES C where E.no_article = A.no_article AND A.no_categorie = C.no_categorie AND nom_article like ?";
+	
+	private static final String SELECT_ARTICLE_BY_ID ="select * from encheres where no_article=?";
 	private static final String SELECT_BY_ARTICLE_LIBELLE ="select * from ENCHERES E, ARTICLES_VENDUS A, CATEGORIES C where E.no_article = A.no_article AND A.no_categorie = C.no_categorie AND nom_article like ? AND libelle = ?";
 	private static String SELECT_BY_FILTRE ="select * from ENCHERES E, ARTICLES_VENDUS A, CATEGORIES C where E.no_article = A.no_article AND A.no_categorie = C.no_categorie AND nom_article like ? ";
 	private static final String UPDATE_CREDIT_ANCIEN_ACHETEUR = "UPDATE UTILISATEURS SET credit=? where no_utilisateur=?";
@@ -58,6 +60,8 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 		}
 
 	@Override
+	
+	
 	public List<Enchere> filtrerListeEncheresModeDeconnecte(String nomArticle, String categorie) throws DALException {
 
 			List<Enchere> listEncheres = new ArrayList<Enchere>();
@@ -87,7 +91,7 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 				}	
 
 			}catch (SQLException e) {
-				DALException ex = new DALException("Probleme d'afficher listes Encheres", e);
+				DALException ex = new DALException("Probleme d'affichage de la listes d'encheres", e);
 				throw (ex);				
 			}
 			return listEncheres;	
@@ -189,6 +193,7 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 		int idArticleMAJ = idArticle;
 		
 		try(Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement stmtReccupEnchere = cnx.prepareStatement(SELECT_ARTICLE_BY_ID);
             PreparedStatement stmtUpdateAncienAcheteur = cnx.prepareStatement(UPDATE_CREDIT_ANCIEN_ACHETEUR);
 			PreparedStatement stmtUpdateMontantEnchere = cnx.prepareStatement(UPDATE_MONTANT_ENCHERE);
 			PreparedStatement stmtUpdateNouvelAcheteur = cnx.prepareStatement(UPDATE_CREDIT_NOUVEL_ACHETEUR);
@@ -201,25 +206,36 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 				int creditAncienAcheteur = 0;
 				int creditNouvelAcheteur = 0;
 				int idAncienAcheteur = 0;
+				int valeurAncienneEnchere = 0;
 				
 				try{
+					System.out.println(11);
+					stmtReccupEnchere.setInt(1, idArticle);
+					ResultSet rs = stmtReccupEnchere.executeQuery();
+					while(rs.next()) {
+						valeurAncienneEnchere = rs.getInt("montant_enchere");
+					}
+					System.out.println(2);
+					
 					stmtSelectAncienAcheteur.setInt(1, idArticle);
 					ResultSet rsAA = stmtSelectAncienAcheteur.executeQuery();
 					while(rsAA.next()) {
 						creditAncienAcheteur = rsAA.getInt("credit");
 						idAncienAcheteur = rsAA.getInt("no_utilisateur");
+						System.out.println(3);
+						
+						if(idAncienAcheteur == 0 || creditAncienAcheteur == 0) {
+							cnx.rollback();
+							DALException ex = new DALException("Problème dans 'accès à l'ancien enchéreur");
+							throw (ex);
 						}
-					if(idAncienAcheteur == 0 || creditAncienAcheteur == 0) {
-						cnx.rollback();
-						DALException ex = new DALException("Problème dans 'accès à l'ancien enchéreur");
-						throw (ex);
-					}
-					System.out.println(3);		
+						System.out.println(3);		
+						
+						stmtUpdateAncienAcheteur.setInt(1, (creditAncienAcheteur + valeurAncienneEnchere)); 
+						stmtUpdateAncienAcheteur.setInt(2, idAncienAcheteur); 
+						stmtUpdateAncienAcheteur.executeUpdate();
+						System.out.println(10);}
 					
-					stmtUpdateAncienAcheteur.setInt(1, (creditAncienAcheteur + valeurEnchere)); 
-					stmtUpdateAncienAcheteur.setInt(2, idAncienAcheteur); 
-					stmtUpdateAncienAcheteur.executeUpdate();
-					System.out.println(10);
 					
 									
 				}catch (Exception e) {

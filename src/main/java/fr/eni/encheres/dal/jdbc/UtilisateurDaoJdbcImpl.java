@@ -19,7 +19,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 	private static final String VALIDATE_LOGIN ="SELECT * FROM utilisateurs where (pseudo=? OR email=?) AND mot_de_passe=?"; 
 	private static final String INSERT_USER = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES ( ?, ?,?, ?, ?, ?, ?, ?,?, ?, ?)";
 	private static final String SELECT_BY_PSEUDO_EMAIL = "SELECT * FROM utilisateurs where pseudo=? OR email=?";
-	
+	private static final String UPDATE_USER = "UPDATE UTILISATEURS SET pseudo=?, nom=? ,prenom=? ,email=?, telephone=? ,rue=?, code_postal=? ,ville=? WHERE no_utilisateur=?";
 	
 	public Utilisateur selectById(int id) throws DALException {
 		Utilisateur utilisateur = null;
@@ -53,8 +53,8 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 
 	public void insert(Utilisateur element) throws DALException {
 		try (Connection cnx = ConnectionProvider.getConnection();
-			PreparedStatement stmt = cnx.prepareStatement(INSERT_USER, PreparedStatement.RETURN_GENERATED_KEYS);
-			PreparedStatement stmtChk = cnx.prepareStatement(SELECT_BY_PSEUDO_EMAIL, PreparedStatement.RETURN_GENERATED_KEYS)){
+			PreparedStatement stmt = cnx.prepareStatement(UPDATE_USER);
+			PreparedStatement stmtChk = cnx.prepareStatement(SELECT_BY_PSEUDO_EMAIL)){
 			try {
 				cnx.setAutoCommit(false);
 				stmtChk.setString(1, element.getPseudo());
@@ -96,9 +96,59 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 		}
 		
 	}
-
-	public void update(Utilisateur element) throws DALException {
-		
+// UPDATE_USER = "UPDATE UTILISATEURS SET pseudo=?, nom=? ,prenom=? ,
+	//email=?, telephone=? ,rue=?, code_postal=? ,ville=? WHERE no_utilisateur=?";
+	public void update(Utilisateur utilisateur) throws DALException 
+	{try (Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement stmt = cnx.prepareStatement(UPDATE_USER);
+			PreparedStatement stmtChk = cnx.prepareStatement(SELECT_BY_PSEUDO_EMAIL)){
+			try {
+				System.out.println(1);
+				cnx.setAutoCommit(false);
+				
+				stmtChk.setString(1, utilisateur.getPseudo());
+				stmtChk.setString(2, utilisateur.getEmail());
+				stmtChk.executeQuery();
+				ResultSet rs = stmtChk.executeQuery();
+				if(rs.next())
+					if(rs.getInt("no_utilisateur") != utilisateur.getNoUtilisateur()) {
+						DALException ex = new DALException("L'identifiant et/ou l'email existent déjà !" );
+						throw (ex);	
+					}
+				System.out.println(2);	
+				System.out.println(3);
+				stmt.setString(1, utilisateur.getPseudo());
+				System.out.println(4);
+				stmt.setString(2, utilisateur.getNom());
+				System.out.println(5);
+				stmt.setString(3, utilisateur.getPrenom());
+				System.out.println(6);
+				stmt.setString(4, utilisateur.getEmail());
+				System.out.println(7);
+				stmt.setString(5, utilisateur.getTelephone());
+				System.out.println(8);
+				stmt.setString(6, utilisateur.getRue());
+				System.out.println(9);
+				stmt.setString(7, utilisateur.getCodePostal());
+				System.out.println(10);
+				stmt.setString(8, utilisateur.getVille());
+				System.out.println(11);
+				stmt.setInt(9, utilisateur.getNoUtilisateur());
+				System.out.println(12);
+				
+				stmt.executeUpdate();	
+				
+				
+				cnx.commit();
+			}catch(SQLException e) {
+				cnx.rollback();
+				DALException ex = new DALException("Probleme d'ajout d'utilisateur", e);
+				throw (ex);	
+			}
+		}catch (SQLException e) {
+			DALException ex = new DALException("Probleme d'ajout d'utilisateur", e);
+			throw (ex);				
+		}
 		
 	}
 

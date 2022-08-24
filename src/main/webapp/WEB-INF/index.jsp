@@ -83,8 +83,10 @@
 							</select>
 						</div>
 					</div>
+					<!--  si l'utilisateur connecté afficher les chekbox  -->
 					<!--Partie droite-->
-					<!--<div class="col-md-6 mb-3">
+					<c:if test="${connecte == true}">
+					<div class="col-md-6 mb-3">
 						<div class="form-check">
 							<label class="form-check-label"> <input type="radio"
 								class="form-check-input" checked name="type-encheres"
@@ -95,18 +97,18 @@
 							<div class="form-check">
 								<label class="form-check-label"> <input type="checkbox"
 									class="form-check-input" checked name="encheres"
-									value="ouvertes" id="ouvertes">Enchères ouvertes
+									value="CR" id="ouvertes">Enchères ouvertes
 								</label>
 							</div>
 							<div class="form-check">
 								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" name="encheres" value="encours"
+									class="form-check-input" name="encheres" value="EC"
 									id="encours">Mes enchères en cours
 								</label>
 							</div>
 							<div class="form-check">
 								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" name="encheres" value="remportees"
+									class="form-check-input" name="encheres" value="VD"
 									id="remportees">Mes enchères remportées
 								</label>
 							</div>
@@ -139,7 +141,8 @@
 						</div>
 
 					</div>
-				</div>-->
+					</c:if>
+				</div>
 				<button class="btn btn-primary btn-lg btn-block" type="submit" name="filtrer">
 					<img class="small-icon" src="imgs/search.svg" alt="Filtrer">
 				</button>
@@ -156,7 +159,7 @@
 	                        </div>
 	                        <div class="d-flex">
 	                            <div class="col-3 p-2">
-	                                <img class="img-fluid img-thumbnail" src="images/photo.svg" alt="pas de photo" />
+	                                <img class="img-fluid img-thumbnail" src="imgs/photo.png" alt="pas de photo" />
 	                            </div>
 	                            <ul class="col-9 list-unstyled p-2">
 	                                <li>Prix : ${articleMgr.SelectById(enchere.getNoArticle()).getMiseAPrix()} point(s)</li>
@@ -175,6 +178,7 @@
 
 
 	</div>
+	<c:if test="${connecte == true}">
 	
 	<form action="<%=request.getContextPath()%>/connecte/afficher/enchere" method="post">
 		<input type="submit" class="nav-link"  name="noArticleVendu" value ="1">
@@ -182,6 +186,7 @@
 		<input type="submit" class="nav-link"  name="noArticleVendu" value ="3">
 		<input type="submit" class="nav-link"  name="noArticleVendu" value ="4">
 	</form>
+	</c:if>
 	<%@ include file="/WEB-INF/fragmentsJsp/footer.jspf"%>
 
 	<!-- Optional JavaScript -->

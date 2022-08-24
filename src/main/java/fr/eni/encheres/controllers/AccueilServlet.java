@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.ArticleVenduManager;
 import fr.eni.encheres.bll.BLLException;
@@ -19,6 +20,7 @@ import fr.eni.encheres.bll.UtilisateurManager;
 
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Enchere;
+import fr.eni.encheres.bo.Utilisateur;
 
 
 /**
@@ -41,13 +43,16 @@ public class AccueilServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		  
+          HttpSession session = request.getSession();
+		  boolean connecte = (session.getAttribute("utilisateur") == null) ? false : true;
+		  request.setAttribute("connecte", connecte);
+  
 		  ArticleVenduManager  articleMgr = ArticleVenduManager.getInstance();
 		  request.setAttribute("articleMgr", articleMgr);
 		  
 		  UtilisateurManager utilisateurMgr = UtilisateurManager.getInstance();
 		  request.setAttribute("utilisateurMgr", utilisateurMgr);
-		 		 		
+		 	
 		  try { 
 			  EnchereManager enchereMgr = EnchereManager.getInstance(); 
 			  if (request.getAttribute("listeEncheresFiltres") == null)
@@ -82,28 +87,33 @@ public class AccueilServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession session = request.getSession();
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
+		boolean connecte = (utilisateur == null) ? false : true;
+		  
 		 if (request.getParameter("filtrer") != null) {
 				
 				String nomArticle = request.getParameter("nomArticle");
 			    String categorie = request.getParameter("categorie");
-
-			    EnchereManager enchereMgr = EnchereManager.getInstance(); 
+			    String encheres = request.getParameter("encheres");
+			    
+			    EnchereManager enchereMgr = EnchereManager.getInstance();
+			    List<Enchere> listeEncheres = new ArrayList<Enchere>();
+			    
 		    	try { 
-		    		List<Enchere> listeEncheres = enchereMgr.FiltrerListeEncheres(nomArticle, categorie); 
+		    		if (connecte)
+		    		{
+			    		listeEncheres = enchereMgr.FiltrerListeEncheresModeConnecte(utilisateur.getNoUtilisateur(), nomArticle, categorie, encheres); 
+		    		}
+		    		else
+		    		{
+			    		listeEncheres = enchereMgr.FiltrerListeEncheresModeDeconnecte(nomArticle, categorie);
+		    		}
 					request.setAttribute("listeEncheresFiltres", listeEncheres); 
 		    	} catch (BLLException e) { 
 		    		// TODO Auto-generated catch block 
 		    		e.printStackTrace(); 
 		    	}
-		    	
-			    /*
-				 * try { ArticleVenduManager mgr = ArticleVenduManager.getInstance();
-				 * ArticleVendu articleVendu = mgr.SelectById(categorie);
-				 * request.setAttribute("articleVendu",articleVendu);
-				 * 
-				 * }catch (Exception e) { }
-				 */
-			 
 		    	doGet(request, response);
 
 	}

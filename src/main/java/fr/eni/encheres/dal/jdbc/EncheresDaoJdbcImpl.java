@@ -23,8 +23,9 @@ import fr.eni.encheres.dal.EnchereDAO;
 
 public class EncheresDaoJdbcImpl implements EnchereDAO {
 	private static final String SELECT_ALL ="select * from encheres";
-	private static final String SELECT_BY_ARTICLE_LIBELLE ="select * from ENCHERES E, ARTICLES_VENDUS A, CATEGORIES C where E.no_article = A.no_article AND A.no_categorie = C.no_categorie AND nom_article like ? AND libelle = ?";
 	private static final String SELECT_BY_ARTICLE ="select * from ENCHERES E, ARTICLES_VENDUS A, CATEGORIES C where E.no_article = A.no_article AND A.no_categorie = C.no_categorie AND nom_article like ?";
+	private static final String SELECT_BY_ARTICLE_LIBELLE ="select * from ENCHERES E, ARTICLES_VENDUS A, CATEGORIES C where E.no_article = A.no_article AND A.no_categorie = C.no_categorie AND nom_article like ? AND libelle = ?";
+	private static String SELECT_BY_FILTRE ="select * from ENCHERES E, ARTICLES_VENDUS A, CATEGORIES C where E.no_article = A.no_article AND A.no_categorie = C.no_categorie AND nom_article like ? ";
 	private static final String UPDATE_CREDIT_ANCIEN_ACHETEUR = "UPDATE UTILISATEURS SET credit=? where no_utilisateur=?";
 	private static final String SELECT_CREDIT_ANCIEN_ACHETEUR = "select * FROM UTILISATEURS u LEFT JOIN ENCHERES e on e.no_utilisateur = u.no_utilisateur WHERE e.no_article=?";
 	private static final String SELECT_CREDIT_NOUVEL_ACHETEUR = "select * from utilisateurs where no_utilisateur=?";
@@ -57,27 +58,7 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 		}
 
 	@Override
-	public Enchere selectByArticle(int id) throws DALException {
-		Enchere enchere = null;
-		try(Connection cnx = ConnectionProvider.getConnection();
-			PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_ARTICLE)){
-			stmt.setInt(1, id);			
-			ResultSet rs =stmt.executeQuery();
-			while(rs.next()) {
-				int noUtilisateur = rs.getInt("no_utilisateur");
-				int noArticle = rs.getInt("no_article");
-				LocalDateTime dateEnchere = LocalDateTime.of((rs.getDate("date_enchere").toLocalDate()), rs.getTime("date_enchere").toLocalTime());
-				int montant_enchere = rs.getInt("montant_enchere");
-				enchere = new Enchere(noUtilisateur , noArticle, dateEnchere, montant_enchere);
-				}
-            }catch (SQLException e) {
-            	DALException ex = new DALException("problème d'accès à cet article", e);
-            	throw ex;}
-		return enchere;
-	}
-
-	@Override
-	public List<Enchere> filtrerListeEncheres(String nomArticle, String categorie) throws DALException {
+	public List<Enchere> filtrerListeEncheresModeDeconnecte(String nomArticle, String categorie) throws DALException {
 
 			List<Enchere> listEncheres = new ArrayList<Enchere>();
 			try (Connection cnx = ConnectionProvider.getConnection();){
@@ -112,6 +93,67 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 			return listEncheres;	
 	}
 
+	@Override
+	public List<Enchere> filtrerListeEncheresModeConnecte(int idUtilisateur, String nomArticle, String categorie, String encheres) throws DALException {
+	
+			List<Enchere> listEncheres = new ArrayList<Enchere>();
+			try (Connection cnx = ConnectionProvider.getConnection();){
+				PreparedStatement stmt = null;
+					
+				if (encheres.equals("CR")) //CR = ENCEHRES CREES --> TOUTES LES ENCHERES OUVERTES
+				{
+					if (categorie.toLowerCase().equals("toutes"))
+					{
+						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
+						stmt.setString(1, "%" + nomArticle + "%");
+					}
+					else
+					{
+						SELECT_BY_FILTRE += "AND libelle = ? ";
+						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
+						stmt.setString(1, "%" + nomArticle + "%");
+						stmt.setString(2, categorie);
+					}
+				}
+				else //MES ENCHERES EN COURS OU MES ENCHERES REMPORTEES
+				{
+					SELECT_BY_FILTRE += "AND E.no_utilisateur = ? AND etat_vente = ?";
+					
+					if (categorie.toLowerCase().equals("toutes"))
+					{
+						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
+						stmt.setString(1, "%" + nomArticle + "%");
+						stmt.setInt(2, idUtilisateur);
+						stmt.setString(3, encheres);
+					}
+					else
+					{
+						SELECT_BY_FILTRE += "AND no_utilisateur = ? AND etat_vente = ? AND libelle = ? ";
+						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
+						stmt.setString(1, "%" + nomArticle + "%");
+						stmt.setInt(2, idUtilisateur);
+						stmt.setString(3, encheres);
+						stmt.setString(4, categorie);
+					}
+				}
+
+				ResultSet rs =stmt.executeQuery();
+				while(rs.next()) {
+						int noUtilisateur = rs.getInt("no_utilisateur");
+						int noArticle = rs.getInt("no_article");
+						LocalDateTime dateEnchere = LocalDateTime.of((rs.getDate("date_enchere").toLocalDate()), rs.getTime("date_enchere").toLocalTime());
+						int montant_enchere = rs.getInt("montant_enchere");
+						Enchere enchere = new Enchere(noUtilisateur , noArticle, dateEnchere, montant_enchere);
+						listEncheres.add(enchere);
+				}	
+
+			}catch (SQLException e) {
+				DALException ex = new DALException("Probleme d'afficher listes Encheres", e);
+				throw (ex);				
+			}
+			
+			return listEncheres;	
+	}
 	
 	@Override
 	public void insert(Enchere element) throws DALException {

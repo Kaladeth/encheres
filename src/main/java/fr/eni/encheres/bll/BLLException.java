@@ -11,6 +11,7 @@ public class BLLException extends Exception {
 	private List<Exception> bllExceptions ;
 	
 	public BLLException() {
+		super();
 		this.bllExceptions = new ArrayList<Exception>();
 	}
 	

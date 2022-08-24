@@ -120,16 +120,20 @@ public class UtilisateurManager {
 			bllExceptions.addException(e);
 		}
 		if(mdp == cmdp) {
-			Exception e = new Exception("Les mots de passe sont diff�rents !");
+			Exception e = new Exception("Les mots de passe sont différents !");
 			bllExceptions.addException(e);
 		}
 		
+		if (!bllExceptions.isEmpty()) {
+			throw bllExceptions;
+			
+		}
 		// CREATION DE L'UTILISATEUR A ENVOYER EN BASE DE DONNEES
 		Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp, credit, admin);
 		try {
 			utilisateurDao.insert(utilisateur);
-		} catch (DALException e) {
-			Exception ex = new Exception(e.getMessage());
+		} catch (Exception e) {
+			Exception ex = new Exception(e.getMessage(), e);
 			bllExceptions.addException(ex);
 			throw bllExceptions;
 		}
@@ -138,7 +142,7 @@ public class UtilisateurManager {
 	
 	// * * * * * METHODE UPDATE * * * * *
 	public void updateUtilisateur(int idUser, String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String cp, String ville) throws BLLException {
+			String cp, String ville, String mdp, String confirmationMdp) throws BLLException {
 		BLLException bllExceptions = new BLLException();
 		
 		// VERIFICATION DES REGLES METIER
@@ -190,15 +194,20 @@ public class UtilisateurManager {
 			Exception e = new Exception("La ville est obligatoire !");
 			bllExceptions.addException(e);
 		}
+		if(mdp != confirmationMdp){
+			Exception e = new Exception("Les mots de passe ne correspondent pas !");
+			bllExceptions.addException(e);
+		}
+		
 		if (!bllExceptions.isEmpty()) {
 			throw bllExceptions;
 		}
+		
 		// CREATION DE L'UTILISATEUR A ENVOYER EN BASE DE DONNEES
-		Utilisateur utilisateur = new Utilisateur(idUser, pseudo, nom, prenom, email, telephone, rue, cp, ville);
+		Utilisateur utilisateur = new Utilisateur(idUser, pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp);
 		try {
 			utilisateurDao.update(utilisateur);
-			
-			
+						
 		} catch (DALException e) {
 			bllExceptions.addException(e);
 			throw bllExceptions;

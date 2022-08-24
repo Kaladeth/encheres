@@ -55,11 +55,13 @@ public class ModifierMonProfilServlet extends HttpServlet {
 	    String rue = request.getParameter("street");
 	    String cp = request.getParameter("zipcode");
 	    String ville = request.getParameter("city");
+	    String mdp = request.getParameter("password");
+	    String confirmationMDP = request.getParameter("confirm_password");
 
 	    
 	    try {
 	     	UtilisateurManager mgr = UtilisateurManager.getInstance();
-	    	mgr.updateUtilisateur(idUser, pseudo, nom, prenom, email, telephone, rue, cp, ville);
+	    	mgr.updateUtilisateur(idUser, pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp, confirmationMDP);
 	    	//à modifier en aficher profil quand il sera fait
 	    	rd = request.getRequestDispatcher("/WEB-INF/modifierProfil.jsp");
 	    	} catch (BLLException e) {

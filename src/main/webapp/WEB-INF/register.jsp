@@ -1,3 +1,4 @@
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -143,7 +144,8 @@
 				            Ce champ est invalide ou les mots de passe sont différents !
 				        </div>
 				    </div>
-				</div>                
+				</div>      
+				          
                 <hr class="mb-4">
                 <button class="btn btn-primary btn-lg btn-block" type="submit" name="creer">Créer mon compte</button>
                 <button class="btn btn-danger btn-lg btn-block" type="submit" name="annuler">Annuler</button>

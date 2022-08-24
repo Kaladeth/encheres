@@ -65,7 +65,7 @@ public class RegisterServlet extends HttpServlet {
 				  	rd = request.getRequestDispatcher("/WEB-INF/login.jsp");
 				  } 
 			  catch (BLLException e) {
-				  request.setAttribute("erreurs",e);
+				  request.setAttribute("erreurs", e);
 			  }
 		}
 		else if (request.getParameter("annuler") != null) {	

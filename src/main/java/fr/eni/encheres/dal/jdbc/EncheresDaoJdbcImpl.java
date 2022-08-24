@@ -132,7 +132,7 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 					}
 					else
 					{
-						SELECT_BY_FILTRE += "AND no_utilisateur = ? AND etat_vente = ? AND libelle = ? ";
+						SELECT_BY_FILTRE += " AND libelle = ? ";
 						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
 						stmt.setString(1, "%" + nomArticle + "%");
 						stmt.setInt(2, idUtilisateur);
@@ -239,7 +239,6 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 									
 
 						}
-					
 					
 						//crréation de l'enchère si besoin			
 				}catch (Exception e) {

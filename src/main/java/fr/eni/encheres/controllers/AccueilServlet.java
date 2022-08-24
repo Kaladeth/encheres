@@ -43,9 +43,11 @@ public class AccueilServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-          HttpSession session = request.getSession();
-		  boolean connecte = (session.getAttribute("utilisateur") == null) ? false : true;
+		
+		  HttpSession session = request.getSession(); boolean connecte =
+		  (session.getAttribute("utilisateur") == null) ? false : true;
 		  request.setAttribute("connecte", connecte);
+		
   
 		  ArticleVenduManager  articleMgr = ArticleVenduManager.getInstance();
 		  request.setAttribute("articleMgr", articleMgr);
@@ -76,7 +78,7 @@ public class AccueilServlet extends HttpServlet {
 			  List<Categorie> listesCategories = categorieMgr.selectAllCategorie();
 			  request.setAttribute("listesCategories", listesCategories);
 		  } catch (BLLException e) {
-			// TODO Auto-generated catch block
+			request.setAttribute("erreurs", e);
 			e.printStackTrace();
 		  }
 		  
@@ -90,7 +92,7 @@ public class AccueilServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
 		boolean connecte = (utilisateur == null) ? false : true;
-		  
+		
 		 if (request.getParameter("filtrer") != null) {
 				
 				String nomArticle = request.getParameter("nomArticle");
@@ -111,8 +113,8 @@ public class AccueilServlet extends HttpServlet {
 		    		}
 					request.setAttribute("listeEncheresFiltres", listeEncheres); 
 		    	} catch (BLLException e) { 
-		    		// TODO Auto-generated catch block 
-		    		e.printStackTrace(); 
+		    		request.setAttribute("erreurs", e); 
+		    		e.printStackTrace();
 		    	}
 		    	doGet(request, response);
 

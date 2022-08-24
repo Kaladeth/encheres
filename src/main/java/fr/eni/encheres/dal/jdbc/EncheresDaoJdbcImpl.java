@@ -157,42 +157,43 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 			PreparedStatement stmtAddEnchere = cnx.prepareStatement(ADD_ENCHERE)) {
 			try {
 				cnx.setAutoCommit(false);
-				System.out.println(1);
-				int creditAncienAcheteur = 0;
+				int creditAncienAcheteur = -1;
 				int creditNouvelAcheteur = 0;
 				int idAncienAcheteur = 0;
 				int valeurAncienneEnchere = 0;
 				
+				//réccupère les info s'il existe déjà une enchere et met à jour le crédit de l'ancien encherisseur 
+				// s'il n'y en a pas encore, il en crée une nouvelle associée à l'article
 				try{
-					System.out.println(11);
+					//reccupere montant de l'ancienne enchere
 					stmtReccupEnchere.setInt(1, idArticle);
 					ResultSet rs = stmtReccupEnchere.executeQuery();
 					while(rs.next()) {
 						valeurAncienneEnchere = rs.getInt("montant_enchere");
 					}
-					System.out.println(2);
 					
+					//reccupère ancien enchérisseur
 					stmtSelectAncienAcheteur.setInt(1, idArticle);
 					ResultSet rsAA = stmtSelectAncienAcheteur.executeQuery();
 					while(rsAA.next()) {
+						//reccupère crédit ancien enchérisseur
 						creditAncienAcheteur = rsAA.getInt("credit");
 						idAncienAcheteur = rsAA.getInt("no_utilisateur");
-						System.out.println(3);
 						
-						if(idAncienAcheteur == 0 || creditAncienAcheteur == 0) {
+						if(idAncienAcheteur == 0 || creditAncienAcheteur == -1) {
 							cnx.rollback();
 							DALException ex = new DALException("Problème dans 'accès à l'ancien enchéreur");
 							throw (ex);
-						}
-						System.out.println(3);		
+						}	
 						
+						//met à jour le crédit de l'ancien encherisseur
 						stmtUpdateAncienAcheteur.setInt(1, (creditAncienAcheteur + valeurAncienneEnchere)); 
 						stmtUpdateAncienAcheteur.setInt(2, idAncienAcheteur); 
 						stmtUpdateAncienAcheteur.executeUpdate();
-						System.out.println(10);}
+						}
 					
 					
-									
+						//crréation de l'enchère si besoin			
 				}catch (Exception e) {
 					stmtAddEnchere.setInt(1, idAcheteur);
 					stmtAddEnchere.setInt(2, idArticle);
@@ -205,33 +206,33 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 					
 					
 				
-				
+				//reccupère crédit nouveau enchérisseur
 				stmtSelectNouvelAcheteur.setInt(1, idAcheteur);
 				
 				ResultSet rsNA = stmtSelectNouvelAcheteur.executeQuery();
 				
-				System.out.println(22);
 				while(rsNA.next()) {
 					creditNouvelAcheteur = rsNA.getInt("credit");
 					}
-				System.out.println(23);
+				//vérif crédit
 				if(creditNouvelAcheteur < valeurEnchere) {
 					cnx.rollback();
 					DALException ex = new DALException("Problème dans le crédit disponible");
 					throw (ex);
 					}
+				//MAJ crédit nouveau enchérisseur
 				stmtUpdateNouvelAcheteur.setInt(1, (creditNouvelAcheteur - valeurEnchere)); 
 				stmtUpdateNouvelAcheteur.setInt(2, idAcheteur); 
 				stmtUpdateNouvelAcheteur.executeUpdate();
-				System.out.println(20);	
 				
+				
+				//MAJ enchère
 				stmtUpdateMontantEnchere.setInt(1, valeurEnchere);
 				stmtUpdateMontantEnchere.setInt(2, idAcheteur);
 				Date date = Date.valueOf(LocalDate.now());
 				stmtUpdateMontantEnchere.setDate(3, date);
 				stmtUpdateMontantEnchere.setInt(4, idArticle);
 				stmtUpdateMontantEnchere.executeUpdate();
-				System.out.println(30);
 	            
 				cnx.commit();
 			}catch(SQLException e) {

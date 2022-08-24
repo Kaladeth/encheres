@@ -50,7 +50,7 @@ public class EncherirVenteServlet extends HttpServlet {
 		String idArticle = request.getParameter("noArticle");
 		String valeurEnchere = request.getParameter("valeurEnchere");
 	 	Utilisateur acheteur = (Utilisateur) session.getAttribute("utilisateur");
-	 	System.out.println(idArticle +" - " + valeurEnchere +" - " + acheteur);
+	 	
 	
 	 	try {
 	     	EnchereManager mgr = EnchereManager.getInstance();
@@ -66,7 +66,6 @@ public class EncherirVenteServlet extends HttpServlet {
 	    	
 	        if(articleVendu != null) {
 	        	request.setAttribute("articleVendu",articleVendu);
-	        	System.out.println("coucou " + articleVendu);
 	        	session.setAttribute("utilisateur",acheteur);
 	        	
 	        	rd = request.getRequestDispatcher("/WEB-INF/afficherArticle.jsp");

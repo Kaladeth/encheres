@@ -38,10 +38,10 @@ public class ArticleVenduManager {
 		ArticleVendu article = null;
 		int idInt = 0;
 		if(!StringUtils.isNumeric(id)) {
-						 Exception ex = new Exception("Erreur dans l'identifiant de l'article");
-			 bllExceptions.addException(ex);
-			 throw bllExceptions;
-			 }
+			Exception ex = new Exception("Erreur dans l'identifiant de l'article");
+			bllExceptions.addException(ex);
+			throw bllExceptions;
+			}
 		
 		else{
 			idInt = Integer.valueOf(id);

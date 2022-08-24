@@ -71,10 +71,8 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
                 vendeur.setNoUtilisateur(rs.getInt(14));
                 vendeur.setPseudo(rs.getString(15));
                 article.setEtatVente(rs.getString(16));
-                System.out.println(1);
                 //n° de vendeur ajouté à l'utilisateur
                 article.setUtilisateur(rs.getInt(17));
-                System.out.println(2);
             }
             article.setCategorie(categorie);
             enchere.setAcheteur(acheteur);

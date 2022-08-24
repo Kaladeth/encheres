@@ -78,8 +78,13 @@ public class AccueilServlet extends HttpServlet {
 			  List<Categorie> listesCategories = categorieMgr.selectAllCategorie();
 			  request.setAttribute("listesCategories", listesCategories);
 		  } catch (BLLException e) {
+<<<<<<< HEAD
 			request.setAttribute("erreurs", e);
 			e.printStackTrace();
+=======
+			  request.setAttribute("erreurs", e);
+			  e.printStackTrace();
+>>>>>>> branch 'main' of https://github.com/Kaladeth/encheres.git
 		  }
 		  
 		  RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
@@ -113,8 +118,14 @@ public class AccueilServlet extends HttpServlet {
 		    		}
 					request.setAttribute("listeEncheresFiltres", listeEncheres); 
 		    	} catch (BLLException e) { 
+<<<<<<< HEAD
 		    		request.setAttribute("erreurs", e); 
 		    		e.printStackTrace();
+=======
+		    		// TODO Auto-generated catch block 
+		    		request.setAttribute("erreurs", e);
+		    		e.printStackTrace(); 
+>>>>>>> branch 'main' of https://github.com/Kaladeth/encheres.git
 		    	}
 		    	doGet(request, response);
 

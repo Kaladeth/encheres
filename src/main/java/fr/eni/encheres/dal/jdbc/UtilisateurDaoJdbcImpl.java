@@ -103,7 +103,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 			PreparedStatement stmt = cnx.prepareStatement(UPDATE_USER);
 			PreparedStatement stmtChk = cnx.prepareStatement(SELECT_BY_PSEUDO_EMAIL)){
 			try {
-				System.out.println(1);
+				
 				cnx.setAutoCommit(false);
 				
 				stmtChk.setString(1, utilisateur.getPseudo());
@@ -115,26 +115,15 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 						DALException ex = new DALException("L'identifiant et/ou l'email existent déjà !" );
 						throw (ex);	
 					}
-				System.out.println(2);	
-				System.out.println(3);
 				stmt.setString(1, utilisateur.getPseudo());
-				System.out.println(4);
 				stmt.setString(2, utilisateur.getNom());
-				System.out.println(5);
 				stmt.setString(3, utilisateur.getPrenom());
-				System.out.println(6);
 				stmt.setString(4, utilisateur.getEmail());
-				System.out.println(7);
 				stmt.setString(5, utilisateur.getTelephone());
-				System.out.println(8);
 				stmt.setString(6, utilisateur.getRue());
-				System.out.println(9);
 				stmt.setString(7, utilisateur.getCodePostal());
-				System.out.println(10);
 				stmt.setString(8, utilisateur.getVille());
-				System.out.println(11);
 				stmt.setInt(9, utilisateur.getNoUtilisateur());
-				System.out.println(12);
 				
 				stmt.executeUpdate();	
 				

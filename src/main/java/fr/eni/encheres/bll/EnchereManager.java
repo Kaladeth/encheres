@@ -106,7 +106,6 @@ public class EnchereManager {
 				idArticleInt = Integer.valueOf(idArticle);}
 			
 			// vérification que l'enchère est en cours et que l'article n'appartient pas à l'enchérisseur
-			System.out.println(idArticle);
 			try {
 				article = artMgr.SelectById(idArticle);
 				if(article == null) {
@@ -114,12 +113,11 @@ public class EnchereManager {
 					bllExceptions.addException(ex);
 					throw bllExceptions;
 				}
-			System.out.println(article);
+			
 			} catch (BLLException e) {
 				bllExceptions.addException(e);
 				throw bllExceptions;
 			}
-			System.out.println(article.getUtilisateur() + " - " +  acheteur.getNoUtilisateur() );
 			if((article.getUtilisateur()) == acheteur.getNoUtilisateur()) {
 				Exception ex = new Exception("Petit coquinou ! \n Il n'est pas possible d'enchérir sur un article vous appartenant !");
 				bllExceptions.addException(ex);

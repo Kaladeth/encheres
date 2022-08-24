@@ -65,7 +65,7 @@
            
             <!--formulaire-->
             <form class="form-register needs-validation" action="<%=request.getContextPath()%>/connecte/modifier/profil" method="post" novalidate>
-                ${sessionScope.utilisateur }
+               
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="pseudo">Pseudo</label>
@@ -77,7 +77,7 @@
                 
                     <div class="col-md-6 mb-3">
                         <label for="lastname">Nom</label>
-                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="" maxlength="30"  value="${sessionScope.utilisateur.nom }" required>
+                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="" maxlength="30" value="${sessionScope.utilisateur.nom }" required>
                         <div class="invalid-feedback">
                             Ce champ est invalide !
                         </div>

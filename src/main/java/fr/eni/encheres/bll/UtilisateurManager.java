@@ -217,8 +217,8 @@ public class UtilisateurManager {
 			 throw bllExceptions;
 		}
 		else{
-			idInt = Integer.valueOf(id);}
-			
+			idInt = Integer.valueOf(id);
+			}
 		try {
 			utilisateur = utilisateurDao.selectById(idInt);
 			if(utilisateur == null) {

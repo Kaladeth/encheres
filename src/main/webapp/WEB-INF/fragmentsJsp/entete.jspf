@@ -6,6 +6,7 @@
 </head>
 <header>
 	<div id="blockEtt">
+		<%@ include file="/WEB-INF/fragmentsJsp/logoClicable.jspf"%>
 		<h1 id="titleEtt">ENI Enchères</h1>
 		<div id="deuxBlockEtt">
 			<c:if test="${not empty sessionScope.utilisateur.administrateur}">

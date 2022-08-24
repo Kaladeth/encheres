@@ -1,0 +1,3 @@
+<a href="${pageContext.request.contextPath}/Accueil">
+	<img class="small-icon" src="<%=request.getContextPath()%>/imgs/eni.jpeg" alt="Eni Ecole" height="50px" >
+</a>

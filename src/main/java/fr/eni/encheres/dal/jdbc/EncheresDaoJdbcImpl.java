@@ -235,15 +235,13 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 						stmtUpdateAncienAcheteur.setInt(1, (creditAncienAcheteur + valeurAncienneEnchere)); 
 						stmtUpdateAncienAcheteur.setInt(2, idAncienAcheteur); 
 						stmtUpdateAncienAcheteur.executeUpdate();
-<<<<<<< HEAD
-						System.out.println(10);}	
+
 									
-=======
+
 						}
 					
 					
 						//crréation de l'enchère si besoin			
->>>>>>> branch 'main' of https://github.com/Kaladeth/encheres.git
 				}catch (Exception e) {
 					stmtAddEnchere.setInt(1, idAcheteur);
 					stmtAddEnchere.setInt(2, idArticle);
@@ -252,15 +250,7 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 					stmtAddEnchere.setInt(4, 0);
 					stmtAddEnchere.executeUpdate();
 					}
-<<<<<<< HEAD
-				
-=======
-					
-					
-					
-				
-				//reccupère crédit nouveau enchérisseur
->>>>>>> branch 'main' of https://github.com/Kaladeth/encheres.git
+			//reccupère crédit nouveau enchérisseur
 				stmtSelectNouvelAcheteur.setInt(1, idAcheteur);
 				
 				ResultSet rsNA = stmtSelectNouvelAcheteur.executeQuery();

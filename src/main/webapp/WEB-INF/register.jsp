@@ -1,3 +1,4 @@
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -55,21 +56,9 @@
                 <img class="mb-4 large-icon rounded-circle" src="images/user.svg" alt="">
             </div>
             <!--erreur-->
-<<<<<<< HEAD
+
           <%@ include file="/WEB-INF/fragmentsJsp/affichageErreurs.jspf"%>          
-=======
-          
-            <div class="d-flex alert-danger">
-                <div class="col-3 p-2">
-                    <img class="small-icon" src="images/error.svg">
-                </div>
-            
-                <ul class="col-9 list-unstyled p-2">
-                    <li>  <%@ include file="/WEB-INF/fragmentsJsp/affichageErreurs.jspf"%></li>
-                   
-                </ul>
-            </div>             
->>>>>>> branch 'main' of https://github.com/Kaladeth/encheres.git
+
             <!--formulaire-->
             <form class="form-register needs-validation" action="<%=request.getContextPath()%>/Register" method="post" novalidate>
                 <div class="row">
@@ -155,7 +144,8 @@
 				            Ce champ est invalide ou les mots de passe sont différents !
 				        </div>
 				    </div>
-				</div>                
+				</div>      
+				          
                 <hr class="mb-4">
                 <button class="btn btn-primary btn-lg btn-block" type="submit" name="creer">Créer mon compte</button>
                 <button class="btn btn-danger btn-lg btn-block" type="submit" name="annuler">Annuler</button>

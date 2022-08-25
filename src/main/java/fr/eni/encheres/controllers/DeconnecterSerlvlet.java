@@ -26,14 +26,15 @@ public class DeconnecterSerlvlet extends HttpServlet {
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		HttpSession session = request.getSession(false);
 		String pseudo = (String) session.getAttribute("pseudo");
 	    if(session != null){
-	    session.invalidate();
+	    	session.invalidate();
 	    }
-	    RequestDispatcher rd =request.getRequestDispatcher("/Accueil");
-	    rd.forward(request, response);
-	    }
+	    
+    	response.sendRedirect(request.getContextPath()+"/Accueil");
+	}
 
 
 }

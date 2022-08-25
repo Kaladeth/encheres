@@ -83,8 +83,10 @@
 							</select>
 						</div>
 					</div>
+					<!--  si l'utilisateur connecté afficher les chekbox  -->
 					<!--Partie droite-->
-					<!--<div class="col-md-6 mb-3">
+					<c:if test="${connecte == true}">
+					<div class="col-md-6 mb-3">
 						<div class="form-check">
 							<label class="form-check-label"> <input type="radio"
 								class="form-check-input" checked name="type-encheres"
@@ -93,20 +95,20 @@
 						</div>
 						<div class="form-group">
 							<div class="form-check">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" checked name="encheres"
-									value="ouvertes" id="ouvertes">Enchères ouvertes
+								<label class="form-check-label"> 
+								<input type="checkbox" class="form-check-input" name="encheres" <c:if test="${valeurCheckbox=='CR'}">checked=checked</c:if>
+									value="CR" id="ouvertes">Enchères ouvertes
 								</label>
 							</div>
 							<div class="form-check">
 								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" name="encheres" value="encours"
+									class="form-check-input" name="encheres" value="EC" <c:if test="${valeurCheckbox=='EC'}">checked=checked</c:if>
 									id="encours">Mes enchères en cours
 								</label>
 							</div>
 							<div class="form-check">
 								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" name="encheres" value="remportees"
+									class="form-check-input" name="encheres" value="ER" <c:if test="${valeurCheckbox=='VD'}">checked=checked</c:if>
 									id="remportees">Mes enchères remportées
 								</label>
 							</div>
@@ -120,26 +122,27 @@
 						<div class="form-group">
 							<div class="form-check">
 								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" name="ventes" value="venteencours"
+									class="form-check-input" name="ventes" value="EC"
 									id="venteencours">Mes ventes en cours
 								</label>
 							</div>
 							<div class="form-check">
 								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" name="ventes" value="nondebutees"
+									class="form-check-input" name="ventes" value="CR"
 									id="nondebutees">Mes ventes non débutées
 								</label>
 							</div>
 							<div class="form-check">
 								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" name="ventes" value="terminees"
+									class="form-check-input" name="ventes" value="VD"
 									id="terminees">Mes ventes terminées
 								</label>
 							</div>
 						</div>
 
 					</div>
-				</div>-->
+					</c:if>
+				</div>
 				<button class="btn btn-primary btn-lg btn-block" type="submit" name="filtrer">
 					<img class="small-icon" src="imgs/search.svg" alt="Filtrer">
 				</button>
@@ -148,40 +151,37 @@
 			<!--enchères-->
 			
 			<div class="row justify-content-center border-top card-deck">
-				<c:forEach var="enchere" items="${listeEncheres}">
+				<c:forEach var="element" items="${listeArticles}">
 					<div class="col-12 col-sm-6 p-2" >
 	                    <div class="card">
 	                        <div class="card-header text-center">
-	                            <h4 class="my-0 font-weight-normal">${articleMgr.SelectById(enchere.getNoArticle()).getNomArticle()}</h4>
+	                            <h4 class="my-0 font-weight-normal">${element.getNomArticle()}</h4>
 	                        </div>
 	                        <div class="d-flex">
 	                            <div class="col-3 p-2">
-	                                <img class="img-fluid img-thumbnail" src="images/photo.svg" alt="pas de photo" />
+	                                <img class="img-fluid img-thumbnail" src="imgs/photo.png" alt="pas de photo" />
 	                            </div>
 	                            <ul class="col-9 list-unstyled p-2">
-	                                <li>Prix : ${articleMgr.SelectById(enchere.getNoArticle()).getMiseAPrix()} point(s)</li>
-	                                <li>Meilleure enchère : ${enchere.getMontant_enchere()} point(s)</li>
-	                                <li>Fin de l'enchère : ${enchere.getDateEnchere()} </li>
-	                                <li>Vendeur : ${utilisateurMgr.SelectById(enchere.getNoUtilisateur()).getPrenomNom()}</li>
+	                                <li>Prix : ${element.getMiseAPrix()} point(s)</li>
+	                                <li>Meilleure enchère : ${element.getEnchere().getMontant_enchere()} point(s)</li>
+	                                <li>Fin de l'enchère : ${element.getDateFinEncheres()} </li>
+	                                <li><a class="nav-link" href="${pageContext.request.contextPath}/connecte/visualiser/profil?pseudo=${element.getVendeur().getPseudo()}"
+										alt="Visualiser le profil du vendeur">Vendeur : ${element.getVendeur().getPrenomNom()}</a>
+									</li>
 	                            </ul>
 	                        </div>
-	                        <a class="mt-3 btn btn-lg btn-block btn-primary" href="#" title="faire une enchère">
+	                        <a class="mt-3 btn btn-lg btn-block btn-primary" href="<%=request.getContextPath()%>/connecte/afficher/enchere?noArticleVendu=${element.getNoArticle()}" title="faire une enchère" name="noArticleVendu"  >
 	                            <img class="small-icon" src="imgs/bid.svg">
+	                            
 	                        </a>
 	                    </div>
 	                </div>
                </c:forEach>
-		</main>
+    	</main>
 
 
 	</div>
-	
-	<form action="<%=request.getContextPath()%>/connecte/afficher/enchere" method="post">
-		<input type="submit" class="nav-link"  name="noArticleVendu" value ="1">
-		<input type="submit" class="nav-link"  name="noArticleVendu" value ="2">
-		<input type="submit" class="nav-link"  name="noArticleVendu" value ="3">
-		<input type="submit" class="nav-link"  name="noArticleVendu" value ="4">
-	</form>
+
 	<%@ include file="/WEB-INF/fragmentsJsp/footer.jspf"%>
 
 	<!-- Optional JavaScript -->

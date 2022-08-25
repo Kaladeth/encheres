@@ -44,23 +44,13 @@ public class ConnectionFilter extends HttpFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// place your code here
-				//cast http servlet request pour transformer la request en http request pour avoir acces à l a methode getSession() 
 				HttpServletRequest httpRequest = (HttpServletRequest) request;
-				
 				HttpSession session = httpRequest.getSession();
-				//des infos sur l'état du feu ? 
-				// - attribut existant dans la session => feu au vert
-				// - sinon => feu au rouge
-				String feu = null;
-				if (session.getAttribute("utilisateur") != null) {
-					feu = String.valueOf(session.getAttribute("feu"));
-				}
-				//le feu est il rouge ?
-				if (feu == null) {
-					//intercepter la requete en cours et établir une redirection
+					
+				if (session.getAttribute("utilisateur") == null) {
+					
 					httpRequest.setAttribute("messageErreur", "Vous devez être connecté pour accéder à cette partie du site !");
-					httpRequest.getRequestDispatcher("/Accueil").forward(request, response);
+					httpRequest.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 
 				} else {
 					// pass the request along the filter chain

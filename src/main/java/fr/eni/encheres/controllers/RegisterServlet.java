@@ -8,9 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import fr.eni.encheres.bll.BLLException;
-import fr.eni.encheres.bll.Manager;
+
+import fr.eni.encheres.bll.UtilisateurManager;
 
 
 /**
@@ -56,7 +56,7 @@ public class RegisterServlet extends HttpServlet {
 	     int credit = 100;
 		 boolean admin = false;
 			
-	     Manager mgr = Manager.getInstance();
+	     UtilisateurManager mgr = UtilisateurManager.getInstance();
 			
 			  try { 
 				  	mgr.ajouterUtilisateur( pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp, confirmationMDP, credit , admin);
@@ -65,7 +65,8 @@ public class RegisterServlet extends HttpServlet {
 				  	rd = request.getRequestDispatcher("/WEB-INF/login.jsp");
 				  } 
 			  catch (BLLException e) {
-				  request.setAttribute("erreurs",e);
+				  request.setAttribute("erreurs", e);
+				  e.printStackTrace();
 			  }
 		}
 		else if (request.getParameter("annuler") != null) {	

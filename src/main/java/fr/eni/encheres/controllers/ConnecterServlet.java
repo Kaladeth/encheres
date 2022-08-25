@@ -40,8 +40,8 @@ public class ConnecterServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/login.jsp");
-		 	String pseudo = request.getParameter("pseudo");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+			String pseudo = request.getParameter("pseudo");
 	        String password = request.getParameter("password");
 	        try {
 	        	UtilisateurManager mgr = UtilisateurManager.getInstance();
@@ -49,11 +49,12 @@ public class ConnecterServlet extends HttpServlet {
 	            HttpSession session = request.getSession();
 	            if(utilisateur != null) {
 	            	session.setAttribute("utilisateur",utilisateur);
-	            	rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+	            	response.sendRedirect(request.getContextPath()+"/Accueil");
 	            	}        
 	        } catch (BLLException e) {
 	        	request.setAttribute("erreurs", e);
+		    	e.printStackTrace();
+		    	rd.forward(request, response);
 	        }
-	        rd.forward(request, response);
 	}
 }

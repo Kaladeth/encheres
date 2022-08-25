@@ -35,16 +35,80 @@ public class ArticleVenduManager {
 	
 	// - - - - - - - - - - METHODES ARTICLEVENDU
 
+	// * * * * * METHODE selectAll * * * * * 
+		public List<ArticleVendu> selectAll() throws BLLException {
+				BLLException bllExceptions = new BLLException();
+				List<ArticleVendu> listesArticles = new ArrayList<ArticleVendu>();
+
+			try {
+				listesArticles = articleVenduDAO.selectAll();
+							
+			} catch (DALException e) {
+				Exception ex = new Exception("Erreur : imposssible d'afficher des articles");
+				bllExceptions.addException(ex);
+				throw bllExceptions; 
+			}
+			
+			
+			return listesArticles;
+			
+		}
+
+		// * * * * * METHODE FiltrerListeModeDeconnecte * * * * * 
+				public List<ArticleVendu> FiltrerListeModeDeconnecte(String nomArticle, String categorie) throws BLLException {
+						BLLException bllExceptions = new BLLException();
+						List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
+
+					try {
+						listeArticles = articleVenduDAO.filtrerListeModeDeconnecte(nomArticle, categorie);
+					} catch (DALException e) {
+						Exception ex = new Exception("Erreur : mode deconnecté - imposssible d'afficher des articles");
+						bllExceptions.addException(ex);
+						throw bllExceptions;
+					}
+					return listeArticles;			
+				}
+
+				// * * * * * METHODE FiltrerListeModeConnecteEnchere * * * * * 
+				public List<ArticleVendu> FiltrerListeModeConnecteEnchere(int idUtilisateur, String nomArticle, String categorie, String encheres) throws BLLException {
+						BLLException bllExceptions = new BLLException();
+						List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
+
+						try {
+							listeArticles = articleVenduDAO.filtrerListeModeConnecteEnchere(idUtilisateur, nomArticle, categorie, encheres);
+						} catch (DALException e) {
+							Exception ex = new Exception("Erreur : mode connecté - imposssible d'afficher des articles");
+							bllExceptions.addException(ex);
+							throw bllExceptions;
+						}
+						return listeArticles;			
+				}
+
+				// * * * * * METHODE FiltrerListeModeConnecteVentes * * * * * 
+				public List<ArticleVendu> FiltrerListeModeConnecteVentes(int idUtilisateur, String nomArticle, String categorie, String ventes) throws BLLException {
+						BLLException bllExceptions = new BLLException();
+						List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
+
+						try {
+							listeArticles = articleVenduDAO.filtrerListeModeConnecteVentes(idUtilisateur, nomArticle, categorie, ventes);
+						} catch (DALException e) {
+							Exception ex = new Exception("Erreur : mode connecté - imposssible d'afficher des articles");
+							bllExceptions.addException(ex);
+							throw bllExceptions;
+						}
+						return listeArticles;			
+				}
+
 	// * * * * * METHODE SELECTBYIB * * * * * 
 	public ArticleVendu SelectById(String id) throws BLLException {
 		BLLException bllExceptions = new BLLException();
 		ArticleVendu article = null;
 		int idInt = 0;
 		if(!StringUtils.isNumeric(id)) {
-						 Exception ex = new Exception("Erreur dans l'identifiant de l'article");
-			 bllExceptions.addException(ex);
-			 throw bllExceptions;
-			 }
+			Exception ex = new Exception("Erreur dans l'identifiant de l'article");
+			bllExceptions.addException(ex);
+			throw bllExceptions;
+			}
 		
 		else{
 			idInt = Integer.valueOf(id);

@@ -8,14 +8,18 @@ public class BLLException extends Exception {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private List<Exception> bllExceptions = new ArrayList<Exception>();
+	private List<Exception> bllExceptions ;
+	
+	public BLLException() {
+		super();
+		this.bllExceptions = new ArrayList<Exception>();
+	}
 	
 	public void addException(Exception e) {
-	    if (bllExceptions !=null) {  
+	    if (bllExceptions == null) {  
 	    bllExceptions = new  ArrayList<Exception>();
 	    		}
 	    bllExceptions.add(e) ;
-	    
 	}
 	
 	public boolean isEmpty() {

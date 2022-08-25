@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import fr.eni.encheres.bo.ArticleVendu;
@@ -19,7 +20,9 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 	private static final String VALIDATE_LOGIN ="SELECT * FROM utilisateurs where (pseudo=? OR email=?) AND mot_de_passe=?"; 
 	private static final String INSERT_USER = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES ( ?, ?,?, ?, ?, ?, ?, ?,?, ?, ?)";
 	private static final String SELECT_BY_PSEUDO_EMAIL = "SELECT * FROM utilisateurs where pseudo=? OR email=?";
+	private static final String UPDATE_USER = "UPDATE UTILISATEURS SET pseudo=?, nom=? ,prenom=? ,email=?, telephone=? ,rue=?, code_postal=? ,ville=?, mot_de_passe=? WHERE no_utilisateur=?";
 	
+	private static final String SELECT_BY_pseudo="select*from utilisateurs where pseudo=?";
 	
 	public Utilisateur selectById(int id) throws DALException {
 		Utilisateur utilisateur = null;
@@ -34,17 +37,18 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 				utilisateur.setNom(rs.getString("nom"));
 				utilisateur.setPrenom(rs.getString("prenom"));
 				utilisateur.setEmail(rs.getString("email"));
+				utilisateur.setCredit(rs.getInt("credit"));
 				utilisateur.setTelephone(rs.getString("telephone"));
 				utilisateur.setRue(rs.getString("rue"));
 				utilisateur.setCodePostal(rs.getString("code_postal"));
 				utilisateur.setVille(rs.getString("ville"));
             }
-            }catch (SQLException e) {
-            	DALException ex = new DALException("problème d'accès à cet utilisateur", e);
+            }catch (Exception e) {
+            	DALException ex = new DALException("Problème d'accès à cet utilisateur", e);
             	throw ex;}
 		return utilisateur;
 	}
-
+//INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES ( ?, ?,?, ?, ?, ?, ?, ?,?, ?, ?)";
 	public List<Utilisateur> selectAll() throws DALException {
 		
 		return null;
@@ -52,8 +56,8 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 
 	public void insert(Utilisateur element) throws DALException {
 		try (Connection cnx = ConnectionProvider.getConnection();
-			PreparedStatement stmt = cnx.prepareStatement(INSERT_USER, PreparedStatement.RETURN_GENERATED_KEYS);
-			PreparedStatement stmtChk = cnx.prepareStatement(SELECT_BY_PSEUDO_EMAIL, PreparedStatement.RETURN_GENERATED_KEYS)){
+			PreparedStatement stmt = cnx.prepareStatement(INSERT_USER, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement stmtChk = cnx.prepareStatement(SELECT_BY_PSEUDO_EMAIL)){
 			try {
 				cnx.setAutoCommit(false);
 				stmtChk.setString(1, element.getPseudo());
@@ -79,25 +83,57 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 				}
 				else
 				{				
-					DALException ex = new DALException("L'identifiant et/ou l'email existent déjà !" );
-					throw (ex);				
+					throw new DALException("L'identifiant et/ou l'email existent déjà !" );			
 				}
-				
 				cnx.commit();
-			}catch(SQLException e) {
+			}catch(Exception e) {
 				cnx.rollback();
-				DALException ex = new DALException("Probleme d'ajout d'utilisateur", e);
-				throw (ex);	
-			}
-		}catch (SQLException e) {
-			DALException ex = new DALException("Probleme d'ajout d'utilisateur", e);
-			throw (ex);				
+				throw new DALException("Probleme d'ajout d'utilisateur", e);
+				}
+		}catch (Exception e) {
+			throw new DALException("Probleme d'ajout d'utilisateur", e);
 		}
 		
 	}
+// UPDATE_USER = "UPDATE UTILISATEURS SET pseudo=?, nom=? ,prenom=? ,
+	//email=?, telephone=? ,rue=?, code_postal=? ,ville=? WHERE no_utilisateur=?";
+	public void update(Utilisateur utilisateur) throws DALException{ 
+	try (Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement stmt = cnx.prepareStatement(UPDATE_USER);
+			PreparedStatement stmtChk = cnx.prepareStatement(SELECT_BY_PSEUDO_EMAIL)){ 
 
-	public void update(Utilisateur element) throws DALException {
-		
+			try {
+				cnx.setAutoCommit(false);				
+				stmtChk.setString(1, utilisateur.getPseudo());
+				stmtChk.setString(2, utilisateur.getEmail());
+				stmtChk.executeQuery();
+				ResultSet rs = stmtChk.executeQuery();
+				if(rs.next())
+					if(rs.getInt("no_utilisateur") != utilisateur.getNoUtilisateur()) {
+						DALException ex = new DALException("L'identifiant et/ou l'email existent déjà !" );
+						throw (ex);	
+					}
+				stmt.setString(1, utilisateur.getPseudo());
+				stmt.setString(2, utilisateur.getNom());
+				stmt.setString(3, utilisateur.getPrenom());
+				stmt.setString(4, utilisateur.getEmail());
+				stmt.setString(5, utilisateur.getTelephone());
+				stmt.setString(6, utilisateur.getRue());
+				stmt.setString(7, utilisateur.getCodePostal());
+				stmt.setString(8, utilisateur.getVille());
+				stmt.setInt(9, utilisateur.getNoUtilisateur());
+				
+				stmt.executeUpdate();	
+				
+				
+				cnx.commit();
+			}catch(Exception e) {
+				cnx.rollback();
+				throw new DALException("Probleme d'ajout d'utilisateur : ", e);	
+			}
+		}catch (Exception e) {
+			throw new DALException("Probleme d'ajout d'utilisateur : ", e);			
+		}
 		
 	}
 
@@ -129,6 +165,8 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 				utilisateur.setRue(rs.getString("rue"));
 				utilisateur.setCodePostal(rs.getString("code_postal"));
 				utilisateur.setVille(rs.getString("ville"));
+				utilisateur.setCredit(rs.getInt("credit"));
+				utilisateur.setMotDePasse(rs.getString("mot_de_passe"));
 				
 				if(rs.getByte("administrateur") ==0) {
 					utilisateur.setAdministrateur(false);
@@ -138,8 +176,37 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 			}catch (SQLException e) {
 				DALException ex = new DALException("Login et/ou mot de passe non valides", e);
 				throw ex;}
-					
-	return utilisateur;
+		return utilisateur;
+	}
+
+	
+	public Utilisateur selectBypseudo(String pseudo) throws DALException {
+		
+		Utilisateur utilisateur = null;
+		try(Connection cnx = ConnectionProvider.getConnection();
+	            PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_pseudo)){
+	            stmt.setString(1, pseudo);            
+	            ResultSet rs = stmt.executeQuery(); 
+	            while(rs.next()) {
+	                utilisateur = new Utilisateur();
+	                utilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
+	                utilisateur.setPseudo(rs.getString("pseudo"));
+	                utilisateur.setNom(rs.getString("nom"));
+	                utilisateur.setPrenom(rs.getString("prenom"));
+	                utilisateur.setEmail(rs.getString("email"));
+	                utilisateur.setTelephone(rs.getString("telephone"));
+	                utilisateur.setRue(rs.getString("rue"));
+	                utilisateur.setCodePostal(rs.getString("code_postal"));
+	                utilisateur.setVille(rs.getString("ville"));
+	            }
+	            if (utilisateur == null) {
+	            	DALException ex = new DALException("Aucun utilisateur correspond à ce pseudo", null);
+	                throw ex;
+	            }
+	            }catch (SQLException e) {
+	                DALException ex = new DALException("problème d'accès à cet utilisateur", e);
+	                throw ex;}
+	        return utilisateur;
 	}
 
 }

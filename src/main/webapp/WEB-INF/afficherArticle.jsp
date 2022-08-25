@@ -92,7 +92,6 @@
 								</div>
 								<div class="row">
 									<label class="col-3 offset-1">Fin de l'enchère : </label>
-	
 									<p class="col-8"> <input type="date" value="${requestScope.articleVendu.dateFinEncheres.toLocalDate()}" disabled="disabled"></p>
 								</div>
 								<div class="row">

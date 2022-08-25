@@ -130,7 +130,6 @@ public class ArticleVenduManager {
 	// * * * * * METHODE execution procedure stockée MAJ encheres * * * * * 
     public void executeProcedureStockee() throws BLLException {
     	BLLException bllExceptions = new BLLException();
-    	ArticleVendu article = null;
         try{
         	articleVenduDAO.executeProcedureStockee();
         } catch (DALException e) {
@@ -141,9 +140,8 @@ public class ArticleVenduManager {
 	 
 	
 	// * * * * * METHODE INSERT * * * * * 
-	public ArticleVendu AjouterArticle(int no, String nom, String description, LocalDateTime dateDebut,
-			LocalDateTime dateFin, int miseAPrix, int prixVente, String etat, int user,
-			Categorie categorie, Retrait retrait) throws BLLException {
+	public ArticleVendu AjouterArticle(String nom, String description, LocalDateTime dateDebut,
+			LocalDateTime dateFin, int miseAPrix, int prixVente, int user, Retrait retrait) throws BLLException {
 		
 		BLLException bllExceptions = new BLLException();
 		// VERIFICATION DES REGLES METIER
@@ -163,6 +161,10 @@ public class ArticleVenduManager {
 			Exception e = new Exception("Veuillez saisir une date de fin d'enchère !");
 			bllExceptions.addException(e);
 		}
+		if(miseAPrix <= 0) {
+			Exception e = new Exception("La valeur de la mise à prix doit être supérieure à 0 !");
+			bllExceptions.addException(e);
+		}
 		if(retrait.getVille() == null) {
 			Exception e = new Exception("Veuillez reseignez une ville pour le retrait !");
 			bllExceptions.addException(e);
@@ -177,7 +179,7 @@ public class ArticleVenduManager {
 		}
 		
 		// CREATION DE L'ARTICLE
-		ArticleVendu article = new ArticleVendu(no, nom, description, dateDebut, dateFin, miseAPrix, prixVente, etat, user, categorie, retrait);
+		ArticleVendu article = new ArticleVendu(nom, description, dateDebut, dateFin, miseAPrix, prixVente, user, retrait);
 		try {
 			articleVenduDAO.insert(article);
 		} catch (DALException e) {

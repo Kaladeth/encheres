@@ -92,16 +92,16 @@ public class EnchereManager {
 				bllExceptions.addException(ex);
 				throw bllExceptions;
 			}
-			if(article.getEtatVente().equals("CR")) {
-				Exception ex = new Exception("Il n'est pas possible d'enchérir sur un article car l'enchère n'a pas débuté !");
-				bllExceptions.addException(ex);
-				throw bllExceptions;
-			}
-			if(!article.getEtatVente().equals("ER")) {
-				Exception ex = new Exception("Il n'est plus possible d'enchérir sur cet article car l'enchère est terminée !");
-				bllExceptions.addException(ex);
-				throw bllExceptions;
-			}
+//			if(article.getEtatVente().equals("CR")) {
+//				Exception ex = new Exception("Il n'est pas possible d'enchérir sur un article car l'enchère n'a pas débuté !");
+//				bllExceptions.addException(ex);
+//				throw bllExceptions;
+//			}
+//			if(!article.getEtatVente().equals("ER")) {
+//				Exception ex = new Exception("Il n'est plus possible d'enchérir sur cet article car l'enchère est terminée !");
+//				bllExceptions.addException(ex);
+//				throw bllExceptions;
+//			}
 										
 			
 			

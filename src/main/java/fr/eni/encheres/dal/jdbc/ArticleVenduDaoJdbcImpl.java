@@ -192,7 +192,7 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 				stmt.setInt(5, aInserer.getMiseAPrix());
 				stmt.setInt(6, aInserer.getMiseAPrix());
 				stmt.setInt(7, aInserer.getUtilisateur());
-				stmt.setInt(8, aInserer.getCategorie().getNoCategorie());
+				stmt.setInt(8, 2);
 				stmt.setString(9, "CR");
 				stmt.executeUpdate();
 				

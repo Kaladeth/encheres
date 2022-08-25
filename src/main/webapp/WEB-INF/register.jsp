@@ -64,7 +64,7 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="pseudo">Pseudo</label>
-                        <input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="" maxlength="30" required value="${pseudo}">
+                        <input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="" maxlength="30" required value="${param.pseudo}">
                         <div class="invalid-feedback">
                             Ce champ est invalide !
                         </div>
@@ -72,7 +72,7 @@
                 
                     <div class="col-md-6 mb-3">
                         <label for="lastname">Nom</label>
-                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder=""  maxlength="30" required value="${lastname}">
+                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder=""  maxlength="30" required value="${param.lastname}">
                         <div class="invalid-feedback">
                             Ce champ est invalide !
                         </div>
@@ -82,7 +82,7 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="firstname">Prénom</label>
-                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="" value="" maxlength="30" required>
+                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="" maxlength="30" required value="${param.firstname}">
                         <div class="invalid-feedback">
                             Ce champ est invalide !
                         </div>
@@ -90,7 +90,7 @@
                 
                     <div class="col-md-6 mb-3">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" value="" maxlength="20" required>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" maxlength="20" required value="${param.email}">
                         <div class="invalid-feedback">
                             Ce champ est invalide !
                         </div>
@@ -100,11 +100,11 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="phone">Téléphone <span class="text-muted">(Optional)</span></label>
-                        <input type="text" class="form-control" id="phone" name="phone" placeholder="" value="" maxlength="15">
+                        <input type="text" class="form-control" id="phone" name="phone" placeholder="" maxlength="15" value="${param.phone}">
                     </div>
                     <div class="col-md-8 mb-3">
                         <label for="street">Rue</label>
-                        <input type="text" class="form-control" id="street" name="street" placeholder="" value="" maxlength="30" required>
+                        <input type="text" class="form-control" id="street" name="street" placeholder="" maxlength="30" required value="${param.street}">
                         <div class="invalid-feedback">
                             Ce champ est invalide !
                         </div>
@@ -114,14 +114,14 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="zipcode">Code postal</label>
-                        <input type="number" class="form-control" id="zipcode" name="zipcode" placeholder="" min="01000" max="99999" value="" required>
+                        <input type="number" class="form-control" id="zipcode" name="zipcode" placeholder="" min="01000" max="99999" required value="${param.zipcode}">
                         <div class="invalid-feedback">
                             Ce champ est invalide !
                         </div>
                     </div>
                     <div class="col-md-8 mb-3">
                         <label for="city">Ville</label>
-                        <input type="text" class="form-control" id="city" name="city" placeholder="" maxlength="30" value="" required>
+                        <input type="text" class="form-control" id="city" name="city" placeholder="" maxlength="30" required value="${param.city}">
                         <div class="invalid-feedback">
                             Ce champ est invalide !
                         </div>

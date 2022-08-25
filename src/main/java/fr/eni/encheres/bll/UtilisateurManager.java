@@ -81,7 +81,7 @@ public class UtilisateurManager {
 			bllExceptions.addException(e);
 		}
 		if(pseudo.matches("[a-zA-Z0-9]")) {
-			Exception e = new Exception("L'identifiant n�accepte que des caract�res alphanum�riques !");
+			Exception e = new Exception("L'identifiant n�accepte que des caractéres alphanumériques !");
 			bllExceptions.addException(e);
 		}
 		if(nom == null || nom.isEmpty() || nom.isBlank()) {
@@ -100,10 +100,10 @@ public class UtilisateurManager {
         	Exception e = new Exception("L'e-mail n'est pas au bon format !");
 			bllExceptions.addException(e);
         }
+		String telephoneCorrige = telephone;
 		if(telephone == null || telephone.isEmpty() || telephone.isBlank()) {
-			Exception e = new Exception("Le numéro de téléphone est obligatoire !");
-			bllExceptions.addException(e);
-		}
+			telephoneCorrige = "";
+			}
 		if(rue == null || rue.isEmpty() || rue.isBlank()) {
 			Exception e = new Exception("La rue est obligatoire !");
 			bllExceptions.addException(e);
@@ -130,7 +130,7 @@ public class UtilisateurManager {
 			
 		}
 		// CREATION DE L'UTILISATEUR A ENVOYER EN BASE DE DONNEES
-		Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp, credit, admin);
+		Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephoneCorrige, rue, cp, ville, mdp, credit, admin);
 		try {
 			utilisateurDao.insert(utilisateur);
 		} catch (Exception e) {
@@ -177,10 +177,10 @@ public class UtilisateurManager {
         	Exception e = new Exception("L'e-mail n'est pas au bon format !");
 			bllExceptions.addException(e);
         }
-		if(telephone == null|| telephone.isEmpty() || telephone.isBlank()) {
-			Exception e = new Exception("Le numéro de téléphone est obligatoire !");
-			bllExceptions.addException(e);
-		}
+        String telephoneCorrige = telephone;
+		if(telephone == null || telephone.isEmpty() || telephone.isBlank()) {
+			telephoneCorrige = "";
+			}
 		if(rue == null|| rue.isEmpty() || rue.isBlank()) {
 			Exception e = new Exception("La rue est obligatoire !");
 			bllExceptions.addException(e);
@@ -203,7 +203,7 @@ public class UtilisateurManager {
 		}
 		
 		// CREATION DE L'UTILISATEUR A ENVOYER EN BASE DE DONNEES
-		Utilisateur utilisateur = new Utilisateur(idUser, pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp);
+		Utilisateur utilisateur = new Utilisateur(idUser, pseudo, nom, prenom, email, telephoneCorrige, rue, cp, ville, mdp);
 		try {
 			utilisateurDao.update(utilisateur);
 						

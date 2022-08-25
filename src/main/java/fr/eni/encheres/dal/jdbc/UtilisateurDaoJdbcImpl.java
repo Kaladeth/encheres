@@ -57,53 +57,33 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 		try (Connection cnx = ConnectionProvider.getConnection();
 			PreparedStatement stmt = cnx.prepareStatement(INSERT_USER, Statement.RETURN_GENERATED_KEYS);
 			PreparedStatement stmtChk = cnx.prepareStatement(SELECT_BY_PSEUDO_EMAIL)){
-System.out.println(1);			
 			try {
 				cnx.setAutoCommit(false);
-System.out.println(2);
 				stmtChk.setString(1, element.getPseudo());
 				stmtChk.setString(2, element.getEmail());
 				ResultSet rs = stmtChk.executeQuery();
-System.out.println(3);
 				if(!rs.next()) {			
 					stmt.setString(1, element.getPseudo() );
-System.out.println(4);
 					stmt.setString(2, element.getNom());
-System.out.println(5);
 					stmt.setString(3, element.getPrenom() );
-System.out.println(6);
 					stmt.setString(4, element.getEmail());
-System.out.println(7);					
 					stmt.setString(5, element.getTelephone());
-System.out.println(8);
 					stmt.setString(6, element.getRue());
-System.out.println(9);
 					stmt.setString(7, element.getCodePostal());
-System.out.println(10);
 					stmt.setString(8, element.getVille());
-System.out.println(11);
 					stmt.setString(9, element.getMotDePasse());
-System.out.println(12);
 					stmt.setInt(10, element.getCredit());
-System.out.println(13);
 					stmt.setBoolean(11, element.getAdministrateur());
-System.out.println(14);
-System.out.println(element);
 					stmt.executeUpdate();
 					rs = stmt.getGeneratedKeys();
-System.out.println(15);
-System.out.println(element);
 					if(rs.next()) {
 						element.setNoUtilisateur(rs.getInt(1));
-System.out.println(16);				
 					}
-					
 				}
 				else
 				{				
 					throw new DALException("L'identifiant et/ou l'email existent déjà !" );			
 				}
-System.out.println(17);
 				cnx.commit();
 			}catch(Exception e) {
 				cnx.rollback();
@@ -185,6 +165,7 @@ System.out.println(17);
 				utilisateur.setCodePostal(rs.getString("code_postal"));
 				utilisateur.setVille(rs.getString("ville"));
 				utilisateur.setCredit(rs.getInt("credit"));
+				utilisateur.setMotDePasse(rs.getString("mot_de_passe"));
 				
 				if(rs.getByte("administrateur") ==0) {
 					utilisateur.setAdministrateur(false);

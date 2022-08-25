@@ -1,3 +1,4 @@
+
 package fr.eni.encheres.controllers;
 
 import java.io.IOException;
@@ -33,6 +34,7 @@ public class AfficherUneEnchereServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

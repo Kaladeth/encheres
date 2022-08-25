@@ -168,8 +168,9 @@
 	                                <li>Vendeur : ${element.getVendeur().getPrenomNom()}</li>
 	                            </ul>
 	                        </div>
-	                        <a class="mt-3 btn btn-lg btn-block btn-primary" href="#" title="faire une enchère">
+	                        <a class="mt-3 btn btn-lg btn-block btn-primary" href="<%=request.getContextPath()%>/connecte/afficher/enchere?noArticleVendu=${element.getNoArticle()}" title="faire une enchère" name="noArticleVendu"  >
 	                            <img class="small-icon" src="imgs/bid.svg">
+	                            
 	                        </a>
 	                    </div>
 	                </div>
@@ -178,15 +179,7 @@
 
 
 	</div>
-	<c:if test="${connecte == true}">
-	
-	<form action="<%=request.getContextPath()%>/connecte/afficher/enchere" method="post">
-		<input type="submit" class="nav-link"  name="noArticleVendu" value ="1">
-		<input type="submit" class="nav-link"  name="noArticleVendu" value ="2">
-		<input type="submit" class="nav-link"  name="noArticleVendu" value ="3">
-		<input type="submit" class="nav-link"  name="noArticleVendu" value ="4">
-	</form>
-	</c:if>
+
 	<%@ include file="/WEB-INF/fragmentsJsp/footer.jspf"%>
 
 	<!-- Optional JavaScript -->

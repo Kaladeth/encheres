@@ -99,6 +99,7 @@ public class AccueilServlet extends HttpServlet {
 			    String categorie = request.getParameter("categorie");
 			    String encheres = request.getParameter("encheres");
 			    String ventes = request.getParameter("ventes");
+			    
   			    request.setAttribute("valeurCheckbox", encheres); 
   			      			    
   			    ArticleVenduManager  articleMgr = ArticleVenduManager.getInstance();

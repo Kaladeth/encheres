@@ -20,7 +20,6 @@ public class BLLException extends Exception {
 	    bllExceptions = new  ArrayList<Exception>();
 	    		}
 	    bllExceptions.add(e) ;
-	    
 	}
 	
 	public boolean isEmpty() {

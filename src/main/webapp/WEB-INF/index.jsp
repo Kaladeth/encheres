@@ -18,14 +18,14 @@
 	crossorigin="anonymous">
 
 <!-- Personnal CSS-->
-<<<<<<< HEAD
+
 
 <!--  <link href="${pageContext.request.contextPath}/CSS/styleFrag.css" rel="stylesheet">-->
 
 
-=======
+
 <link rel="stylesheet" href="css/styleIndex.css">
->>>>>>> branch 'main' of https://github.com/Kaladeth/encheres.git
+
 
 <!--icons-->
 <link rel="stylesheet"

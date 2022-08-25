@@ -25,7 +25,7 @@ import fr.eni.encheres.dal.DALException;
 
 public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	
-	String SELECT_ALL = "SELECT a.no_article, a.nom_article, a.description, c.libelle, e.montant_enchere, ut.no_utilisateur, ut.pseudo, ut.nom, ut.prenom, r.rue, r.code_postal, r.ville, a.prix_initial, a.date_debut_enchere, a.date_fin_enchere, a.etat_vente, a.no_utilisateur, u.nom, u.prenom "
+	String SELECT_ALL = "SELECT a.no_article, a.nom_article, a.description, c.libelle, e.montant_enchere, ut.no_utilisateur, ut.pseudo, ut.nom, ut.prenom, r.rue, r.code_postal, r.ville, a.prix_initial, a.date_debut_enchere, a.date_fin_enchere, a.etat_vente, a.no_utilisateur, u.nom, u.prenom , u.pseudo "
 			+ "  FROM ARTICLES_VENDUS a LEFT JOIN encheres e on e.no_article = a.no_article LEFT JOIN utilisateurs u on u.no_utilisateur = a.no_utilisateur "
 			+ "  LEFT JOIN utilisateurs ut on ut.no_utilisateur = e.no_utilisateur  LEFT JOIN CATEGORIES c on c.no_categorie = a.no_categorie "
 			+ "  LEFT JOIN RETRAITS r on r.no_article = a.no_article ";
@@ -146,6 +146,7 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
                 vendeur.setNoUtilisateur(rs.getInt(17));
                 vendeur.setNom(rs.getString(18));
                 vendeur.setPrenom(rs.getString(19));
+                vendeur.setPseudo(rs.getString(20));
                 
                 //n° de vendeur ajouté à l'utilisateur
                 article.setUtilisateur(rs.getInt(17));

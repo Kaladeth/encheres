@@ -22,6 +22,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 	private static final String SELECT_BY_PSEUDO_EMAIL = "SELECT * FROM utilisateurs where pseudo=? OR email=?";
 	private static final String UPDATE_USER = "UPDATE UTILISATEURS SET pseudo=?, nom=? ,prenom=? ,email=?, telephone=? ,rue=?, code_postal=? ,ville=?, mot_de_passe=? WHERE no_utilisateur=?";
 	
+	private static final String SELECT_BY_pseudo="select*from utilisateurs where pseudo=?";
 	
 	public Utilisateur selectById(int id) throws DALException {
 		Utilisateur utilisateur = null;
@@ -178,6 +179,36 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 				DALException ex = new DALException("Login et/ou mot de passe non valides", e);
 				throw ex;}
 		return utilisateur;
+	}
+
+	
+	public Utilisateur selectBypseudo(String pseudo) throws DALException {
+		
+		Utilisateur utilisateur = null;
+		try(Connection cnx = ConnectionProvider.getConnection();
+	            PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_pseudo)){
+	            stmt.setString(1, pseudo);            
+	            ResultSet rs = stmt.executeQuery(); 
+	            while(rs.next()) {
+	                utilisateur = new Utilisateur();
+	                utilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
+	                utilisateur.setPseudo(rs.getString("pseudo"));
+	                utilisateur.setNom(rs.getString("nom"));
+	                utilisateur.setPrenom(rs.getString("prenom"));
+	                utilisateur.setEmail(rs.getString("email"));
+	                utilisateur.setTelephone(rs.getString("telephone"));
+	                utilisateur.setRue(rs.getString("rue"));
+	                utilisateur.setCodePostal(rs.getString("code_postal"));
+	                utilisateur.setVille(rs.getString("ville"));
+	            }
+	            if (utilisateur == null) {
+	            	DALException ex = new DALException("Aucun utilisateur correspond à ce pseudo", null);
+	                throw ex;
+	            }
+	            }catch (SQLException e) {
+	                DALException ex = new DALException("problème d'accès à cet utilisateur", e);
+	                throw ex;}
+	        return utilisateur;
 	}
 
 }

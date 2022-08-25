@@ -258,4 +258,21 @@ public class UtilisateurManager {
 		
 	}
 	
+	// * * * * * METHODE VISUALISER DU PROFIL * * * * *
+	 public Utilisateur SelectBypseudo(String pseudo) throws BLLException {
+	    	Utilisateur utilisateur = null ;
+	    	try {
+				utilisateur = utilisateurDao.selectBypseudo(pseudo);
+			} catch (DALException e) {
+				BLLException blle = new BLLException();
+				blle.addException(e);
+				throw blle;
+			}
+	    	
+	    	
+			return utilisateur ;
+	    	
+	    }
 }
+
+

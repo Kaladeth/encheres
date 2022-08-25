@@ -12,7 +12,7 @@
 			<c:if test="${not empty sessionScope.utilisateur.administrateur}">
 			<a class="nav-link" href="#" alt="Administrer le site">Administrer</a>
 			</c:if>
-			<a class="nav-link" href="<%=request.getContextPath()+"/vendre/article"%>" alt="Vendre un article">Vendre un
+			<a class="nav-link" href="<%=request.getContextPath()+"/connecte/vendre/article"%>" alt="Vendre un article">Vendre un
 				article</a>
 			<c:if test="${not empty sessionScope.utilisateur.nom}">
 				<a class="nav-link" href="<%=request.getContextPath()+"/Deconnecter"%>"" alt="Me déconnecter">Me déconnecter</a>
@@ -25,9 +25,14 @@
 				
 			</c:if>
 			<c:if test="${not empty sessionScope.utilisateur.nom}">
-				<p>Crédit disponible : ${sessionScope.utilisateur.credit}</p>&nbsp; 
-				<p id="salutationEtt">   Bonjour ${sessionScope.utilisateur.prenom}
+				<p>Crédit disponible : ${sessionScope.utilisateur.credit}</p>&nbsp; &nbsp;
+				<p id="salutationEtt">Bonjour ${sessionScope.utilisateur.prenom}
 					${sessionScope.utilisateur.nom}</p>
+					
+				<a class="nav-link" href="${pageContext.request.contextPath}/connecte/visualiser/profil?pseudo=${sessionScope.utilisateur.pseudo}"
+					alt="Visualiser mon profil"> Visualiser mon profil</a>
+					
+					
 				<a class="nav-link" href="${pageContext.request.contextPath}/connecte/modifier/profil"
 					alt="Modifier mon profil">  Modifier mon profil</a>
 			</c:if>

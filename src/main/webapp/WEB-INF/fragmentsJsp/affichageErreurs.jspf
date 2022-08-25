@@ -9,7 +9,7 @@
         
         
         <c:if test="${not empty requestScope.erreurs}">
-	        <ul class="col-8 list-unstyled p-2">
+   	        <ul class="col-8 list-unstyled p-2">
 	            <c:forEach var="erreur" items="${requestScope.erreurs.getBllExceptions() }">
 	        		<li>${erreur.getMessage() }  </li>                 
 	        	</c:forEach>

@@ -16,7 +16,7 @@ public class BLLException extends Exception {
 	}
 	
 	public void addException(Exception e) {
-	    if (bllExceptions !=null) {  
+	    if (bllExceptions == null) {  
 	    bllExceptions = new  ArrayList<Exception>();
 	    		}
 	    bllExceptions.add(e) ;

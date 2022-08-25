@@ -130,7 +130,6 @@ public class ArticleVenduManager {
 	// * * * * * METHODE execution procedure stockée MAJ encheres * * * * * 
     public void executeProcedureStockee() throws BLLException {
     	BLLException bllExceptions = new BLLException();
-    	ArticleVendu article = null;
         try{
         	articleVenduDAO.executeProcedureStockee();
         } catch (DALException e) {

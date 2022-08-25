@@ -49,11 +49,16 @@ public class VendreArticleServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/nouvelleVente.jsp");
-		String nom = request.getParameter("nom");
+		String nom = request.getParameter("article");
 		String description = request.getParameter("description");
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDateTime dateDebut = LocalDateTime.parse(request.getParameter("debut")+"T00:00:00");
-		LocalDateTime dateFin = LocalDateTime.parse(request.getParameter("fin")+"T00:00:00");
+		LocalDateTime dateDebut = null;
+		LocalDateTime dateFin = null;
+		if(!request.getParameter("debut").isEmpty() && request.getParameter("debut") != null) {
+			dateDebut = LocalDateTime.parse(request.getParameter("debut")+"T00:00:00");
+		}
+		if(!request.getParameter("fin").isEmpty() && request.getParameter("fin") != null) {
+			dateFin = LocalDateTime.parse(request.getParameter("fin")+"T00:00:00");
+		}
 		
 		int miseAPrix = Integer.parseInt(request.getParameter("map"));
 		int prixVente = Integer.parseInt(request.getParameter("map"));

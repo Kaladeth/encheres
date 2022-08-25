@@ -47,13 +47,13 @@
 </mso:CustomDocumentProperties>
 </xml><![endif]-->
 </head>
-	<body>
-		<!--         <header> -->
-		<%@ include file="/WEB-INF/fragmentsJsp/entete.jspf"%>
-		
+<body>
+	<!--         <header> -->
+	<%@ include file="/WEB-INF/fragmentsJsp/entete.jspf"%>
 	
-			<!--main bloc-->
-			
+
+		<!--main bloc-->
+		
 		<main>
 			<div class="container-fluid">
 				<!--title-->
@@ -65,63 +65,67 @@
 	            <%@ include file="/WEB-INF/fragmentsJsp/affichageErreurs.jspf"%>
 				
 				<!--filtre-->
-				<div class=container-fluid>
-									<!--Partie droite-->
-					<div class="d-flex">
-						<div class="col-2 offset-1">
-							<img class="img-fluid img-thumbnail" src="images/photo.svg"
-								alt="pas de photo" />
-						</div>						
-						<div class="col-8">						
-							<h2>${requestScope.articleVendu.nomArticle }</h2>								
-							<div class="row">
-								<label class="col-3 offset-1">Description : </label>
-								<p class="col-8 "> ${requestScope.articleVendu.description }</p>
-							</div>
-							<div class="row">
-								<label class="col-3 offset-1">Catégorie : </label>
-								<p class="col-8"> ${requestScope.articleVendu.categorie.libelle }</p>
-							</div>
-							<div class="row">
-								<label class="col-3 offset-1">Meilleure Offre : </label>
-								<p class="col-8"> ${requestScope.articleVendu.enchere.montant_enchere } par ${requestScope.articleVendu.enchere.acheteur.pseudo } </p>
-							</div>					
-							<div class="row">
-								<label class="col-3 offset-1">Mise à prix : </label>
-								<p class="col-8"> ${requestScope.articleVendu.miseAPrix }</p>
-							</div>
-							<div class="row">
-								<label class="col-3 offset-1">Fin de l'enchère : </label>
-								<p class="col-8"> <input class="date" type="date" value="${requestScope.articleVendu.dateFinEncheres.toLocalDate()}" disabled="disabled"></p>
-							</div>
-							<div class="row">
-								<label class="col-3 offset-1">Retrait : </label>
-								<p class="col-8 "> ${requestScope.articleVendu.retrait.rue} 
-								${requestScope.articleVendu.retrait.code_postale}, ${requestScope.articleVendu.retrait.ville}</p>
-							</div>
-							<div class="row">
-								<label class="col-3 offset-1">Vendeur : </label>
-								<p class="col-8"> ${requestScope.articleVendu.vendeur.pseudo }</p>
-							</div>
-							<form action="${pageContext.request.contextPath}/connecte/afficher/enchere/encherir" method="post">		
+					<div class=container-fluid>
+										<!--Partie droite-->
+						<div class="d-flex">
+							<div class="col-2 offset-1">
+								<img class="img-fluid img-thumbnail" src="images/photo.svg"
+									alt="pas de photo" />
+							</div>						
+							<div class="col-8">						
+								<h2>${requestScope.articleVendu.nomArticle }</h2>								
 								<div class="row">
-														
-									<label class="col-3 offset-1">Ma proposition: </label>
-									<p class="col-8">
-									<input name="valeurEnchere" type="number" value="${requestScope.articleVendu.enchere.montant_enchere !=0? requestScope.articleVendu.enchere.montant_enchere +1: requestScope.articleVendu.miseAPrix}" min="${requestScope.articleVendu.enchere.montant_enchere +1}" max="${sessionScope.utilisateur.credit}">
-									<input name="noArticle" value="${requestScope.articleVendu.noArticle}" hidden="true">
-									<input type="submit" class="nav-link"  name="Encherir" value ="Enchérir"></p>
-									<!-- n° article pour la servlet -->
-									
+									<label class="col-3 offset-1">Description : </label>
+									<p class="col-8 "> ${requestScope.articleVendu.description }</p>
 								</div>
-							</form>
-	                      </div>	
-					</div>
-				</div>		
-					
+								<div class="row">
+									<label class="col-3 offset-1">Catégorie : </label>
+									<p class="col-8"> ${requestScope.articleVendu.categorie.libelle }</p>
+								</div>
+								<div class="row">
+									<label class="col-3 offset-1">Meilleure Offre : </label>
+									<p class="col-8"> ${requestScope.articleVendu.enchere.montant_enchere } par ${requestScope.articleVendu.enchere.acheteur.pseudo } </p>
+								</div>					
+								<div class="row">
+									<label class="col-3 offset-1">Mise à prix : </label>
+									<p class="col-8"> ${requestScope.articleVendu.miseAPrix }</p>
+								</div>
+								<div class="row">
+									<label class="col-3 offset-1">Fin de l'enchère : </label>
+									<p class="col-8"> <input class="date" type="date" value="${requestScope.articleVendu.dateFinEncheres.toLocalDate()}" disabled="disabled"></p>
+								</div>
+								<div class="row">
+									<label class="col-3 offset-1">Retrait : </label>
+									<p class="col-8 "> ${requestScope.articleVendu.retrait.rue} 
+									${requestScope.articleVendu.retrait.code_postale}, ${requestScope.articleVendu.retrait.ville}</p>
+								</div>
+								<div class="row">
+									<label class="col-3 offset-1">Vendeur : </label>
+									<p class="col-8"> ${requestScope.articleVendu.vendeur.pseudo }</p>
+								</div>
+								<form action="${pageContext.request.contextPath}/connecte/afficher/enchere/encherir" method="post">		
+									<div class="row">
+															
+										<label class="col-3 offset-1">Ma proposition: </label>
+										<p class="col-8">
+										<input name="valeurEnchere" type="number" value="${requestScope.articleVendu.enchere.montant_enchere !=0? requestScope.articleVendu.enchere.montant_enchere +1: requestScope.articleVendu.miseAPrix}" min="${requestScope.articleVendu.enchere.montant_enchere +1}" max="${sessionScope.utilisateur.credit}">
+										<input name="noArticle" value="${requestScope.articleVendu.noArticle}" hidden="true">
+										<input type="submit" class="nav-link"  name="Encherir" value ="Enchérir"></p>
+										<!-- n° article pour la servlet -->
+										
+									</div>
+								</form>
+	                       </div>	
+						</div>
+					</div>		
 			</div>
 		</main>
-		<!-- Pied de page -->	
-		<%@ include file="/WEB-INF/fragmentsJsp/footer.jspf"%>
-	</body>
+		
+		
+	<!-- Pied de page -->	
+	
+	<%@ include file="/WEB-INF/fragmentsJsp/footer.jspf"%>
+
+	
+</body>
 </html>

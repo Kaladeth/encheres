@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bo.ArticleVendu;
 
 
@@ -126,7 +125,7 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 		        Utilisateur acheteur  = new Utilisateur();
 		        Utilisateur vendeur  = new Utilisateur();
 		        Enchere enchere = new Enchere();
-				
+
 				article = new ArticleVendu();
                 article.setNoArticle(rs.getInt(1));
                 article.setNomArticle(rs.getString(2));

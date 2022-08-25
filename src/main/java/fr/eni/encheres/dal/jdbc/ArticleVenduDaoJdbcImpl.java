@@ -110,14 +110,12 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	
 	@Override
 	public List<ArticleVendu> selectAll() throws DALException {
-
-		
 		List<ArticleVendu> listArticles = new ArrayList<ArticleVendu>();
-		
-		try (Connection cnx = ConnectionProvider.getConnection();){
-			
+				
+		try (Connection cnx = ConnectionProvider.getConnection();
 			Statement stmt = cnx.createStatement();
-			ResultSet rs = stmt.executeQuery(SELECT_ALL);
+			ResultSet rs = stmt.executeQuery(SELECT_ALL)){
+						
 			while(rs.next()) {
 				ArticleVendu article = null;
 		        Categorie categorie = new Categorie();
@@ -161,8 +159,7 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	            article.setVendeur(vendeur);
             
 				listArticles.add(article);
-				
-			}	
+				}	
 
 		}catch (SQLException e) {
 			DALException ex = new DALException("Probleme d'afficher listes Encheres", e);
@@ -219,12 +216,7 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	@Override
 	public List<ArticleVendu> filtrerListeModeDeconnecte(String nomArticle, String ctg) throws DALException {
 
-			ArticleVendu article = null;
-	        Categorie categorie = new Categorie();
-	        Retrait retrait = new Retrait();
-	        Utilisateur acheteur  = new Utilisateur();
-	        Utilisateur vendeur  = new Utilisateur();
-	        Enchere enchere = new Enchere();
+			
 			List<ArticleVendu> listArticles = new ArrayList<ArticleVendu>();
 			try (Connection cnx = ConnectionProvider.getConnection();){
 				PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_ARTICLE);
@@ -243,6 +235,12 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 				
 				ResultSet rs =stmt.executeQuery();
 				while(rs.next()) {
+					ArticleVendu article = null;
+			        Categorie categorie = new Categorie();
+			        Retrait retrait = new Retrait();
+			        Utilisateur acheteur  = new Utilisateur();
+			        Utilisateur vendeur  = new Utilisateur();
+			        Enchere enchere = new Enchere();
 
 					article = new ArticleVendu();
 	                article.setNoArticle(rs.getInt(1));
@@ -294,11 +292,7 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 			
 			//UT == ACHETEUR
 		    //U == VENDEUR
-			ArticleVendu article = null;
-	        Categorie categorie = new Categorie();
-	        Retrait retrait = new Retrait();
-	        Utilisateur acheteur  = new Utilisateur();
-	        Utilisateur vendeur  = new Utilisateur();
+			
 	        Enchere enchere = new Enchere();
 			List<ArticleVendu> listArticles = new ArrayList<ArticleVendu>();
 			try (Connection cnx = ConnectionProvider.getConnection();){
@@ -343,6 +337,12 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 
 				ResultSet rs =stmt.executeQuery();
 				while(rs.next()) {
+					
+					ArticleVendu article = null;
+			        Categorie categorie = new Categorie();
+			        Retrait retrait = new Retrait();
+			        Utilisateur acheteur  = new Utilisateur();
+			        Utilisateur vendeur  = new Utilisateur();
 
 					article = new ArticleVendu();
 	                article.setNoArticle(rs.getInt(1));
@@ -398,12 +398,7 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 			
 			//UT == ACHETEUR
 		    //U == VENDEUR
-			ArticleVendu article = null;
-	        Categorie categorie = new Categorie();
-	        Retrait retrait = new Retrait();
-	        Utilisateur acheteur  = new Utilisateur();
-	        Utilisateur vendeur  = new Utilisateur();
-	        Enchere enchere = new Enchere();
+			
 			List<ArticleVendu> listArticles = new ArrayList<ArticleVendu>();
 			try (Connection cnx = ConnectionProvider.getConnection();){
 				PreparedStatement stmt = null;
@@ -447,6 +442,13 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 				
 				ResultSet rs =stmt.executeQuery();
 				while(rs.next()) {
+					
+					ArticleVendu article = null;
+			        Categorie categorie = new Categorie();
+			        Retrait retrait = new Retrait();
+			        Utilisateur acheteur  = new Utilisateur();
+			        Utilisateur vendeur  = new Utilisateur();
+			        Enchere enchere = new Enchere();
 
 					article = new ArticleVendu();
 	                article.setNoArticle(rs.getInt(1));

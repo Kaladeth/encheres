@@ -68,7 +68,6 @@ public class UtilisateurManager {
 	public void ajouterUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
 			String cp, String ville, String mdp,String cmdp, int credit, boolean admin) throws BLLException {
 		
-		System.out.println(pseudo +" - "+ nom+" - "+prenom+" - "+email+" - "+telephone);
 		BLLException bllExceptions = new BLLException();
 		
 		// VERIFICATION DES REGLES METIER

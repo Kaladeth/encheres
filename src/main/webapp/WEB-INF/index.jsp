@@ -159,10 +159,12 @@
 			
 			<div class="row justify-content-center border-top card-deck">
 				<c:forEach var="element" items="${listeArticles}">
+				
 					<div class="col-12 col-sm-6 p-2" >
 	                    <div class="card">
 	                        <div class="card-header text-center">
 	                            <h4 class="my-0 font-weight-normal">${element.getNomArticle()}</h4>
+	                            ${element}
 	                        </div>
 	                        <div class="d-flex">
 	                            <div class="col-3 p-2">

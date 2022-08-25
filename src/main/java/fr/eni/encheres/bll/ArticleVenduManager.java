@@ -61,7 +61,6 @@ public class ArticleVenduManager {
 
 					try {
 						listeArticles = articleVenduDAO.filtrerListeModeDeconnecte(nomArticle, categorie);
-						System.out.println(listeArticles);
 					} catch (DALException e) {
 						Exception ex = new Exception("Erreur : mode deconnecté - imposssible d'afficher des articles");
 						bllExceptions.addException(ex);

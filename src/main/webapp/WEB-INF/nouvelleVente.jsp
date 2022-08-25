@@ -38,7 +38,7 @@
 		</div>
 		  <%@ include file="/WEB-INF/fragmentsJsp/affichageErreurs.jspf"%>   
 		<div class="col-8">
-			<form action="<%=request.getContextPath()%>/connecte/vendre/article" method="post" enctype="multipart/form-data">
+			<form action="<%=request.getContextPath()%>/connecte/vendre/article" method="post" >
 				<!-- ARTICLE -->
 				<div class="row my-2">
 					<div class="col-3 text-right">

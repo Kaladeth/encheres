@@ -3,6 +3,7 @@ package fr.eni.encheres.controllers;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -49,11 +50,13 @@ public class VendreArticleServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/nouvelleVente.jsp");
+		
 		String nom = request.getParameter("nom");
 		String description = request.getParameter("description");
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDateTime dateDebut = LocalDateTime.parse(request.getParameter("debut"));
-		LocalDateTime dateFin = LocalDateTime.parse(request.getParameter("fin"));
+		LocalDateTime dateDebut = LocalDateTime.parse(request.getParameter("debut")+"T00:00:00");
+		LocalDateTime dateFin = LocalDateTime.parse(request.getParameter("fin")+"T00:00:00");
+		
 		int miseAPrix = Integer.parseInt(request.getParameter("map"));
 		int prixVente = Integer.parseInt(request.getParameter("map"));
 		HttpSession session = request.getSession();
@@ -64,7 +67,10 @@ public class VendreArticleServlet extends HttpServlet {
 		String ville = request.getParameter("ville");
 		Retrait retrait = new Retrait(rue, cp, ville);
 		
+		
+		
 		ArticleVenduManager mgr = ArticleVenduManager.getInstance();
+		
 		
 		try {
 			mgr.AjouterArticle(nom, description, dateDebut, dateFin, miseAPrix, prixVente, noUser, retrait);

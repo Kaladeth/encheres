@@ -6,7 +6,7 @@
 		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
 
 
-		url="jdbc:sqlserver://10.105.200.2:1433;databasename=ENCHERES_BDD"
+		url="jdbc:sqlserver://10.105.200.1:1433;databasename=ENCHERES_BDD"
 		username="sa" password="Pa$$w0rd" maxIdle="3" maxTotale="10"
 		maxWaitMillis="15000" removeAbandoned="true"
 		removeAbandonedTimeout="10" />

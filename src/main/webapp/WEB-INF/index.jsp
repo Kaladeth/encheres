@@ -18,7 +18,10 @@
 	crossorigin="anonymous">
 
 <!-- Personnal CSS-->
-<link rel="stylesheet" href="css/style.css">
+
+<!--  <link href="${pageContext.request.contextPath}/CSS/styleFrag.css" rel="stylesheet">-->
+
+
 
 <!--icons-->
 <link rel="stylesheet"

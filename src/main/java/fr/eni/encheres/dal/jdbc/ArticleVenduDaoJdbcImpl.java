@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.encheres.bll.BLLException;
@@ -23,6 +24,21 @@ import fr.eni.encheres.dal.DALException;
 
 public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	
+	String SELECT_ALL = "SELECT a.no_article, a.nom_article, a.description, c.libelle, e.montant_enchere, ut.no_utilisateur, ut.pseudo, ut.nom, ut.prenom, r.rue, r.code_postal, r.ville, a.prix_initial, a.date_debut_enchere, a.date_fin_enchere, a.etat_vente, a.no_utilisateur, u.nom, u.prenom "
+			+ "  FROM ARTICLES_VENDUS a LEFT JOIN encheres e on e.no_article = a.no_article LEFT JOIN utilisateurs u on u.no_utilisateur = a.no_utilisateur "
+			+ "  LEFT JOIN utilisateurs ut on ut.no_utilisateur = e.no_utilisateur  LEFT JOIN CATEGORIES c on c.no_categorie = a.no_categorie "
+			+ "  LEFT JOIN RETRAITS r on r.no_article = a.no_article ";
+	
+	String SELECT_BY_ARTICLE = "SELECT a.no_article, a.nom_article, a.description, c.libelle, e.montant_enchere, ut.no_utilisateur, ut.pseudo, ut.nom, ut.prenom, r.rue, r.code_postal, r.ville, a.prix_initial, a.date_debut_enchere, a.date_fin_enchere, a.etat_vente, a.no_utilisateur, u.nom, u.prenom "
+			+ "  FROM ARTICLES_VENDUS a LEFT JOIN encheres e on e.no_article = a.no_article LEFT JOIN utilisateurs u on u.no_utilisateur = a.no_utilisateur "
+			+ "  LEFT JOIN utilisateurs ut on ut.no_utilisateur = e.no_utilisateur  LEFT JOIN CATEGORIES c on c.no_categorie = a.no_categorie "
+			+ "  LEFT JOIN RETRAITS r on r.no_article = a.no_article WHERE a.nom_article like ? ";
+
+	String SELECT_BY_ARTICLE_LIBELLE = "SELECT a.no_article, a.nom_article, a.description, c.libelle, e.montant_enchere, ut.no_utilisateur, ut.pseudo, ut.nom, ut.prenom, r.rue, r.code_postal, r.ville, a.prix_initial, a.date_debut_enchere, a.date_fin_enchere, a.etat_vente, a.no_utilisateur, u.nom, u.prenom "
+			+ "  FROM ARTICLES_VENDUS a LEFT JOIN encheres e on e.no_article = a.no_article LEFT JOIN utilisateurs u on u.no_utilisateur = a.no_utilisateur "
+			+ "  LEFT JOIN utilisateurs ut on ut.no_utilisateur = e.no_utilisateur  LEFT JOIN CATEGORIES c on c.no_categorie = a.no_categorie "
+			+ "  LEFT JOIN RETRAITS r on r.no_article = a.no_article WHERE a.nom_article like ? AND c.libelle = ? ";
+
 	String SELECT_BY_NAME_ATRICLE = "SELECT * FROM ARTICLES_VENDUS where nom_article LIKE ? ";
 	
 	String SELECT_BY_ID = "SELECT a.no_article, a.nom_article, a.description, c.libelle, e.montant_enchere, ut.no_utilisateur, ut.pseudo, r.rue, r.code_postal, r.ville, a.prix_initial, a.date_debut_enchere, a.date_fin_enchere, ut.no_utilisateur, u.pseudo, a.etat_vente, a.no_utilisateur "
@@ -90,8 +106,63 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	
 	@Override
 	public List<ArticleVendu> selectAll() throws DALException {
-		// TODO Auto-generated method stub
-		return null;
+
+		ArticleVendu article = null;
+        Categorie categorie = new Categorie();
+        Retrait retrait = new Retrait();
+        Utilisateur acheteur  = new Utilisateur();
+        Utilisateur vendeur  = new Utilisateur();
+        Enchere enchere = new Enchere();
+		List<ArticleVendu> listArticles = new ArrayList<ArticleVendu>();
+		
+		try (Connection cnx = ConnectionProvider.getConnection();){
+			
+			Statement stmt = cnx.createStatement();
+			ResultSet rs = stmt.executeQuery(SELECT_ALL);
+			while(rs.next()) {
+				
+				article = new ArticleVendu();
+                article.setNoArticle(rs.getInt(1));
+                article.setNomArticle(rs.getString(2));
+                article.setDescription(rs.getString(3));
+                //création catégorie
+                categorie.setLibelle(rs.getString(4));
+                //création enchere
+                enchere.setMontant_enchere(rs.getInt(5));
+                //création utilisateur
+                acheteur.setNoUtilisateur(rs.getInt(6));
+                acheteur.setPseudo(rs.getString(7));
+                acheteur.setNom(rs.getString(8));
+                acheteur.setPrenom(rs.getString(9));
+                //création retrait
+                retrait.setRue(rs.getString("rue"));
+                retrait.setCode_postale(rs.getString(11));
+                retrait.setVille(rs.getString(12));
+                article.setMiseAPrix(rs.getInt(13));
+                article.setDateDebutEncheres(LocalDateTime.of((rs.getDate(14).toLocalDate()), rs.getTime(14).toLocalTime()));
+                article.setDateFinEncheres(LocalDateTime.of((rs.getDate(15).toLocalDate()), rs.getTime(15).toLocalTime())); 
+                article.setEtatVente(rs.getString(16));
+                vendeur.setNoUtilisateur(rs.getInt(17));
+                vendeur.setNom(rs.getString(18));
+                vendeur.setPrenom(rs.getString(19));
+                
+                //n° de vendeur ajouté à l'utilisateur
+                article.setUtilisateur(rs.getInt(17));
+	            article.setCategorie(categorie);
+	            enchere.setAcheteur(acheteur);
+	            article.setEncheres(enchere);
+	            article.setRetrait(retrait);
+	            article.setVendeur(vendeur);
+            
+				listArticles.add(article);
+			}	
+			
+		}catch (SQLException e) {
+			DALException ex = new DALException("Probleme d'afficher listes Encheres", e);
+			throw (ex);				
+		}
+		return listArticles;	
+
 	}
 
 	// METHODE INSERT
@@ -136,6 +207,287 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 		}
 	
 		
+	}
+
+	@Override
+	public List<ArticleVendu> filtrerListeModeDeconnecte(String nomArticle, String ctg) throws DALException {
+
+			ArticleVendu article = null;
+	        Categorie categorie = new Categorie();
+	        Retrait retrait = new Retrait();
+	        Utilisateur acheteur  = new Utilisateur();
+	        Utilisateur vendeur  = new Utilisateur();
+	        Enchere enchere = new Enchere();
+			List<ArticleVendu> listArticles = new ArrayList<ArticleVendu>();
+			try (Connection cnx = ConnectionProvider.getConnection();){
+				PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_ARTICLE);
+				
+				if (ctg.toLowerCase().equals("toutes"))
+					{
+					stmt = cnx.prepareStatement(SELECT_BY_ARTICLE);
+					stmt.setString(1, "%" + nomArticle + "%");
+				}
+				else
+				{
+					stmt = cnx.prepareStatement(SELECT_BY_ARTICLE_LIBELLE);
+					stmt.setString(1, "%" + nomArticle + "%");
+					stmt.setString(2, ctg);
+				}
+				
+				ResultSet rs =stmt.executeQuery();
+				while(rs.next()) {
+
+					article = new ArticleVendu();
+	                article.setNoArticle(rs.getInt(1));
+	                article.setNomArticle(rs.getString(2));
+	                article.setDescription(rs.getString(3));
+	                //création catégorie
+	                categorie.setLibelle(rs.getString(4));
+	                //création enchere
+	                enchere.setMontant_enchere(rs.getInt(5));
+	                //création utilisateur
+	                acheteur.setNoUtilisateur(rs.getInt(6));
+	                acheteur.setPseudo(rs.getString(7));
+	                acheteur.setNom(rs.getString(8));
+	                acheteur.setPrenom(rs.getString(9));
+	                //création retrait
+	                retrait.setRue(rs.getString("rue"));
+	                retrait.setCode_postale(rs.getString(11));
+	                retrait.setVille(rs.getString(12));
+	                article.setMiseAPrix(rs.getInt(13));
+	                article.setDateDebutEncheres(LocalDateTime.of((rs.getDate(14).toLocalDate()), rs.getTime(14).toLocalTime()));
+	                article.setDateFinEncheres(LocalDateTime.of((rs.getDate(15).toLocalDate()), rs.getTime(15).toLocalTime())); 
+	                article.setEtatVente(rs.getString(16));
+	                vendeur.setNoUtilisateur(rs.getInt(17));
+	                vendeur.setNom(rs.getString(18));
+	                vendeur.setPrenom(rs.getString(19));
+	                
+	                //n° de vendeur ajouté à l'utilisateur
+	                article.setUtilisateur(rs.getInt(17));
+		            article.setCategorie(categorie);
+		            enchere.setAcheteur(acheteur);
+		            article.setEncheres(enchere);
+		            article.setRetrait(retrait);
+		            article.setVendeur(vendeur);
+	            
+					listArticles.add(article);
+				}	
+				stmt.close();
+				rs.close();
+
+			}catch (SQLException e) {
+				DALException ex = new DALException("Probleme d'affichage de la listes d'encheres", e);
+				throw (ex);				
+			}
+			return listArticles;	
+	}
+
+	@Override
+	public List<ArticleVendu> filtrerListeModeConnecteEnchere(int idUtilisateur, String nomArticle, String ctg, String encheres) throws DALException {
+			
+			//UT == ACHETEUR
+		    //U == VENDEUR
+			ArticleVendu article = null;
+	        Categorie categorie = new Categorie();
+	        Retrait retrait = new Retrait();
+	        Utilisateur acheteur  = new Utilisateur();
+	        Utilisateur vendeur  = new Utilisateur();
+	        Enchere enchere = new Enchere();
+			List<ArticleVendu> listArticles = new ArrayList<ArticleVendu>();
+			try (Connection cnx = ConnectionProvider.getConnection();){
+				PreparedStatement stmt = null;
+				String SELECT_BY_FILTRE = SELECT_BY_ARTICLE;	
+				
+				if (encheres.equals("CR")) //CR = ENCEHRES CREES --> TOUTES LES ENCHERES OUVERTES
+				{
+					if (ctg.toLowerCase().equals("toutes"))
+					{
+						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
+						stmt.setString(1, "%" + nomArticle + "%");
+					}
+					else
+					{
+						SELECT_BY_FILTRE += "AND libelle = ? ";
+						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
+						stmt.setString(1, "%" + nomArticle + "%");
+						stmt.setString(2, ctg);
+					}
+				}
+				else //MES ENCHERES EN COURS OU MES ENCHERES REMPORTEES
+				{
+					if (ctg.toLowerCase().equals("toutes"))	
+					{
+						SELECT_BY_FILTRE += " AND ut.no_utilisateur = ? AND a.etat_vente = ?";
+						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
+						stmt.setString(1, "%" + nomArticle + "%");
+						stmt.setInt(2, idUtilisateur);
+						stmt.setString(3, encheres);
+					}
+					else
+					{
+						SELECT_BY_FILTRE += " AND ut.no_utilisateur = ? AND a.etat_vente = ? AND c.libelle = ? ";
+						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
+						stmt.setString(1, "%" + nomArticle + "%");
+						stmt.setInt(2, idUtilisateur);
+						stmt.setString(3, encheres);
+						stmt.setString(4, ctg);
+					}
+				}
+
+				ResultSet rs =stmt.executeQuery();
+				while(rs.next()) {
+
+					article = new ArticleVendu();
+	                article.setNoArticle(rs.getInt(1));
+	                article.setNomArticle(rs.getString(2));
+	                article.setDescription(rs.getString(3));
+	                //création catégorie
+	                categorie.setLibelle(rs.getString(4));
+	                //création enchere
+	                enchere.setMontant_enchere(rs.getInt(5));
+	                //création utilisateur
+	                acheteur.setNoUtilisateur(rs.getInt(6));
+	                acheteur.setPseudo(rs.getString(7));
+	                acheteur.setNom(rs.getString(8));
+	                acheteur.setPrenom(rs.getString(9));
+	                //création retrait
+	                retrait.setRue(rs.getString("rue"));
+	                retrait.setCode_postale(rs.getString(11));
+	                retrait.setVille(rs.getString(12));
+	                article.setMiseAPrix(rs.getInt(13));
+	                article.setDateDebutEncheres(LocalDateTime.of((rs.getDate(14).toLocalDate()), rs.getTime(14).toLocalTime()));
+	                article.setDateFinEncheres(LocalDateTime.of((rs.getDate(15).toLocalDate()), rs.getTime(15).toLocalTime())); 
+	                article.setEtatVente(rs.getString(16));
+	                vendeur.setNoUtilisateur(rs.getInt(17));
+	                vendeur.setNom(rs.getString(18));
+	                vendeur.setPrenom(rs.getString(19));
+	                
+	                //n° de vendeur ajouté à l'utilisateur
+	                article.setUtilisateur(rs.getInt(17));
+		            article.setCategorie(categorie);
+		            enchere.setAcheteur(acheteur);
+		            article.setEncheres(enchere);
+		            article.setRetrait(retrait);
+		            article.setVendeur(vendeur);
+	            
+					listArticles.add(article);
+				
+				}
+				rs.close();	
+				stmt.close();
+				cnx.close();
+				
+
+			}catch (Exception e) {
+				DALException ex = new DALException("Probleme d'afficher listes Encheres", e);
+				throw (ex);				
+			}
+			
+			return listArticles;
+	}
+
+	@Override
+	public List<ArticleVendu> filtrerListeModeConnecteVentes(int idUtilisateur, String nomArticle, String ctg, String ventes) throws DALException {
+			
+			//UT == ACHETEUR
+		    //U == VENDEUR
+			ArticleVendu article = null;
+	        Categorie categorie = new Categorie();
+	        Retrait retrait = new Retrait();
+	        Utilisateur acheteur  = new Utilisateur();
+	        Utilisateur vendeur  = new Utilisateur();
+	        Enchere enchere = new Enchere();
+			List<ArticleVendu> listArticles = new ArrayList<ArticleVendu>();
+			try (Connection cnx = ConnectionProvider.getConnection();){
+				PreparedStatement stmt = null;
+				String SELECT_BY_FILTRE = SELECT_BY_ARTICLE;	
+				
+				if (ventes.equals("CR")) //CR = ENCEHRES CREES --> TOUTES LES ENCHERES OUVERTES
+				{
+					if (ctg.toLowerCase().equals("toutes"))
+					{
+						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
+						stmt.setString(1, "%" + nomArticle + "%");
+					}
+					else
+					{
+						SELECT_BY_FILTRE += "AND libelle = ? ";
+						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
+						stmt.setString(1, "%" + nomArticle + "%");
+						stmt.setString(2, ctg);
+					}
+				}
+				else //MES ENCHERES EN COURS OU MES ENCHERES REMPORTEES
+				{
+					if (ctg.toLowerCase().equals("toutes"))	
+					{
+						SELECT_BY_FILTRE += " AND u.no_utilisateur = ? AND a.etat_vente = ?";
+						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
+						stmt.setString(1, "%" + nomArticle + "%");
+						stmt.setInt(2, idUtilisateur);
+						stmt.setString(3, ventes);
+					}
+					else
+					{
+						SELECT_BY_FILTRE += " AND u.no_utilisateur = ? AND a.etat_vente = ? AND c.libelle = ? ";
+						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
+						stmt.setString(1, "%" + nomArticle + "%");
+						stmt.setInt(2, idUtilisateur);
+						stmt.setString(3, ventes);
+						stmt.setString(4, ctg);
+					}
+				}
+				
+				ResultSet rs =stmt.executeQuery();
+				while(rs.next()) {
+
+					article = new ArticleVendu();
+	                article.setNoArticle(rs.getInt(1));
+	                article.setNomArticle(rs.getString(2));
+	                article.setDescription(rs.getString(3));
+	                //création catégorie
+	                categorie.setLibelle(rs.getString(4));
+	                //création enchere
+	                enchere.setMontant_enchere(rs.getInt(5));
+	                //création utilisateur
+	                acheteur.setNoUtilisateur(rs.getInt(6));
+	                acheteur.setPseudo(rs.getString(7));
+	                acheteur.setNom(rs.getString(8));
+	                acheteur.setPrenom(rs.getString(9));
+	                //création retrait
+	                retrait.setRue(rs.getString("rue"));
+	                retrait.setCode_postale(rs.getString(11));
+	                retrait.setVille(rs.getString(12));
+	                article.setMiseAPrix(rs.getInt(13));
+	                article.setDateDebutEncheres(LocalDateTime.of((rs.getDate(14).toLocalDate()), rs.getTime(14).toLocalTime()));
+	                article.setDateFinEncheres(LocalDateTime.of((rs.getDate(15).toLocalDate()), rs.getTime(15).toLocalTime())); 
+	                article.setEtatVente(rs.getString(16));
+	                vendeur.setNoUtilisateur(rs.getInt(17));
+	                vendeur.setNom(rs.getString(18));
+	                vendeur.setPrenom(rs.getString(19));
+	                
+	                //n° de vendeur ajouté à l'utilisateur
+	                article.setUtilisateur(rs.getInt(17));
+		            article.setCategorie(categorie);
+		            enchere.setAcheteur(acheteur);
+		            article.setEncheres(enchere);
+		            article.setRetrait(retrait);
+		            article.setVendeur(vendeur);
+	            
+					listArticles.add(article);
+				
+				}
+				rs.close();	
+				stmt.close();
+				cnx.close();
+				
+
+			}catch (Exception e) {
+				DALException ex = new DALException("Probleme d'afficher listes Encheres", e);
+				throw (ex);				
+			}
+			
+			return listArticles;
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.Manager;
+import fr.eni.encheres.bll.UtilisateurManager;
 
 
 /**
@@ -56,7 +57,7 @@ public class RegisterServlet extends HttpServlet {
 	     int credit = 100;
 		 boolean admin = false;
 			
-	     Manager mgr = Manager.getInstance();
+	     UtilisateurManager mgr = UtilisateurManager.getInstance();
 			
 			  try { 
 				  	mgr.ajouterUtilisateur( pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp, confirmationMDP, credit , admin);

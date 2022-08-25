@@ -200,12 +200,18 @@ public class UtilisateurManager {
 		String mdpATransmettre = null;
 		if(ville == null|| ville.isEmpty() || ville.isBlank()) {
 			mdpATransmettre = mdpActuel;
-		}
-		if(!mdpActuel.equals(ancienMdp)){
-			
+		}else{
+			if(mdpActuel.equals(mdp)) {
+			Exception e = new Exception("Pour modifier le mot de passe, merci d'en saisir un nouveau !");
+			bllExceptions.addException(e);}
+			}
+		
+		if(!mdp.equals(ancienMdp)){
 			Exception e = new Exception("Le mot de passe est incorrect, la modification ne peut donc pas être faite !");
 			bllExceptions.addException(e);
 		}
+		
+		
 		if (!bllExceptions.isEmpty()) {
 			throw bllExceptions;
 		}

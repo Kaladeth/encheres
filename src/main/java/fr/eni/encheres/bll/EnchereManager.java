@@ -54,36 +54,7 @@ public class EnchereManager {
 		
 	}
 
-		// * * * * * METHODE FiltrerListeEncheresModeDeconnecte * * * * * 
-		public List<Enchere> FiltrerListeEncheresModeDeconnecte(String nomArticle, String categorie) throws BLLException {
-				BLLException bllExceptions = new BLLException();
-				List<Enchere> listesEncheres = new ArrayList<Enchere>();
-
-			try {
-				listesEncheres = enchereDao.filtrerListeEncheresModeDeconnecte(nomArticle, categorie);
-			} catch (DALException e) {
-				Exception ex = new Exception("Erreur : mode deconnecté - imposssible d'afficher des articles");
-				bllExceptions.addException(ex);
-				throw bllExceptions;
-			}
-			return listesEncheres;			
-		}
-
-		// * * * * * METHODE FiltrerListeEncheresModeConnecte * * * * * 
-		public List<Enchere> FiltrerListeEncheresModeConnecte(int idUtilisateur, String nomArticle, String categorie, String encheres) throws BLLException {
-				BLLException bllExceptions = new BLLException();
-				List<Enchere> listesEncheres = new ArrayList<Enchere>();
-
-				try {
-					listesEncheres = enchereDao.filtrerListeEncheresModeConnecte(idUtilisateur, nomArticle, categorie, encheres);
-				} catch (DALException e) {
-					Exception ex = new Exception("Erreur : mode connecté - imposssible d'afficher des articles");
-					bllExceptions.addException(ex);
-					throw bllExceptions;
-				}
-				return listesEncheres;			
-		}
-				
+		
 		// * * * * * Methode pour enchérir * * * * * 
 		
 		public int UpdateEnchere(String idArticle, Utilisateur acheteur, String valeurEnchere) throws BLLException {

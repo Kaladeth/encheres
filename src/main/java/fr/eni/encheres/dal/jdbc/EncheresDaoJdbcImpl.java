@@ -13,27 +13,21 @@ import java.util.List;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bo.ArticleVendu;
-import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Enchere;
-import fr.eni.encheres.bo.Retrait;
-import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.ConnectionProvider;
 import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.EnchereDAO;
 
 public class EncheresDaoJdbcImpl implements EnchereDAO {
 	private static final String SELECT_ALL ="select * from encheres";
-	private static final String SELECT_BY_ARTICLE ="select * from ENCHERES E, ARTICLES_VENDUS A, CATEGORIES C where E.no_article = A.no_article AND A.no_categorie = C.no_categorie AND nom_article like ?";
-	
 	private static final String SELECT_ARTICLE_BY_ID ="select * from encheres where no_article=?";
-	private static final String SELECT_BY_ARTICLE_LIBELLE ="select * from ENCHERES E, ARTICLES_VENDUS A, CATEGORIES C where E.no_article = A.no_article AND A.no_categorie = C.no_categorie AND nom_article like ? AND libelle = ?";
-	private static final String SELECT_BY_FILTRE_CONSTANTE ="select * from ENCHERES E, ARTICLES_VENDUS A, CATEGORIES C where E.no_article = A.no_article AND A.no_categorie = C.no_categorie AND nom_article like ? ";
 	private static final String UPDATE_CREDIT_ANCIEN_ACHETEUR = "UPDATE UTILISATEURS SET credit=? where no_utilisateur=?";
 	private static final String SELECT_CREDIT_ANCIEN_ACHETEUR = "select * FROM UTILISATEURS u LEFT JOIN ENCHERES e on e.no_utilisateur = u.no_utilisateur WHERE e.no_article=?";
 	private static final String SELECT_CREDIT_NOUVEL_ACHETEUR = "select * from utilisateurs where no_utilisateur=?";
 	private static final String UPDATE_MONTANT_ENCHERE = "UPDATE ENCHERES SET montant_enchere=?, no_utilisateur=?, date_enchere=? WHERE no_article=?";
 	private static final String UPDATE_CREDIT_NOUVEL_ACHETEUR ="UPDATE UTILISATEURS SET credit=? WHERE no_utilisateur=?";
 	private static final String ADD_ENCHERE = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?, ?, ?, ?)";
+	
 	@Override
 	public List<Enchere> selectAll() throws DALException {
 
@@ -59,107 +53,6 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 			return listEncheres;	
 		}
 
-	@Override
-	
-	//"select * from ENCHERES E, ARTICLES_VENDUS A, CATEGORIES C where E.no_article = A.no_article AND A.no_categorie = C.no_categorie AND nom_article like ? ";
-	public List<Enchere> filtrerListeEncheresModeDeconnecte(String nomArticle, String categorie) throws DALException {
-
-			List<Enchere> listEncheres = new ArrayList<Enchere>();
-			try (Connection cnx = ConnectionProvider.getConnection();){
-				PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_ARTICLE);
-				
-				if (categorie.toLowerCase().equals("toutes"))
-					{
-					stmt = cnx.prepareStatement(SELECT_BY_ARTICLE);
-					stmt.setString(1, "%" + nomArticle + "%");
-				}
-				else
-				{
-					stmt = cnx.prepareStatement(SELECT_BY_ARTICLE_LIBELLE);
-					stmt.setString(1, "%" + nomArticle + "%");
-					stmt.setString(2, categorie);
-				}
-				
-				ResultSet rs =stmt.executeQuery();
-				while(rs.next()) {
-					int noUtilisateur = rs.getInt("no_utilisateur");
-					int noArticle = rs.getInt("no_article");
-					LocalDateTime dateEnchere = LocalDateTime.of((rs.getDate("date_enchere").toLocalDate()), rs.getTime("date_enchere").toLocalTime());
-					int montant_enchere = rs.getInt("montant_enchere");
-					Enchere enchere = new Enchere(noUtilisateur , noArticle, dateEnchere, montant_enchere);
-					listEncheres.add(enchere);
-				}	
-				stmt.close();
-				rs.close();
-
-			}catch (SQLException e) {
-				DALException ex = new DALException("Probleme d'affichage de la listes d'encheres", e);
-				throw (ex);				
-			}
-			return listEncheres;	
-	}
-
-	@Override
-	public List<Enchere> filtrerListeEncheresModeConnecte(int idUtilisateur, String nomArticle, String categorie, String encheres) throws DALException {
-			List<Enchere> listEncheres = new ArrayList<Enchere>();
-			try (Connection cnx = ConnectionProvider.getConnection();){
-				PreparedStatement stmt = null;
-				String SELECT_BY_FILTRE = SELECT_BY_FILTRE_CONSTANTE;	
-				if (encheres.equals("CR")) //CR = ENCEHRES CREES --> TOUTES LES ENCHERES OUVERTES
-				{
-					if (categorie.toLowerCase().equals("toutes"))
-					{
-						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
-						stmt.setString(1, "%" + nomArticle + "%");
-					}
-					else
-					{
-						SELECT_BY_FILTRE += "AND libelle = ? ";
-						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
-						stmt.setString(1, "%" + nomArticle + "%");
-						stmt.setString(2, categorie);
-					}
-				}
-				else //MES ENCHERES EN COURS OU MES ENCHERES REMPORTEES
-				{
-					if (categorie.toLowerCase().equals("toutes"))	
-					{
-						SELECT_BY_FILTRE += " AND E.no_utilisateur = ? AND etat_vente = ?";
-						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
-						stmt.setString(1, "%" + nomArticle + "%");
-						stmt.setInt(2, idUtilisateur);
-						stmt.setString(3, encheres);
-					}
-					else
-					{
-						SELECT_BY_FILTRE += " AND no_utilisateur = ? AND etat_vente = ? AND libelle = ? ";
-						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
-						stmt.setString(1, "%" + nomArticle + "%");
-						stmt.setInt(2, idUtilisateur);
-						stmt.setString(3, encheres);
-						stmt.setString(4, categorie);
-					}
-				}
-				ResultSet rs =stmt.executeQuery();
-				while(rs.next()) {
-						int noUtilisateur = rs.getInt("no_utilisateur");
-						int noArticle = rs.getInt("no_article");
-						LocalDateTime dateEnchere = LocalDateTime.of((rs.getDate("date_enchere").toLocalDate()), rs.getTime("date_enchere").toLocalTime());
-						int montant_enchere = rs.getInt("montant_enchere");
-						Enchere enchere = new Enchere(noUtilisateur , noArticle, dateEnchere, montant_enchere);
-						listEncheres.add(enchere);
-				}
-				rs.close();	
-				stmt.close();
-				cnx.close();
-				
-
-			}catch (Exception e) {
-				DALException ex = new DALException("Probleme d'afficher listes Encheres", e);
-				throw (ex);				
-			}
-			return listEncheres;	
-	}
 	
 	@Override
 	public void insert(Enchere element) throws DALException {
@@ -241,7 +134,6 @@ public class EncheresDaoJdbcImpl implements EnchereDAO {
 									
 
 						}
-					
 					
 						//crréation de l'enchère si besoin			
 				}catch (Exception e) {

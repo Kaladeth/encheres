@@ -36,8 +36,9 @@
 		<div class="col-4">
 			<img class="img-fluid" src="<%=request.getContextPath()%>/imgs/chaton.jpeg" alt="bloc image">
 		</div>
+		  <%@ include file="/WEB-INF/fragmentsJsp/affichageErreurs.jspf"%>   
 		<div class="col-8">
-			<form action="" method="post" enctype="multipart/form-data">
+			<form action="<%=request.getContextPath()%>/connecte/vendre/article" method="post" enctype="multipart/form-data">
 				<!-- ARTICLE -->
 				<div class="row my-2">
 					<div class="col-3 text-right">
@@ -62,7 +63,7 @@
 						<label class="me-5" for="categorie">Catégorie:</label>
 					</div>
 					<div class="col-9 text-left">
-						<select name="couleur">
+						<select name="categorie">
 							<option value="informatique">Informatique</option>
 							<option value="ameublement">Ameublement</option>
 							<option value="vetement">Vêtement</option>
@@ -95,6 +96,15 @@
 					</div>
 					<div class="col-9 text-left">
 						<input type="date" id="fin" name="fin">
+					</div>
+				</div>
+				<!-- PRIX INITIAL -->
+				<div class="row my-2">
+					<div class="col-3 text-right">
+						<label class="me-5" for="fin">Mise à prix:</label>
+					</div>
+					<div class="col-9 text-left">
+						<input type="number" id="fin" name="map" value="150">
 					</div>
 				</div>
 				<!-- RETRAIT -->

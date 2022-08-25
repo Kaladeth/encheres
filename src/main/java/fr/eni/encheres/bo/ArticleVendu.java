@@ -77,6 +77,18 @@ public class ArticleVendu {
 		this.categorie = categorie;
 		this.retrait = retrait;
 	}
+	
+	public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEncheres,
+			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, int utilisateur, Retrait retrait) {
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = miseAPrix;
+		this.utilisateur = utilisateur;
+		this.retrait = retrait;
+	}
 
 	// - - - - - - - - - - GETTERS & SETTERS - - - - - - - - - -
 

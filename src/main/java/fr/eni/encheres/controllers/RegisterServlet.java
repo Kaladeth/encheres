@@ -8,9 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import fr.eni.encheres.bll.BLLException;
 
 import fr.eni.encheres.bll.UtilisateurManager;
+import fr.eni.encheres.bo.Utilisateur;
 
 
 /**
@@ -59,21 +62,27 @@ public class RegisterServlet extends HttpServlet {
 	     UtilisateurManager mgr = UtilisateurManager.getInstance();
 			
 			  try { 
+				  	Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp, credit , admin);
 				  	mgr.ajouterUtilisateur( pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp, confirmationMDP, credit , admin);
-				  	request.setAttribute("pseudo", pseudo);
-				  	request.setAttribute("mdp", mdp);
-				  	rd = request.getRequestDispatcher("/WEB-INF/login.jsp");
+				  	HttpSession session = request.getSession();
+		            if(utilisateur != null) {
+		            	session.setAttribute("utilisateur",utilisateur);
+		            	response.sendRedirect(request.getContextPath()+"/Accueil");
+		            	}        
+				  	
 				  } 
 			  catch (BLLException e) {
 				  request.setAttribute("erreurs", e);
 				  e.printStackTrace();
+				  rd.forward(request, response);
 			  }
 		}
 		else if (request.getParameter("annuler") != null) {	
 		
 			//response.sendRedirect(request.getContextPath()+"/Accueil");
 			rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+			rd.forward(request, response);
 		}
-		rd.forward(request, response);
+		
 	}
 }

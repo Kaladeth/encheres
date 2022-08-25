@@ -64,7 +64,7 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="pseudo">Pseudo</label>
-                        <input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="" maxlength="30" required value="">
+                        <input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="" maxlength="30" required value="${pseudo}">
                         <div class="invalid-feedback">
                             Ce champ est invalide !
                         </div>
@@ -72,7 +72,7 @@
                 
                     <div class="col-md-6 mb-3">
                         <label for="lastname">Nom</label>
-                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="" value="" maxlength="30" required>
+                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder=""  maxlength="30" required value="${lastname}">
                         <div class="invalid-feedback">
                             Ce champ est invalide !
                         </div>

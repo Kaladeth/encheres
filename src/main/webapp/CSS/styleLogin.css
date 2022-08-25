@@ -4,3 +4,9 @@ h1 {
 }
 input{
 max-width: 50px;}
+
+label
+{
+    font-size: large;
+    font-weight: 700;
+}

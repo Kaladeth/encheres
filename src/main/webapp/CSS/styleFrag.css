@@ -13,7 +13,11 @@
 #titleEtt {
 	margin-top: 0px;
 }
-
+label
+{
+    font-size: large;
+    font-weight: 700;
+}
 #deuxBlockEtt p {
 	color: #009d00;
 	font-weight:bold;

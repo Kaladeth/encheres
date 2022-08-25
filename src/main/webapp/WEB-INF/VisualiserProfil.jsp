@@ -87,7 +87,7 @@
 									<p class="col-8"> ${utilisateur.email} </p>
 								</div>					
 								<div class="row">
-									<label class="col-3 offset-1">Teléphone : </label>
+									<label class="col-3 offset-1"> Teléphone : </label>
 									<p class="col-8">${utilisateur.telephone}</p>
 								</div>
 								

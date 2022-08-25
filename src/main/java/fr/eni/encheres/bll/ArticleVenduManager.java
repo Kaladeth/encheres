@@ -42,7 +42,7 @@ public class ArticleVenduManager {
 
 			try {
 				listesArticles = articleVenduDAO.selectAll();
-							
+											
 			} catch (DALException e) {
 				Exception ex = new Exception("Erreur : imposssible d'afficher des articles");
 				bllExceptions.addException(ex);
@@ -61,6 +61,7 @@ public class ArticleVenduManager {
 
 					try {
 						listeArticles = articleVenduDAO.filtrerListeModeDeconnecte(nomArticle, categorie);
+						System.out.println(listeArticles);
 					} catch (DALException e) {
 						Exception ex = new Exception("Erreur : mode deconnecté - imposssible d'afficher des articles");
 						bllExceptions.addException(ex);
@@ -126,6 +127,17 @@ public class ArticleVenduManager {
 		}
 		return article;
 	}
+	// * * * * * METHODE execution procedure stockée MAJ encheres * * * * * 
+    public void executeProcedureStockee() throws BLLException {
+    	BLLException bllExceptions = new BLLException();
+        try{
+        	articleVenduDAO.executeProcedureStockee();
+        } catch (DALException e) {
+            bllExceptions.addException(e);
+            throw bllExceptions;
+        }
+    }
+	 
 	
 	// * * * * * METHODE INSERT * * * * * 
 	public ArticleVendu AjouterArticle(String nom, String description, LocalDateTime dateDebut,

@@ -120,7 +120,7 @@ public class UtilisateurManager {
 			Exception e = new Exception("Le mot de passe est obligatoire !");
 			bllExceptions.addException(e);
 		}
-		if(mdp == cmdp) {
+		if(!mdp.equals(cmdp)) {
 			Exception e = new Exception("Les mots de passe sont différents !");
 			bllExceptions.addException(e);
 		}
@@ -143,7 +143,7 @@ public class UtilisateurManager {
 	
 	// * * * * * METHODE UPDATE * * * * *
 	public void updateUtilisateur(int idUser, String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String cp, String ville, String mdp, String confirmationMdp) throws BLLException {
+			String cp, String ville, String ancienMdp, String mdpActuel, String mdp, String confirmationMdp) throws BLLException {
 		BLLException bllExceptions = new BLLException();
 		
 		// VERIFICATION DES REGLES METIER
@@ -193,17 +193,31 @@ public class UtilisateurManager {
 			Exception e = new Exception("La ville est obligatoire !");
 			bllExceptions.addException(e);
 		}
-		if(mdp != confirmationMdp){
-			Exception e = new Exception("Les mots de passe ne correspondent pas !");
+		if(!mdp.equals(confirmationMdp)){
+			Exception e = new Exception("Les nouveaux mots de passe ne sont pas identiques pas !");
 			bllExceptions.addException(e);
 		}
+		String mdpATransmettre = null;
+		if(ville == null|| ville.isEmpty() || ville.isBlank()) {
+			mdpATransmettre = mdpActuel;
+		}else{
+			if(mdpActuel.equals(mdp)) {
+			Exception e = new Exception("Pour modifier le mot de passe, merci d'en saisir un nouveau !");
+			bllExceptions.addException(e);}
+			}
+		
+		if(!mdp.equals(ancienMdp)){
+			Exception e = new Exception("Le mot de passe est incorrect, la modification ne peut donc pas être faite !");
+			bllExceptions.addException(e);
+		}
+		
 		
 		if (!bllExceptions.isEmpty()) {
 			throw bllExceptions;
 		}
 		
 		// CREATION DE L'UTILISATEUR A ENVOYER EN BASE DE DONNEES
-		Utilisateur utilisateur = new Utilisateur(idUser, pseudo, nom, prenom, email, telephoneCorrige, rue, cp, ville, mdp);
+		Utilisateur utilisateur = new Utilisateur(idUser, pseudo, nom, prenom, email, telephoneCorrige, rue, cp, ville, mdpATransmettre);
 		try {
 			utilisateurDao.update(utilisateur);
 						

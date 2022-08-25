@@ -132,6 +132,34 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+				    <div class="col-md-6 mb-3">
+				    	<label for="old_password">Veuillez saisir votre ancien mot de passe pour effectuer la modification du profil</label>
+				    </div>
+				     <div class="col-md-6 mb-3">
+				        <input type="password" class="form-control" id="password" name="old_password" placeholder="" minlength="6" maxlength="30" value="" required>
+				        <div class="invalid-feedback">
+				            Ce champ est invalide !
+				        </div>
+				    </div>
+				</div>
+                <div class="row">
+				    <div class="col-md-6 mb-3">
+				        <label for="password">Nouveau mot de passe</label>
+				        <input type="password" class="form-control" id="password" name="password" placeholder="" minlength="6" maxlength="30" value="" required>
+				        <div class="invalid-feedback">
+				            Ce champ est invalide !
+				        </div>
+				    </div>
+				
+				    <div class="col-md-6 mb-3">
+				        <label for="confirm_password">Confirmation nouveau mot de passe</label>
+				        <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="" required>
+				        <div class="invalid-feedback">
+				            Ce champ est invalide ou les mots de passe sont différents !
+				        </div>
+				    </div>
+				</div> 
                                 
 			                
                 <hr class="mb-4">

@@ -18,7 +18,14 @@
 	crossorigin="anonymous">
 
 <!-- Personnal CSS-->
-<link rel="stylesheet" href="css/style.css">
+
+
+<!--  <link href="${pageContext.request.contextPath}/CSS/styleFrag.css" rel="stylesheet">-->
+
+
+
+<link rel="stylesheet" href="css/styleIndex.css">
+
 
 <!--icons-->
 <link rel="stylesheet"
@@ -163,10 +170,10 @@
 	                            </div>
 	                            <ul class="col-9 list-unstyled p-2">
 	                                <li>Prix : ${element.getMiseAPrix()} point(s)</li>
-	                                <li>Meilleure enchère : ${element.getEnchere().getMontant_enchere()} point(s)</li>
+	                                <li>Meilleure enchère : ${element.enchere.getMontant_enchere()} point(s)</li>
 	                                <li>Fin de l'enchère : ${element.getDateFinEncheres()} </li>
 	                                <li><a class="nav-link" href="${pageContext.request.contextPath}/connecte/visualiser/profil?pseudo=${element.getVendeur().getPseudo()}"
-										alt="Visualiser le profil du vendeur">Vendeur : ${element.getVendeur().getPrenomNom()}</a>
+										alt="Visualiser le profil du vendeur">Vendeur : ${element.getVendeur().getPseudo()}</a>
 									</li>
 	                            </ul>
 	                        </div>

@@ -1,5 +1,6 @@
 package fr.eni.encheres.dal.jdbc;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +10,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bo.ArticleVendu;
 
 
@@ -102,17 +102,16 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
         
         return article;
     }
-	
+	 /* * * * * * SELECT ALL SELECT a.no_article, a.nom_article, a.description, c.libelle, e.montant_enchere, ut.no_utilisateur, ut.pseudo, ut.nom, ut.prenom, r.rue, r.code_postal, r.ville, a.prix_initial, a.date_debut_enchere, a.date_fin_enchere, a.etat_vente, a.no_utilisateur, u.nom, u.prenom , u.pseudo "
+		+ "  FROM ARTICLES_VENDUS a LEFT JOIN encheres e on e.no_article = a.no_article LEFT JOIN utilisateurs u on u.no_utilisateur = a.no_utilisateur "
+		+ "  LEFT JOIN utilisateurs ut on ut.no_utilisateur = e.no_utilisateur  LEFT JOIN CATEGORIES c on c.no_categorie = a.no_categorie "
+		+ "  LEFT JOIN RETRAITS r on r.no_article = a.no_article"
+	*/
 	
 	@Override
 	public List<ArticleVendu> selectAll() throws DALException {
 
-		ArticleVendu article = null;
-        Categorie categorie = new Categorie();
-        Retrait retrait = new Retrait();
-        Utilisateur acheteur  = new Utilisateur();
-        Utilisateur vendeur  = new Utilisateur();
-        Enchere enchere = new Enchere();
+		
 		List<ArticleVendu> listArticles = new ArrayList<ArticleVendu>();
 		
 		try (Connection cnx = ConnectionProvider.getConnection();){
@@ -120,7 +119,13 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 			Statement stmt = cnx.createStatement();
 			ResultSet rs = stmt.executeQuery(SELECT_ALL);
 			while(rs.next()) {
-				
+				ArticleVendu article = null;
+		        Categorie categorie = new Categorie();
+		        Retrait retrait = new Retrait();
+		        Utilisateur acheteur  = new Utilisateur();
+		        Utilisateur vendeur  = new Utilisateur();
+		        Enchere enchere = new Enchere();
+
 				article = new ArticleVendu();
                 article.setNoArticle(rs.getInt(1));
                 article.setNomArticle(rs.getString(2));
@@ -156,8 +161,9 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	            article.setVendeur(vendeur);
             
 				listArticles.add(article);
+				
 			}	
-			
+
 		}catch (SQLException e) {
 			DALException ex = new DALException("Probleme d'afficher listes Encheres", e);
 			throw (ex);				
@@ -508,5 +514,15 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public void executeProcedureStockee() throws DALException {
+        String requete = "{CALL updateArticle()}" ;
+        try (Connection cnx = ConnectionProvider.getConnection();
+            CallableStatement stmt = cnx.prepareCall(requete);){
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new DALException("Problème lors de la mise à jour de la base via la procédure stockée. Cause :" + e.getMessage());
+        }
+    }
 
 }

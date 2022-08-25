@@ -24,17 +24,17 @@ import fr.eni.encheres.dal.DALException;
 
 public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	
-	String SELECT_ALL = "SELECT a.no_article, a.nom_article, a.description, c.libelle, e.montant_enchere, ut.no_utilisateur, ut.pseudo, ut.nom, ut.prenom, r.rue, r.code_postal, r.ville, a.prix_initial, a.date_debut_enchere, a.date_fin_enchere, a.etat_vente, a.no_utilisateur, u.nom, u.prenom , u.pseudo "
+	String SELECT_ALL = "SELECT a.no_article, a.nom_article, a.description, c.libelle, e.montant_enchere, ut.no_utilisateur, ut.pseudo, ut.nom, ut.prenom, r.rue, r.code_postal, r.ville, a.prix_initial, a.date_debut_enchere, a.date_fin_enchere, a.etat_vente, a.no_utilisateur, u.nom, u.prenom, u.pseudo "
 			+ "  FROM ARTICLES_VENDUS a LEFT JOIN encheres e on e.no_article = a.no_article LEFT JOIN utilisateurs u on u.no_utilisateur = a.no_utilisateur "
 			+ "  LEFT JOIN utilisateurs ut on ut.no_utilisateur = e.no_utilisateur  LEFT JOIN CATEGORIES c on c.no_categorie = a.no_categorie "
 			+ "  LEFT JOIN RETRAITS r on r.no_article = a.no_article ";
 	
-	String SELECT_BY_ARTICLE = "SELECT a.no_article, a.nom_article, a.description, c.libelle, e.montant_enchere, ut.no_utilisateur, ut.pseudo, ut.nom, ut.prenom, r.rue, r.code_postal, r.ville, a.prix_initial, a.date_debut_enchere, a.date_fin_enchere, a.etat_vente, a.no_utilisateur, u.nom, u.prenom "
+	String SELECT_BY_ARTICLE = "SELECT a.no_article, a.nom_article, a.description, c.libelle, e.montant_enchere, ut.no_utilisateur, ut.pseudo, ut.nom, ut.prenom, r.rue, r.code_postal, r.ville, a.prix_initial, a.date_debut_enchere, a.date_fin_enchere, a.etat_vente, a.no_utilisateur, u.nom, u.prenom, u.pseudo "
 			+ "  FROM ARTICLES_VENDUS a LEFT JOIN encheres e on e.no_article = a.no_article LEFT JOIN utilisateurs u on u.no_utilisateur = a.no_utilisateur "
 			+ "  LEFT JOIN utilisateurs ut on ut.no_utilisateur = e.no_utilisateur  LEFT JOIN CATEGORIES c on c.no_categorie = a.no_categorie "
 			+ "  LEFT JOIN RETRAITS r on r.no_article = a.no_article WHERE a.nom_article like ? ";
 
-	String SELECT_BY_ARTICLE_LIBELLE = "SELECT a.no_article, a.nom_article, a.description, c.libelle, e.montant_enchere, ut.no_utilisateur, ut.pseudo, ut.nom, ut.prenom, r.rue, r.code_postal, r.ville, a.prix_initial, a.date_debut_enchere, a.date_fin_enchere, a.etat_vente, a.no_utilisateur, u.nom, u.prenom "
+	String SELECT_BY_ARTICLE_LIBELLE = "SELECT a.no_article, a.nom_article, a.description, c.libelle, e.montant_enchere, ut.no_utilisateur, ut.pseudo, ut.nom, ut.prenom, r.rue, r.code_postal, r.ville, a.prix_initial, a.date_debut_enchere, a.date_fin_enchere, a.etat_vente, a.no_utilisateur, u.nom, u.prenom, u.pseudo "
 			+ "  FROM ARTICLES_VENDUS a LEFT JOIN encheres e on e.no_article = a.no_article LEFT JOIN utilisateurs u on u.no_utilisateur = a.no_utilisateur "
 			+ "  LEFT JOIN utilisateurs ut on ut.no_utilisateur = e.no_utilisateur  LEFT JOIN CATEGORIES c on c.no_categorie = a.no_categorie "
 			+ "  LEFT JOIN RETRAITS r on r.no_article = a.no_article WHERE a.nom_article like ? AND c.libelle = ? ";
@@ -111,7 +111,7 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	@Override
 	public List<ArticleVendu> selectAll() throws DALException {
 
-		
+		ArticleVendu article = null;
 		List<ArticleVendu> listArticles = new ArrayList<ArticleVendu>();
 				
 		try (Connection cnx = ConnectionProvider.getConnection();
@@ -119,7 +119,7 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 			ResultSet rs = stmt.executeQuery(SELECT_ALL)){
 						
 			while(rs.next()) {
-				ArticleVendu article = null;
+				
 		        Categorie categorie = new Categorie();
 		        Retrait retrait = new Retrait();
 		        Utilisateur acheteur  = new Utilisateur();
@@ -218,12 +218,7 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	@Override
 	public List<ArticleVendu> filtrerListeModeDeconnecte(String nomArticle, String ctg) throws DALException {
 
-			ArticleVendu article = null;
-	        Categorie categorie = new Categorie();
-	        Retrait retrait = new Retrait();
-	        Utilisateur acheteur  = new Utilisateur();
-	        Utilisateur vendeur  = new Utilisateur();
-	        Enchere enchere = new Enchere();
+		ArticleVendu article = null;
 			List<ArticleVendu> listArticles = new ArrayList<ArticleVendu>();
 			try (Connection cnx = ConnectionProvider.getConnection();){
 				PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_ARTICLE);
@@ -243,7 +238,12 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 				ResultSet rs =stmt.executeQuery();
 				while(rs.next()) {
 				
-
+					
+			        Categorie categorie = new Categorie();
+			        Retrait retrait = new Retrait();
+			        Utilisateur acheteur  = new Utilisateur();
+			        Utilisateur vendeur  = new Utilisateur();
+			        Enchere enchere = new Enchere();
 					article = new ArticleVendu();
 	                article.setNoArticle(rs.getInt(1));
 	                article.setNomArticle(rs.getString(2));
@@ -268,7 +268,8 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	                vendeur.setNoUtilisateur(rs.getInt(17));
 	                vendeur.setNom(rs.getString(18));
 	                vendeur.setPrenom(rs.getString(19));
-	                
+	                vendeur.setPseudo(rs.getString(20));
+
 	                //n° de vendeur ajouté à l'utilisateur
 	                article.setUtilisateur(rs.getInt(17));
 		            article.setCategorie(categorie);
@@ -294,12 +295,13 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 			
 			//UT == ACHETEUR
 		    //U == VENDEUR
-			ArticleVendu article = null;
-	        Categorie categorie = new Categorie();
-	        Retrait retrait = new Retrait();
-	        Utilisateur acheteur  = new Utilisateur();
-	        Utilisateur vendeur  = new Utilisateur();
-	        Enchere enchere = new Enchere();
+		ArticleVendu article = null;
+		Categorie categorie = new Categorie();
+        Retrait retrait = new Retrait();
+        Utilisateur acheteur  = new Utilisateur();
+        Utilisateur vendeur  = new Utilisateur();
+        Enchere enchere = new Enchere();
+        
 			List<ArticleVendu> listArticles = new ArrayList<ArticleVendu>();
 			try (Connection cnx = ConnectionProvider.getConnection();){
 				PreparedStatement stmt = null;
@@ -343,9 +345,9 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 
 				ResultSet rs =stmt.executeQuery();
 				while(rs.next()) {
-
+					
 					article = new ArticleVendu();
-	                article.setNoArticle(rs.getInt(1));
+			        article.setNoArticle(rs.getInt(1));
 	                article.setNomArticle(rs.getString(2));
 	                article.setDescription(rs.getString(3));
 	                //création catégorie
@@ -368,7 +370,8 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	                vendeur.setNoUtilisateur(rs.getInt(17));
 	                vendeur.setNom(rs.getString(18));
 	                vendeur.setPrenom(rs.getString(19));
-	                
+	                vendeur.setPseudo(rs.getString(20));
+
 	                //n° de vendeur ajouté à l'utilisateur
 	                article.setUtilisateur(rs.getInt(17));
 		            article.setCategorie(categorie);
@@ -398,12 +401,7 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 			
 			//UT == ACHETEUR
 		    //U == VENDEUR
-			ArticleVendu article = null;
-	        Categorie categorie = new Categorie();
-	        Retrait retrait = new Retrait();
-	        Utilisateur acheteur  = new Utilisateur();
-	        Utilisateur vendeur  = new Utilisateur();
-	        Enchere enchere = new Enchere();
+		ArticleVendu article = null;
 			List<ArticleVendu> listArticles = new ArrayList<ArticleVendu>();
 			try (Connection cnx = ConnectionProvider.getConnection();){
 				PreparedStatement stmt = null;
@@ -447,7 +445,12 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 				
 				ResultSet rs =stmt.executeQuery();
 				while(rs.next()) {
-
+					
+			        Categorie categorie = new Categorie();
+			        Retrait retrait = new Retrait();
+			        Utilisateur acheteur  = new Utilisateur();
+			        Utilisateur vendeur  = new Utilisateur();
+			        Enchere enchere = new Enchere();
 					article = new ArticleVendu();
 	                article.setNoArticle(rs.getInt(1));
 	                article.setNomArticle(rs.getString(2));
@@ -472,7 +475,8 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	                vendeur.setNoUtilisateur(rs.getInt(17));
 	                vendeur.setNom(rs.getString(18));
 	                vendeur.setPrenom(rs.getString(19));
-	                
+	                vendeur.setPseudo(rs.getString(20));
+
 	                //n° de vendeur ajouté à l'utilisateur
 	                article.setUtilisateur(rs.getInt(17));
 		            article.setCategorie(categorie);

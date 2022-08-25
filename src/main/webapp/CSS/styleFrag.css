@@ -13,15 +13,20 @@
 #titleEtt {
 	margin-top: 0px;
 }
-
+label
+{
+    fontrgb(0, 121, 0)132, 0)large;
+    font-weight: 700;
+}
 #deuxBlockEtt p {
-	color: #009d00;
+	color: #007900;
 	font-weight:bold;
 	margin-top:10px;
 }
 
 #deuxBlockEtt a {
 	margin-right: 10px;
+	color : #ffffff
 }
 
 /* FOOTER */

@@ -103,19 +103,19 @@
 						<div class="form-group">
 							<div class="form-check">
 								<label class="form-check-label"> 
-								<input type="checkbox" class="form-check-input" name="encheres" <c:if test="${valeurCheckbox=='CR'}">checked=checked</c:if>
-									value="CR" id="ouvertes">Enchères ouvertes
+								<input type="checkbox" class="form-check-input" name="encheres" value="CR" <c:if test="${valeurCheckbox=='CR'}">checked=checked</c:if>
+									id="ouvertes">Enchères ouvertes
 								</label>
 							</div>
 							<div class="form-check">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" name="encheres" value="EC" <c:if test="${valeurCheckbox=='EC'}">checked=checked</c:if>
+								<label class="form-check-label"> 
+								<input type="checkbox" class="form-check-input" name="encheres" value="EC" <c:if test="${valeurCheckbox=='EC'}">checked=checked</c:if>
 									id="encours">Mes enchères en cours
 								</label>
 							</div>
 							<div class="form-check">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" name="encheres" value="ER" <c:if test="${valeurCheckbox=='VD'}">checked=checked</c:if>
+								<label class="form-check-label"> 
+								<input type="checkbox" class="form-check-input" name="encheres" value="ER" <c:if test="${valeurCheckbox=='VD'}">checked=checked</c:if>
 									id="remportees">Mes enchères remportées
 								</label>
 							</div>
@@ -173,15 +173,14 @@
 	                                <li>Prix : ${element.getMiseAPrix()} point(s)</li>
 	                                <li>Meilleure enchère : ${element.enchere.getMontant_enchere()} point(s)</li>
 	                                <li>Fin de l'enchère : ${element.getDateFinEncheres()} </li>
-	                                <li><a class="nav-link" href="${pageContext.request.contextPath}/connecte/visualiser/profil?pseudo=${element.getVendeur().getPseudo()}"
-										alt="Visualiser le profil du vendeur">Vendeur : ${element.getVendeur().getPseudo()}</a>
-									</li>
+	                                <li>Vendeur : <a href="${pageContext.request.contextPath}/connecte/visualiser/profil?pseudo=${element.getVendeur().getPseudo()}">${element.getVendeur().getPseudo()}</a></li>
+	                                	
 	                            </ul>
 	                        </div>
-	                        <a class="mt-3 btn btn-lg btn-block btn-primary" href="<%=request.getContextPath()%>/connecte/afficher/enchere?noArticleVendu=${element.getNoArticle()}" title="faire une enchère" name="noArticleVendu"  >
+	                         <a class="mt-3 btn btn-lg btn-block btn-primary" href="<%=request.getContextPath()%>/connecte/afficher/enchere?noArticleVendu=${element.getNoArticle()}" title="faire une enchère" name="noArticleVendu"  >
 	                            <img class="small-icon" src="imgs/bid.svg">
 	                            
-	                        </a>
+	                        </a> 
 	                    </div>
 	                </div>
                </c:forEach>

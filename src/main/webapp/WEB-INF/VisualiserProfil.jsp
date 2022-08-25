@@ -59,9 +59,9 @@
 			<div class="container-fluid">
 				<!--title-->
 				<div class="mx-auto text-center">
-					<h1>Détail de la vente</h1>
+					<h1>Détails de mon profil</h1>
 				</div>
-				
+				<br/>
 				 <!--erreur-->
 	            <%@ include file="/WEB-INF/fragmentsJsp/affichageErreurs.jspf"%>
 				
@@ -87,7 +87,7 @@
 									<p class="col-8"> ${utilisateur.email} </p>
 								</div>					
 								<div class="row">
-									<label class="col-3 offset-1">Teléphone : </label>
+									<label class="col-3 offset-1"> Teléphone : </label>
 									<p class="col-8">${utilisateur.telephone}</p>
 								</div>
 								

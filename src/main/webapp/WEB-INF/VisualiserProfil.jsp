@@ -59,9 +59,9 @@
 			<div class="container-fluid">
 				<!--title-->
 				<div class="mx-auto text-center">
-					<h1>Détail de la vente</h1>
+					<h1>Détails de mon profil</h1>
 				</div>
-				
+				<br/>
 				 <!--erreur-->
 	            <%@ include file="/WEB-INF/fragmentsJsp/affichageErreurs.jspf"%>
 				

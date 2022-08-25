@@ -147,8 +147,7 @@ public class UtilisateurManager {
 		BLLException bllExceptions = new BLLException();
 		
 		// VERIFICATION DES REGLES METIER
-		
-		
+				
 		if(pseudo == null || pseudo.isEmpty() || pseudo.isBlank()) {
 			Exception e = new Exception("L'identifiant est obligatoire !");
 			bllExceptions.addException(e);
@@ -178,7 +177,6 @@ public class UtilisateurManager {
         	Exception e = new Exception("L'e-mail n'est pas au bon format !");
 			bllExceptions.addException(e);
         }
-		
 		if(telephone == null|| telephone.isEmpty() || telephone.isBlank()) {
 			Exception e = new Exception("Le numéro de téléphone est obligatoire !");
 			bllExceptions.addException(e);

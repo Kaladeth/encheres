@@ -25,10 +25,11 @@
 				
 			</c:if>
 			<c:if test="${not empty sessionScope.utilisateur.nom}">
-				<p>Crédit disponible : ${sessionScope.utilisateur.credit}</p>&nbsp; &nbsp;
-				<p id="salutationEtt">Bonjour ${sessionScope.utilisateur.prenom}
-					${sessionScope.utilisateur.nom}</p>
+			<p id="salutationEtt">Bonjour ${sessionScope.utilisateur.prenom}
+					${sessionScope.utilisateur.nom}</p>&nbsp; &nbsp;
 					
+				<p>Crédit disponible : ${sessionScope.utilisateur.credit}</p>
+				
 				<a class="nav-link" href="${pageContext.request.contextPath}/connecte/visualiser/profil?pseudo=${sessionScope.utilisateur.pseudo}"
 					alt="Visualiser mon profil"> Visualiser mon profil</a>
 					

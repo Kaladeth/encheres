@@ -8,9 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import fr.eni.encheres.bll.BLLException;
-import fr.eni.encheres.bll.Manager;
+
 import fr.eni.encheres.bll.UtilisateurManager;
 
 
@@ -66,7 +65,8 @@ public class RegisterServlet extends HttpServlet {
 				  	rd = request.getRequestDispatcher("/WEB-INF/login.jsp");
 				  } 
 			  catch (BLLException e) {
-				  request.setAttribute("erreurs",e);
+				  request.setAttribute("erreurs", e);
+				  e.printStackTrace();
 			  }
 		}
 		else if (request.getParameter("annuler") != null) {	

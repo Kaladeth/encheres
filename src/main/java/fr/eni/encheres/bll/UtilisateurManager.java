@@ -67,10 +67,12 @@ public class UtilisateurManager {
 	// * * * * * METHODE INSERT * * * * *
 	public void ajouterUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
 			String cp, String ville, String mdp,String cmdp, int credit, boolean admin) throws BLLException {
+		
+		System.out.println(pseudo +" - "+ nom+" - "+prenom+" - "+email+" - "+telephone);
 		BLLException bllExceptions = new BLLException();
 		
 		// VERIFICATION DES REGLES METIER
-		if(pseudo == null) {
+		if(pseudo == null || pseudo.isEmpty() || pseudo.isBlank()) {
 			Exception e = new Exception("L'identifiant est obligatoire !");
 			bllExceptions.addException(e);
 		}
@@ -82,15 +84,15 @@ public class UtilisateurManager {
 			Exception e = new Exception("L'identifiant n�accepte que des caract�res alphanum�riques !");
 			bllExceptions.addException(e);
 		}
-		if(nom == null) {
+		if(nom == null || nom.isEmpty() || nom.isBlank()) {
 			Exception e = new Exception("Le nom est obligatoire !");
 			bllExceptions.addException(e);
 		}
-		if(prenom == null) {
+		if(prenom == null || prenom.isEmpty() || prenom.isBlank()) {
 			Exception e = new Exception("Le prénom est obligatoire !");
 			bllExceptions.addException(e);
 		}
-		if(email == null) {
+		if(email == null || email.isEmpty() || email.isBlank()) {
 			Exception e = new Exception("L'e-mail est obligatoire !");
 			bllExceptions.addException(e);
 		}// email au format XXX@XXX.XXX
@@ -98,38 +100,41 @@ public class UtilisateurManager {
         	Exception e = new Exception("L'e-mail n'est pas au bon format !");
 			bllExceptions.addException(e);
         }
-		
-		if(telephone == null) {
+		if(telephone == null || telephone.isEmpty() || telephone.isBlank()) {
 			Exception e = new Exception("Le numéro de téléphone est obligatoire !");
 			bllExceptions.addException(e);
 		}
-		if(rue == null) {
+		if(rue == null || rue.isEmpty() || rue.isBlank()) {
 			Exception e = new Exception("La rue est obligatoire !");
 			bllExceptions.addException(e);
 		}
-		if(cp == null) {
+		if(cp == null || cp.isEmpty() || cp.isBlank()) {
 			Exception e = new Exception("Le code postal est obligatoire !");
 			bllExceptions.addException(e);
 		}
-		if(ville == null) {
+		if(ville == null|| ville.isEmpty() || ville.isBlank()) {
 			Exception e = new Exception("La ville est obligatoire !");
 			bllExceptions.addException(e);
 		}
-		if(mdp == null) {
+		if(mdp == null || mdp.isEmpty() || mdp.isBlank()) {
 			Exception e = new Exception("Le mot de passe est obligatoire !");
 			bllExceptions.addException(e);
 		}
 		if(mdp == cmdp) {
-			Exception e = new Exception("Les mots de passe sont diff�rents !");
+			Exception e = new Exception("Les mots de passe sont différents !");
 			bllExceptions.addException(e);
 		}
 		
+		if (!bllExceptions.isEmpty()) {
+			throw bllExceptions;
+			
+		}
 		// CREATION DE L'UTILISATEUR A ENVOYER EN BASE DE DONNEES
 		Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp, credit, admin);
 		try {
 			utilisateurDao.insert(utilisateur);
-		} catch (DALException e) {
-			Exception ex = new Exception(e.getMessage());
+		} catch (Exception e) {
+			Exception ex = new Exception(e.getMessage(), e);
 			bllExceptions.addException(ex);
 			throw bllExceptions;
 		}
@@ -138,13 +143,13 @@ public class UtilisateurManager {
 	
 	// * * * * * METHODE UPDATE * * * * *
 	public void updateUtilisateur(int idUser, String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String cp, String ville) throws BLLException {
+			String cp, String ville, String mdp, String confirmationMdp) throws BLLException {
 		BLLException bllExceptions = new BLLException();
 		
 		// VERIFICATION DES REGLES METIER
 		
 		
-		if(pseudo == null) {
+		if(pseudo == null || pseudo.isEmpty() || pseudo.isBlank()) {
 			Exception e = new Exception("L'identifiant est obligatoire !");
 			bllExceptions.addException(e);
 		}
@@ -156,15 +161,15 @@ public class UtilisateurManager {
 			Exception e = new Exception("L'identifiant n�accepte que des caractères alphanumériques !");
 			bllExceptions.addException(e);
 		}
-		if(nom == null) {
+		if(nom == null || nom.isEmpty() || nom.isBlank()) {
 			Exception e = new Exception("Le nom est obligatoire !");
 			bllExceptions.addException(e);
 		}
-		if(prenom == null) {
+		if(prenom ==null || prenom.isEmpty() || nom.isBlank()) {
 			Exception e = new Exception("Le prénom est obligatoire !");
 			bllExceptions.addException(e);
 		}
-		if(email == null) {
+		if(email == null|| email.isEmpty() || email.isBlank()) {
 			Exception e = new Exception("L'e-mail est obligatoire !");
 			bllExceptions.addException(e);
 		}
@@ -174,31 +179,36 @@ public class UtilisateurManager {
 			bllExceptions.addException(e);
         }
 		
-		if(telephone == null) {
+		if(telephone == null|| telephone.isEmpty() || telephone.isBlank()) {
 			Exception e = new Exception("Le numéro de téléphone est obligatoire !");
 			bllExceptions.addException(e);
 		}
-		if(rue == null) {
+		if(rue == null|| rue.isEmpty() || rue.isBlank()) {
 			Exception e = new Exception("La rue est obligatoire !");
 			bllExceptions.addException(e);
 		}
-		if(cp == null) {
+		if(cp == null|| cp.isEmpty() || cp.isBlank()) {
 			Exception e = new Exception("Le code postal est obligatoire !");
 			bllExceptions.addException(e);
 		}
-		if(ville == null) {
+		if(ville == null|| ville.isEmpty() || ville.isBlank()) {
 			Exception e = new Exception("La ville est obligatoire !");
 			bllExceptions.addException(e);
 		}
+		if(mdp != confirmationMdp){
+			Exception e = new Exception("Les mots de passe ne correspondent pas !");
+			bllExceptions.addException(e);
+		}
+		
 		if (!bllExceptions.isEmpty()) {
 			throw bllExceptions;
 		}
+		
 		// CREATION DE L'UTILISATEUR A ENVOYER EN BASE DE DONNEES
-		Utilisateur utilisateur = new Utilisateur(idUser, pseudo, nom, prenom, email, telephone, rue, cp, ville);
+		Utilisateur utilisateur = new Utilisateur(idUser, pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp);
 		try {
 			utilisateurDao.update(utilisateur);
-			
-			
+						
 		} catch (DALException e) {
 			bllExceptions.addException(e);
 			throw bllExceptions;

@@ -20,13 +20,11 @@ import fr.eni.encheres.dal.EnchereDAO;
 public class EnchereManager {
 	private static EnchereManager mgr;
 	private EnchereDAO enchereDao;
-	private ArticleVenduDAO articleVenduDAO;
 	
 	// SINGLETON MANAGER
 	private EnchereManager() {
 		enchereDao = DAOFactory.getEnchereDAO();
-		articleVenduDAO = DAOFactory.getArticleVenduDao();
-	}
+		}
 	
 	public static EnchereManager getInstance() {
 		if(mgr==null) {

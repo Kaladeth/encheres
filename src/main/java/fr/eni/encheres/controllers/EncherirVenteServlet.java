@@ -73,6 +73,7 @@ public class EncherirVenteServlet extends HttpServlet {
 	        	}        
 	    } catch (BLLException e) {
 	    	request.setAttribute("erreurs", e);
+			  e.printStackTrace();
 	    }
 	    rd.forward(request, response);
 	

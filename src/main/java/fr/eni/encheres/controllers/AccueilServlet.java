@@ -63,7 +63,9 @@ public class AccueilServlet extends HttpServlet {
 			  
 		  } 
 		  catch (BLLException e) {
-			  e.printStackTrace(); 
+			  // essai affichage exhaustif  
+			  request.setAttribute("erreurs", e);
+			  e.printStackTrace();
 		  }
 		 
 		  try {

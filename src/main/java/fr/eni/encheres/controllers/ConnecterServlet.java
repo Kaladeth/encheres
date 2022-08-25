@@ -52,6 +52,7 @@ public class ConnecterServlet extends HttpServlet {
 	            	}        
 	        } catch (BLLException e) {
 	        	request.setAttribute("erreurs", e);
+		    	e.printStackTrace();
 	        }
 	}
 }

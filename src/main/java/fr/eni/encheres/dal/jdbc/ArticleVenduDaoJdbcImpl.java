@@ -295,12 +295,7 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 			
 			//UT == ACHETEUR
 		    //U == VENDEUR
-		ArticleVendu article = null;
-		Categorie categorie = new Categorie();
-        Retrait retrait = new Retrait();
-        Utilisateur acheteur  = new Utilisateur();
-        Utilisateur vendeur  = new Utilisateur();
-        Enchere enchere = new Enchere();
+		
         
 			List<ArticleVendu> listArticles = new ArrayList<ArticleVendu>();
 			try (Connection cnx = ConnectionProvider.getConnection();){
@@ -345,7 +340,13 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 
 				ResultSet rs =stmt.executeQuery();
 				while(rs.next()) {
-					
+					ArticleVendu article = null;
+					Categorie categorie = new Categorie();
+			        Retrait retrait = new Retrait();
+			        Utilisateur acheteur  = new Utilisateur();
+			        Utilisateur vendeur  = new Utilisateur();
+			        Enchere enchere = new Enchere();
+			        
 					article = new ArticleVendu();
 			        article.setNoArticle(rs.getInt(1));
 	                article.setNomArticle(rs.getString(2));

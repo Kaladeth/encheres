@@ -145,11 +145,11 @@ public class ArticleVenduManager {
 		
 		BLLException bllExceptions = new BLLException();
 		// VERIFICATION DES REGLES METIER
-		if(nom == null) {
+		if(nom == null || nom.isBlank() || nom.isEmpty()) {
 			Exception e = new Exception("Le nom de l'article est obligatoire !");
 			bllExceptions.addException(e);
 		}
-		if(description == null) {
+		if(description == null || description.isBlank() || description.isEmpty()) {
 			Exception e = new Exception("La description de l'article est obligatoire !");
 			bllExceptions.addException(e);
 		}
@@ -165,15 +165,15 @@ public class ArticleVenduManager {
 			Exception e = new Exception("La valeur de la mise à prix doit être supérieure à 0 !");
 			bllExceptions.addException(e);
 		}
-		if(retrait.getVille() == null) {
+		if(retrait.getVille() == null || retrait.getVille().isBlank() || retrait.getVille().isEmpty()) {
 			Exception e = new Exception("Veuillez reseignez une ville pour le retrait !");
 			bllExceptions.addException(e);
 		}
-		if(retrait.getCode_postale() == null || retrait.getCode_postale().length() != 5) {
+		if(retrait.getCode_postale() == null || retrait.getCode_postale().length() != 5 || retrait.getCode_postale().isBlank() || retrait.getCode_postale().isEmpty()) {
 			Exception e = new Exception("Code postal incorrect on non renseigné !");
 			bllExceptions.addException(e);
 		}
-		if(retrait.getRue() == null) {
+		if(retrait.getRue() == null || retrait.getRue().isBlank() || retrait.getRue().isEmpty()) {
 			Exception e = new Exception("Veuillez reseignez une rue pour le retrait !");
 			bllExceptions.addException(e);
 		}

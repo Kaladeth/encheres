@@ -18,7 +18,7 @@
 	crossorigin="anonymous">
 
 <!-- Personnal CSS-->
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/styleIndex.css">
 
 <!--icons-->
 <link rel="stylesheet"
@@ -92,7 +92,7 @@
 								</div>
 								<div class="row">
 									<label class="col-3 offset-1">Fin de l'enchère : </label>
-									<p class="col-8"> <input type="date" value="${requestScope.articleVendu.dateFinEncheres.toLocalDate()}" disabled="disabled"></p>
+									<p class="col-8"> <input class="date" type="date" value="${requestScope.articleVendu.dateFinEncheres.toLocalDate()}" disabled="disabled"></p>
 								</div>
 								<div class="row">
 									<label class="col-3 offset-1">Retrait : </label>

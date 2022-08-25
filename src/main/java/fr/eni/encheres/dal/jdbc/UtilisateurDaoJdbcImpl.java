@@ -121,6 +121,8 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDAO {
 				stmt.setString(7, utilisateur.getCodePostal());
 				stmt.setString(8, utilisateur.getVille());
 				stmt.setInt(9, utilisateur.getNoUtilisateur());
+				stmt.setString(10, utilisateur.getMotDePasse());
+				
 				
 				stmt.executeUpdate();	
 				

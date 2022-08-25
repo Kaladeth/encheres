@@ -18,7 +18,7 @@
 	crossorigin="anonymous">
 
 <!-- Personnal CSS-->
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/styleIndex.css">
 
 <!--icons-->
 <link rel="stylesheet"

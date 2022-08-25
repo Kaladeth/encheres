@@ -1,5 +1,6 @@
 package fr.eni.encheres.dal.jdbc;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -507,5 +508,15 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public void executeProcedureStockee() throws DALException {
+        String requete = "{CALL updateArticle()}" ;
+        try (Connection cnx = ConnectionProvider.getConnection();
+            CallableStatement stmt = cnx.prepareCall(requete);){
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new DALException("Problème lors de la mise à jour de la base via la procédure stockée. Cause :" + e.getMessage());
+        }
+    }
 
 }

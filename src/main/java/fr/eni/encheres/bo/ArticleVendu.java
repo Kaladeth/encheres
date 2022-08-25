@@ -61,6 +61,22 @@ public class ArticleVendu {
 		this.categorie = categorie;
 		this.retrait = retrait;
 	}
+	
+	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
+			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, String etatVente, int utilisateur,
+			Categorie categorie, Retrait retrait) {
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = miseAPrix;
+		this.etatVente = etatVente;
+		this.utilisateur = utilisateur;
+		this.categorie = categorie;
+		this.retrait = retrait;
+	}
 
 	// - - - - - - - - - - GETTERS & SETTERS - - - - - - - - - -
 

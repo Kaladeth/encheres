@@ -293,8 +293,6 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	@Override
 	public List<ArticleVendu> filtrerListeModeConnecteEnchere(int idUtilisateur, String nomArticle, String ctg, String encheres) throws DALException {
 			
-			//UT == ACHETEUR
-		    //U == VENDEUR
 		ArticleVendu article = null;
 		Categorie categorie = new Categorie();
         Retrait retrait = new Retrait();
@@ -307,7 +305,7 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 				PreparedStatement stmt = null;
 				String SELECT_BY_FILTRE = SELECT_BY_ARTICLE;	
 				
-				if (encheres.equals("CR")) //CR = ENCEHRES CREES --> TOUTES LES ENCHERES OUVERTES
+				if (encheres.equals("CR")) //CR = ENCEHRES CREES --> TOUTES LES ENCHERES OUVERTES --> AUCUN FILTRE ACHATS / ENCHERES
 				{
 					if (ctg.toLowerCase().equals("toutes"))
 					{
@@ -326,6 +324,7 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 				{
 					if (ctg.toLowerCase().equals("toutes"))	
 					{
+						//JOIN UTILISATEUR UT == ACHETEUR
 						SELECT_BY_FILTRE += " AND ut.no_utilisateur = ? AND a.etat_vente = ?";
 						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
 						stmt.setString(1, "%" + nomArticle + "%");
@@ -334,6 +333,7 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 					}
 					else
 					{
+						//JOIN UTILISATEUR UT == ACHETEUR
 						SELECT_BY_FILTRE += " AND ut.no_utilisateur = ? AND a.etat_vente = ? AND c.libelle = ? ";
 						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
 						stmt.setString(1, "%" + nomArticle + "%");
@@ -399,15 +399,13 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 	@Override
 	public List<ArticleVendu> filtrerListeModeConnecteVentes(int idUtilisateur, String nomArticle, String ctg, String ventes) throws DALException {
 			
-			//UT == ACHETEUR
-		    //U == VENDEUR
 		ArticleVendu article = null;
 			List<ArticleVendu> listArticles = new ArrayList<ArticleVendu>();
 			try (Connection cnx = ConnectionProvider.getConnection();){
 				PreparedStatement stmt = null;
 				String SELECT_BY_FILTRE = SELECT_BY_ARTICLE;	
 				
-				if (ventes.equals("CR")) //CR = ENCEHRES CREES --> TOUTES LES ENCHERES OUVERTES
+				if (ventes.equals("CR")) //CR = VENTES NON DEBUTEES --> TOUTES LES VENTES 
 				{
 					if (ctg.toLowerCase().equals("toutes"))
 					{
@@ -422,10 +420,11 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 						stmt.setString(2, ctg);
 					}
 				}
-				else //MES ENCHERES EN COURS OU MES ENCHERES REMPORTEES
+				else //MES VENTES EN COURS OU MES VENTES TERMINEES
 				{
 					if (ctg.toLowerCase().equals("toutes"))	
 					{
+					    //JOIN UTILISATEUR U == VENDEUR
 						SELECT_BY_FILTRE += " AND u.no_utilisateur = ? AND a.etat_vente = ?";
 						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
 						stmt.setString(1, "%" + nomArticle + "%");
@@ -434,6 +433,7 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 					}
 					else
 					{
+					    //JOIN UTILISATEUR U == VENDEUR
 						SELECT_BY_FILTRE += " AND u.no_utilisateur = ? AND a.etat_vente = ? AND c.libelle = ? ";
 						stmt = cnx.prepareStatement(SELECT_BY_FILTRE);
 						stmt.setString(1, "%" + nomArticle + "%");

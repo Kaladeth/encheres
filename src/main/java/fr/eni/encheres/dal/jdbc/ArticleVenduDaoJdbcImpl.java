@@ -408,7 +408,7 @@ public class ArticleVenduDaoJdbcImpl implements ArticleVenduDAO{
 				PreparedStatement stmt = null;
 				String SELECT_BY_FILTRE = SELECT_BY_ARTICLE;	
 				
-				if (ventes.equals("CR")) //CR = VENTES NON DEBUTEES --> TOUTES LES VENTES 
+				if (ventes.equals("EC")) //EC = VENTES NON DEBUTEES 
 				{
 					if (ctg.toLowerCase().equals("toutes"))
 					{

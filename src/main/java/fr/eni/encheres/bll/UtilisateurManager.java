@@ -190,10 +190,6 @@ public class UtilisateurManager {
             Exception e = new Exception("La ville est obligatoire !");
             bllExceptions.addException(e);
         }
-        if(!mdp.equals(confirmationMdp)){
-            Exception e = new Exception("Les nouveaux mots de passe ne sont pas identiques pas !");
-            bllExceptions.addException(e);
-        }
         if(!mdpActuel.equals(ancienMdp)){
             Exception e = new Exception("Le mot de passe est incorrect, la modification ne peut donc pas être faite !");
             bllExceptions.addException(e);
@@ -202,9 +198,14 @@ public class UtilisateurManager {
         if(mdp == null || mdp.isBlank()) {
             mdpATransmettre = mdpActuel;
         }else{
+            if(!mdp.equals(confirmationMdp)){
+            Exception e = new Exception("Les nouveaux mots de passe ne sont pas identiques pas !");
+            bllExceptions.addException(e);
+            }
             if(mdpActuel.equals(mdp)) {
             Exception e = new Exception("Pour modifier le mot de passe, merci d'en saisir un nouveau !");
             bllExceptions.addException(e);}
+            mdpATransmettre= mdp;
             }
         if (!bllExceptions.isEmpty()) {
             throw bllExceptions;

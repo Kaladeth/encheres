@@ -38,14 +38,14 @@
 		</div>
 		  <%@ include file="/WEB-INF/fragmentsJsp/affichageErreurs.jspf"%>   
 		<div class="col-8">
-			<form action="<%=request.getContextPath()%>/connecte/vendre/article" method="post" enctype="multipart/form-data">
+			<form action="<%=request.getContextPath()%>/connecte/vendre/article" method="post" >
 				<!-- ARTICLE -->
 				<div class="row my-2">
 					<div class="col-3 text-right">
 						<label class="me-5" for="article">Article:</label>
 					</div>
 					<div class="col-9 text-left">
-						<input type="text" id="article" name="article" placeholder="nom de l'article"/>
+						<input type="text" id="article" name="article" placeholder="nom de l'article" value="${param.article}"/>
 					</div>
 				</div>
 				<!-- DESCRIPTION -->
@@ -54,7 +54,7 @@
 						<label class="me-5" for="description">Description:</label>
 					</div>
 					<div class="col-9 text-left">
-						<textarea name="description" id="description" placeholder="décrivez l'article ici" rows="5" cols="53"></textarea>
+						<textarea name="description" id="description" placeholder="décrivez l'article ici" rows="5" cols="53">${param.description}</textarea>
 					</div>
 				</div>
 				<!-- CATEGORIE -->
@@ -86,16 +86,16 @@
 						<label class="me-5" for="debut">Début de l'enchère:</label>
 					</div>
 					<div class="col-9 text-left">
-						<input type="date" id="debut" name="debut">
+						<input type="date" id="debut" name="debut" value="${param.debut}">
 					</div>
 				</div>
 				<!-- FIN ENCHERE -->
 				<div class="row my-2">
 					<div class="col-3 text-right">
-						<label class="me-5" for="fin">Fin de l'enchère:</label>
+						<label class="me-5" for="fin" >Fin de l'enchère:</label>
 					</div>
 					<div class="col-9 text-left">
-						<input type="date" id="fin" name="fin">
+						<input type="date" id="fin" name="fin" value="${param.debut}">
 					</div>
 				</div>
 				<!-- PRIX INITIAL -->
@@ -104,7 +104,7 @@
 						<label class="me-5" for="fin">Mise à prix:</label>
 					</div>
 					<div class="col-9 text-left">
-						<input type="number" id="fin" name="map" value="150">
+						<input type="number" id="fin" name="map" value="150" value="${param.map}">
 					</div>
 				</div>
 				<!-- RETRAIT -->
@@ -120,7 +120,7 @@
 								<label class="me-5" for="rue">Rue:</label>
 							</div>
 							<div class="col-9 text-left">
-								<input type="text" id="rue" name="rue" placeholder="votre rue">
+								<input type="text" id="rue" name="rue" placeholder="votre rue" value="${param.rue==null? sessionScope.utilisateur.rue : param.rue}">
 							</div>
 						</div>
 							<div class="row my-2">
@@ -128,15 +128,15 @@
 								<label class="me-5" for="cp">Code postal:</label>
 							</div>
 							<div class="col-9 text-left">
-								<input type="text" id="cp" name="cp" placeholder="votre code postal">
+								<input type="text" id="cp" name="cp" placeholder="votre code postal" value="${param.cp==null? sessionScope.utilisateur.codePostal : param.cp}">
 							</div>
 						</div>
 							<div class="row my-2">
 							<div class="col-3 text-right">
-								<label class="me-5" for="ville">Ville:</label>
+								<label class="me-5" for="ville" value="${param.ville}">Ville:</label>
 							</div>
 							<div class="col-9 text-left">
-								<input type="text" id="ville" name="ville" placeholder="votre ville">
+								<input type="text" id="ville" name="ville" placeholder="votre ville" value="${param.ville==null? sessionScope.utilisateur.ville : param.ville}">
 							</div>
 						</div>
    				</div>

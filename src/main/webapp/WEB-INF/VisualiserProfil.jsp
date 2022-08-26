@@ -59,9 +59,11 @@
 			<div class="container-fluid">
 				<!--title-->
 				<div class="mx-auto text-center">
-					<h1>Détails de mon profil</h1>
-				</div>
 				<br/>
+					<h1>Détails de mon profil</h1>
+					<br/><br/>
+				</div>
+				
 				 <!--erreur-->
 	            <%@ include file="/WEB-INF/fragmentsJsp/affichageErreurs.jspf"%>
 				
@@ -111,10 +113,12 @@
 		</main>
 		
 		
+		<footer>
+	<br/><br/><br/><br/><br/><br/><br/>
 	<!-- Pied de page -->	
 	
 	<%@ include file="/WEB-INF/fragmentsJsp/footer.jspf"%>
 
-	
+	</footer>
 </body>
 </html>

@@ -163,6 +163,7 @@
 	                    <div class="card">
 	                        <div class="card-header text-center">
 	                            <h4 class="my-0 font-weight-normal">${element.getNomArticle()}</h4>
+	                            
 	                        </div>
 	                        <div class="d-flex">
 	                            <div class="col-3 p-2">

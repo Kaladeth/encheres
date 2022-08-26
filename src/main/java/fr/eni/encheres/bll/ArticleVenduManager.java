@@ -1,6 +1,7 @@
 package fr.eni.encheres.bll;
 
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +62,6 @@ public class ArticleVenduManager {
 
 					try {
 						listeArticles = articleVenduDAO.filtrerListeModeDeconnecte(nomArticle, categorie);
-						System.out.println(listeArticles);
 					} catch (DALException e) {
 						Exception ex = new Exception("Erreur : mode deconnecté - imposssible d'afficher des articles");
 						bllExceptions.addException(ex);
@@ -161,6 +161,16 @@ public class ArticleVenduManager {
 			Exception e = new Exception("Veuillez saisir une date de fin d'enchère !");
 			bllExceptions.addException(e);
 		}
+		if(dateDebut != null && dateFin != null){
+			if (dateDebut.isBefore(LocalDateTime.now().minus(Period.ofDays(1)))) {
+			Exception e = new Exception("La date de début d'enchère ne peut être antérieure à aujourd'hui !");
+			bllExceptions.addException(e);
+			}
+			if (dateDebut.isAfter(dateFin)){
+				Exception e = new Exception("La date de fin d'enchère ne peut être antérieure à son début !");
+				bllExceptions.addException(e);
+			}
+		}
 		if(miseAPrix <= 0) {
 			Exception e = new Exception("La valeur de la mise à prix doit être supérieure à 0 !");
 			bllExceptions.addException(e);
@@ -177,7 +187,9 @@ public class ArticleVenduManager {
 			Exception e = new Exception("Veuillez reseignez une rue pour le retrait !");
 			bllExceptions.addException(e);
 		}
-		
+		if (!bllExceptions.isEmpty()) {
+			throw bllExceptions;
+		}
 		// CREATION DE L'ARTICLE
 		ArticleVendu article = new ArticleVendu(nom, description, dateDebut, dateFin, miseAPrix, prixVente, user, retrait);
 		try {
